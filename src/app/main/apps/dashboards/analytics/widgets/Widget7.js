@@ -9,6 +9,7 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { memo, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import i18next from 'i18next';
 
 function Widget7(props) {
   const theme = useTheme();
@@ -20,7 +21,9 @@ function Widget7(props) {
   return (
     <Card className="w-full rounded-20 shadow p-20">
       <div className="pb-24">
-        <Typography className="h3 font-medium">Sessions by device</Typography>
+        <Typography className="h3 font-medium text-center">
+          {i18next.t(`navigation:DEPTRADEINT`)}
+        </Typography>
       </div>
 
       <div className="h-256 relative">
@@ -74,7 +77,6 @@ function Widget7(props) {
             </Select>
           </FormControl>
         </div>
-        <Button size="small">Overview</Button>
       </div>
     </Card>
   );

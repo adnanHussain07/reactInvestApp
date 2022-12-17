@@ -9,6 +9,7 @@ import ReactApexChart from 'react-apexcharts';
 import { useSelector } from 'react-redux';
 import { selectContrastMainTheme } from 'app/store/fuse/settingsSlice';
 import Box from '@mui/material/Box';
+import i18next from 'i18next';
 
 const Root = styled('div')(({ theme }) => ({
   background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
@@ -36,10 +37,10 @@ function Widget1(props) {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <div className="flex flex-col items-center sm:items-start mb-16 sm:mb-0">
               <Typography className="h2 font-semibold" color="textPrimary">
-                Visitors
+                {i18next.t(`navigation:BTC`)}
               </Typography>
               <Typography className="h5 font-medium" color="textSecondary">
-                Unique visitors by month
+                {i18next.t(`navigation:BTCMONTH`)}
               </Typography>
             </div>
           </motion.div>

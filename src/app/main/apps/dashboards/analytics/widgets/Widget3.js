@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { memo } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import _ from '@lodash';
+import i18next from 'i18next';
 
 function Widget3(props) {
   const theme = useTheme();
@@ -15,10 +16,13 @@ function Widget3(props) {
   return (
     <Card className="w-full rounded-20 shadow">
       <div className="p-20 pb-0">
-        <Typography className="h3 font-medium">Impressions</Typography>
+        <Typography className="h3 font-medium">
+          {i18next.t(`navigation:INTERESTWALLET`)}
+        </Typography>
 
         <div className="flex flex-row flex-wrap items-center mt-12">
           <Typography className="text-48 font-semibold leading-none tracking-tighter">
+            <Icon className='text-32'>attach_money</Icon>
             {data.impressions.value}
           </Typography>
 

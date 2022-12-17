@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import i18next from 'i18next';
 
 function Error404Page() {
   return (
@@ -23,11 +24,11 @@ function Error404Page() {
           animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
         >
           <Typography variant="h5" color="textSecondary" className="mb-16 font-normal">
-            Sorry but we could not find the page you are looking for
+            {i18next.t(`navigation:SORRYFOURZEROFOUR`)}
           </Typography>
         </motion.div>
 
-        <Paper className="flex items-center w-full h-56 p-16 mt-48 mb-16 shadow">
+        {/* <Paper className="flex items-center w-full h-56 p-16 mt-48 mb-16 shadow">
           <Icon color="action">search</Icon>
           <Input
             placeholder="Search for anything"
@@ -38,10 +39,10 @@ function Error404Page() {
               'aria-label': 'Search',
             }}
           />
-        </Paper>
+        </Paper> */}
 
-        <Link className="font-normal" to="/apps/dashboards/project">
-          Go back to dashboard
+        <Link className="font-normal" to="/venapp/dashboard">
+          {i18next.t(`navigation:BACKTODASH`)}
         </Link>
       </div>
     </div>

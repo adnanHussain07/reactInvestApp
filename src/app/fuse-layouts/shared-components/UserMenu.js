@@ -43,9 +43,15 @@ function UserMenu(props) {
         </div>
 
         {user.data.photoURL ? (
-          <Avatar className="md:mx-4" alt="user photo" src={user.data.photoURL} />
+          // <Avatar className="md:mx-4" alt="user photo" src={user.data.photoURL} />
+          <Avatar className="md:mx-4" alt="user photo">
+            <Icon className='text-32'>account_circle</Icon>
+          </Avatar>
         ) : (
-          <Avatar className="md:mx-4">{user.data.displayName[0]}</Avatar>
+          <Avatar className="md:mx-4" alt="user photo">
+            <Icon className='text-32'>account_circle</Icon>
+          </Avatar>
+          // <Avatar className="md:mx-4">{user.data.displayName[0]}</Avatar>
         )}
       </Button>
 
@@ -82,18 +88,18 @@ function UserMenu(props) {
           </>
         ) : (
           <>
-            <MenuItem component={Link} to="/pages/profile" onClick={userMenuClose} role="button">
+            <MenuItem component={Link} to="/venapp/profile" onClick={userMenuClose} role="button">
               <ListItemIcon className="min-w-40">
                 <Icon>account_circle</Icon>
               </ListItemIcon>
               <ListItemText primary="My Profile" />
             </MenuItem>
-            <MenuItem component={Link} to="/apps/mail" onClick={userMenuClose} role="button">
+            {/* <MenuItem component={Link} to="/apps/mail" onClick={userMenuClose} role="button">
               <ListItemIcon className="min-w-40">
                 <Icon>mail</Icon>
               </ListItemIcon>
               <ListItemText primary="Inbox" />
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem
               onClick={() => {
                 dispatch(logoutUser());

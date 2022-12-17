@@ -164,7 +164,7 @@ function JWTLoginTab(props) {
               <Typography className="text-11">admin</Typography>
             </td>
           </tr>
-          <tr>
+          {/* <tr>
             <td>
               <Typography className="font-medium text-11" color="textSecondary">
                 Staff
@@ -176,7 +176,7 @@ function JWTLoginTab(props) {
             <td>
               <Typography className="text-11">staff</Typography>
             </td>
-          </tr>
+          </tr> */}
         </tbody>
       </table>
     </div>

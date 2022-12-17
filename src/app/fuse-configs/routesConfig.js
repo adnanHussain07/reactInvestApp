@@ -32,7 +32,7 @@ const routes = [
   {
     path: '/',
     exact: true,
-    component: () => <Redirect to="/apps/dashboards/analytics" />,
+    component: () => <Redirect to="/venapp/dashboard" />,
   },
   {
     path: '/loading',

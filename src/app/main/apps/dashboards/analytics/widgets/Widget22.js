@@ -16,7 +16,7 @@ function Widget2(props) {
     <Card className="w-full rounded-20 shadow">
       <div className="p-20 pb-0">
         <Typography className="h3 font-medium">
-          {i18next.t(`navigation:DEPOSITWALLET`)}
+          {i18next.t(`navigation:TOTALPAY`)}
         </Typography>
 
         <div className="flex flex-row flex-wrap items-center mt-12">

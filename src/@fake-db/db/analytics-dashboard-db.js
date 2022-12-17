@@ -5,21 +5,21 @@ const analyticsDashboardAppDB = {
 		{
 			id: 'widget1',
 			series: {
-				2019: [
+				2020: [
 					{
 						name: 'Sales',
 						data: [1.9, 3, 3.4, 2.2, 2.9, 3.9, 2.5, 3.8, 4.1, 3.8, 3.2, 2.9],
 						fill: 'start'
 					}
 				],
-				2020: [
+				2021: [
 					{
 						name: 'Sales',
 						data: [2.2, 2.9, 3.9, 2.5, 3.8, 3.2, 2.9, 1.9, 3, 3.4, 4.1, 3.8],
 						fill: 'start'
 					}
 				],
-				2021: [
+				2022: [
 					{
 						name: 'Sales',
 						data: [3.9, 2.5, 3.8, 4.1, 1.9, 3, 3.8, 3.2, 2.9, 3.4, 2.2, 2.9],
@@ -140,7 +140,7 @@ const analyticsDashboardAppDB = {
 				},
 				tooltip: {
 					followCursor: true,
-					theme       : 'dark',
+					theme: 'dark',
 					fixed: {
 						enabled: false,
 						position: 'topRight',
@@ -211,7 +211,7 @@ const analyticsDashboardAppDB = {
 				},
 				tooltip: {
 					followCursor: true,
-					theme       : 'dark',
+					theme: 'dark',
 					fixed: {
 						enabled: false,
 						position: 'topRight',
@@ -250,7 +250,7 @@ const analyticsDashboardAppDB = {
 				},
 				tooltip: {
 					followCursor: true,
-					theme       : 'dark',
+					theme: 'dark',
 					fixed: {
 						enabled: false,
 						position: 'topRight',
@@ -353,7 +353,7 @@ const analyticsDashboardAppDB = {
 				},
 				tooltip: {
 					followCursor: true,
-					theme       : 'dark',
+					theme: 'dark',
 					fixed: {
 						enabled: false,
 						position: 'topRight',
@@ -537,7 +537,7 @@ const analyticsDashboardAppDB = {
 					height: '100%',
 					type: 'donut'
 				},
-				labels: ['Desktop', 'Mobile', 'Tablet'],
+				labels: ['Deposit', 'Trade', 'Interest'],
 				legend: {
 					show: false
 				},
@@ -572,19 +572,19 @@ const analyticsDashboardAppDB = {
 			series: [
 				[
 					{
-						name: '1Day',
+						name: '3 Years',
 						data: [72, 65, 70, 78, 85, 82, 88]
 					}
 				],
 				[
 					{
-						name: '1Week',
+						name: '6 Years',
 						data: [540, 539, 527, 548, 540, 552, 566]
 					}
 				],
 				[
 					{
-						name: '1Month',
+						name: '10 Years',
 						data: [1520, 1529, 1567, 1588, 1590, 1652, 1622]
 					}
 				]
@@ -644,7 +644,7 @@ const analyticsDashboardAppDB = {
 				},
 				tooltip: {
 					followCursor: true,
-					theme       : 'dark',
+					theme: 'dark',
 					fixed: {
 						enabled: false,
 						position: 'topRight',

@@ -15,6 +15,10 @@ import Widget6 from './widgets/Widget6';
 import Widget7 from './widgets/Widget7';
 import Widget8 from './widgets/Widget8';
 import Widget9 from './widgets/Widget9';
+import Widget22 from './widgets/Widget22';
+import Widget23 from './widgets/Widget23';
+import Widget24 from './widgets/Widget24';
+import i18next from 'i18next';
 
 function AnalyticsDashboardApp() {
   const dispatch = useDispatch();
@@ -57,10 +61,10 @@ function AnalyticsDashboardApp() {
             className="px-16 pb-8 text-18 font-medium"
             color="textSecondary"
           >
-            How are your active users trending over time?
+            {i18next.t(`navigation:BRIEDDASH`)}
           </Typography>
 
-          <div className="flex flex-col sm:flex sm:flex-row pb-32">
+          <div className="flex flex-col sm:flex sm:flex-row">
             <motion.div variants={item} className="widget flex w-full sm:w-1/3 p-16">
               <Widget2 data={widgets.widget2} />
             </motion.div>
@@ -73,6 +77,19 @@ function AnalyticsDashboardApp() {
               <Widget4 data={widgets.widget4} />
             </motion.div>
           </div>
+          <div className="flex flex-col sm:flex sm:flex-row pb-32">
+            <motion.div variants={item} className="widget flex w-full sm:w-1/3 p-16">
+              <Widget23 data={widgets.widget3} />
+            </motion.div>
+
+            <motion.div variants={item} className="widget flex w-full sm:w-1/3 p-16">
+              <Widget22 data={widgets.widget2} />
+            </motion.div>
+
+            <motion.div variants={item} className="widget w-full sm:w-1/3 p-16">
+              <Widget24 data={widgets.widget4} />
+            </motion.div>
+          </div>
 
           <Typography
             component={motion.div}
@@ -80,14 +97,14 @@ function AnalyticsDashboardApp() {
             className="px-16 pb-8 text-18 font-medium"
             color="textSecondary"
           >
-            How many pages your users visit?
+            {i18next.t(`navigation:STAYTUNED`)}
           </Typography>
 
           <motion.div variants={item} className="widget w-full p-16 pb-48">
             <Widget5 data={widgets.widget5} />
           </motion.div>
 
-          <Typography
+          {/* <Typography
             component={motion.div}
             variants={item}
             className="px-16 pb-8 text-18 font-medium"
@@ -98,7 +115,7 @@ function AnalyticsDashboardApp() {
 
           <motion.div variants={item} className="widget w-full p-16 pb-32">
             <Widget6 data={widgets.widget6} />
-          </motion.div>
+          </motion.div> */}
         </div>
 
         <div className="flex flex-wrap w-full md:w-320 pt-16">
@@ -109,7 +126,7 @@ function AnalyticsDashboardApp() {
               className="px-16 pb-8 text-18 font-medium"
               color="textSecondary"
             >
-              What are your top devices?
+              {i18next.t(`navigation:GLIMPSE`)}
             </Typography>
 
             <motion.div variants={item} className="widget w-full p-16">
@@ -124,7 +141,7 @@ function AnalyticsDashboardApp() {
               className="px-16 pb-8 text-18 font-medium"
               color="textSecondary"
             >
-              How are your sales?
+              {i18next.t(`navigation:GLOBALCONTR`)}
             </Typography>
 
             <motion.div variants={item} className="widget w-full p-16">
@@ -132,7 +149,7 @@ function AnalyticsDashboardApp() {
             </motion.div>
           </div>
 
-          <div className="mb-32 w-full sm:w-1/2 md:w-full">
+          {/* <div className="mb-32 w-full sm:w-1/2 md:w-full">
             <Typography
               component={motion.div}
               variants={item}
@@ -144,7 +161,7 @@ function AnalyticsDashboardApp() {
             <motion.div variants={item} className="widget w-full p-16">
               <Widget9 data={widgets.widget9} />
             </motion.div>
-          </div>
+          </div> */}
         </div>
       </motion.div>
     </div>

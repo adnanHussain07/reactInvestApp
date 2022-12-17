@@ -11,8 +11,8 @@ import { changeLanguage } from 'app/store/i18nSlice';
 
 const languages = [
   { id: 'en', title: 'English', flag: 'us' },
-  { id: 'tr', title: 'Turkish', flag: 'tr' },
-  { id: 'ar', title: 'Arabic', flag: 'sa' },
+  // { id: 'tr', title: 'Turkish', flag: 'tr' },
+  // { id: 'ar', title: 'Arabic', flag: 'sa' },
 ];
 
 function LanguageSwitcher(props) {
@@ -80,14 +80,14 @@ function LanguageSwitcher(props) {
           </MenuItem>
         ))}
 
-        <MenuItem
+        {/* <MenuItem
           component={Link}
           to="/documentation/configuration/multi-language"
           onClick={langMenuClose}
           role="button"
         >
           <ListItemText primary="Learn More" />
-        </MenuItem>
+        </MenuItem> */}
       </Popover>
     </>
   );

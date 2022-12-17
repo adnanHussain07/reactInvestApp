@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import Auth0RegisterTab from './tabs/Auth0RegisterTab';
 import FirebaseRegisterTab from './tabs/FirebaseRegisterTab';
 import JWTRegisterTab from './tabs/JWTRegisterTab';
+import i18next from 'i18next';
 
 const Root = styled('div')(({ theme }) => ({
   background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${darken(
@@ -53,8 +54,8 @@ function Register() {
               animate={{ opacity: 1, transition: { delay: 0.2 } }}
             >
               <div className="flex items-center justif-center mb-32">
-                <img className="logo-icon w-48" src="assets/images/logos/fuse.svg" alt="logo" />
-                <div className="border-l-1 mr-4 w-1 h-40" />
+                <img className="logo-icon w-full" src="assets/images/logos/fuse.svg" alt="logo" />
+                {/* <div className="border-l-1 mr-4 w-1 h-40" />
                 <div>
                   <Typography className="text-24 font-semibold logo-text" color="inherit">
                     FUSE
@@ -65,11 +66,11 @@ function Register() {
                   >
                     REACT
                   </Typography>
-                </div>
+                </div> */}
               </div>
             </motion.div>
 
-            <Tabs
+            {/* <Tabs
               value={selectedTab}
               onChange={handleTabChange}
               variant="fullWidth"
@@ -98,22 +99,24 @@ function Register() {
                 className="min-w-0"
                 label="Auth0"
               />
-            </Tabs>
+            </Tabs> */}
 
             {selectedTab === 0 && <JWTRegisterTab />}
-            {selectedTab === 1 && <FirebaseRegisterTab />}
-            {selectedTab === 2 && <Auth0RegisterTab />}
+            {/* {selectedTab === 1 && <FirebaseRegisterTab />}
+            {selectedTab === 2 && <Auth0RegisterTab />} */}
           </CardContent>
 
           <div className="flex flex-col items-center justify-center pb-32">
             <div>
-              <span className="font-normal mr-8">Already have an account?</span>
+              <span className="font-normal mr-8">
+                {i18next.t(`navigation:ALREADYACC`)}
+              </span>
               <Link className="font-normal" to="/login">
-                Login
+                {i18next.t(`navigation:LOGIN`)}
               </Link>
             </div>
             <Link className="font-normal mt-8" to="/">
-              Back to Dashboard
+              {i18next.t(`navigation:BACKTODASH`)}
             </Link>
           </div>
         </Card>
@@ -125,8 +128,8 @@ function Register() {
               animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
             >
               <Typography variant="h3" color="inherit" className="font-semibold leading-tight">
-                Welcome <br />
-                to the <br /> FUSE React!
+                {i18next.t(`navigation:WEL`)} <br />
+                {i18next.t(`navigation:TOTHE`)} <br /> {i18next.t(`navigation:VENAX`)}
               </Typography>
             </motion.div>
 
@@ -135,8 +138,7 @@ function Register() {
               animate={{ opacity: 1, transition: { delay: 0.3 } }}
             >
               <Typography variant="subtitle1" color="inherit" className="mt-32">
-                Powerful and professional admin template for Web Applications, CRM, CMS, Admin
-                Panels and more.
+                {i18next.t(`navigation:PROFFETOOL`)}
               </Typography>
             </motion.div>
           </div>

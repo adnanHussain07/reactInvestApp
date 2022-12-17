@@ -38,8 +38,8 @@ function ToolbarLayout1(props) {
                 <Hidden lgDown>
                   {(config.navbar.style === 'style-3' ||
                     config.navbar.style === 'style-3-dense') && (
-                    <NavbarToggleButton className="w-40 h-40 p-0 mx-0" />
-                  )}
+                      <NavbarToggleButton className="w-40 h-40 p-0 mx-0" />
+                    )}
 
                   {config.navbar.style === 'style-1' && !navbar.open && (
                     <NavbarToggleButton className="w-40 h-40 p-0 mx-0" />
@@ -64,13 +64,13 @@ function ToolbarLayout1(props) {
 
             <FullScreenToggle />
 
-            <FuseSearch />
+            {/* <FuseSearch /> */}
 
-            <Hidden lgUp>
+            {/* <Hidden lgUp>
               <ChatPanelToggleButton />
-            </Hidden>
+            </Hidden> */}
 
-            <QuickPanelToggleButton />
+            {/* <QuickPanelToggleButton /> */}
 
             <NotificationPanelToggleButton />
 

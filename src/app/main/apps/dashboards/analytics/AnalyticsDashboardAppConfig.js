@@ -3,12 +3,28 @@ import { lazy } from 'react';
 const AnalyticsDashboardAppConfig = {
   settings: {
     layout: {
-      config: {},
+      config: {
+        navbar: {
+          display: true,
+        },
+        toolbar: {
+          display: true,
+        },
+        footer: {
+          display: false,
+        },
+        leftSidePanel: {
+          display: false,
+        },
+        rightSidePanel: {
+          display: true,
+        },
+      },
     },
   },
   routes: [
     {
-      path: '/apps/dashboards/analytics',
+      path: '/venapp/dashboard',
       component: lazy(() => import('./AnalyticsDashboardApp')),
     },
   ],

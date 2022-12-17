@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import { memo, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import Box from '@mui/material/Box';
+import i18next from 'i18next';
 
 function Widget5(props) {
   const theme = useTheme();
@@ -20,7 +21,9 @@ function Widget5(props) {
     <Card className="w-full rounded-20 shadow">
       <div className="relative p-20 flex flex-row items-center justify-between">
         <div className="flex flex-col">
-          <Typography className="h3 sm:h2 font-medium">Visitors & Page views</Typography>
+          <Typography className="h3 sm:h2 font-medium">
+            {i18next.t(`navigation:TRADEJOURNEY`)}
+          </Typography>
         </div>
 
         <div className="flex flex-row items-center">
