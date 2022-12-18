@@ -1,26 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  // logsPagination: {
-  //   pageNo: 1,
-  //   pageSize: 10,
-  // },
-  // logsTotalCount: 0,
+  showChangePass: false,
 };
 
 const sharedData = createSlice({
   name: 'auth/shared',
   initialState,
   reducers: {
-    // changeItemStatus: (state, action) => {
-    //   state.itemStatus = action.payload;
-    // },
+    changeShowResetPass: (state, action) => {
+      state.showChangePass = action.payload;
+    },
     setSharedInitial: (state, action) => initialState,
   },
   extraReducers: {},
 });
 
 export const {
+  changeShowResetPass,
   setSharedInitial,
 } = sharedData.actions;
 

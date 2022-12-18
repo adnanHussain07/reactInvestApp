@@ -6,6 +6,7 @@ import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectNavigation } from 'app/store/fuse/navigationSlice';
 import { navbarCloseMobile } from '../../store/fuse/navbarSlice';
+import { changeShowResetPass } from 'app/auth/store/sharedData';
 
 function Navigation(props) {
   const navigation = useSelector(selectNavigation);
@@ -14,6 +15,7 @@ function Navigation(props) {
   const dispatch = useDispatch();
 
   function handleItemClick(item) {
+    if (item && item.id == Menus.CHANGEPASS) dispatch(changeShowResetPass(true));
     if (mdDown) {
       dispatch(navbarCloseMobile());
     }

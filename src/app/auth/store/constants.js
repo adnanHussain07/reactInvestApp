@@ -130,8 +130,8 @@ export const DefFilters = {
 }
 
 export const ReqColorCodes = {
-  code1: 'rgb(202 201 201 / 47%)',
-  code2: 'rgb(190 187 187 / 63%)',
+  btn: '-webkit-linear-gradient(left, #31f316, #bef310, #ecaf0e)',
+  btnText: 'black',
 }
 
 export const DateTimeFormat = 'DD/MM/YYYY hh:mm a';

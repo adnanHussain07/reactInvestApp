@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-const PricingStyle2PageConfig = {
+const ReturnInvestLogConfig = {
   settings: {
     layout: {
       config: {
@@ -24,10 +24,10 @@ const PricingStyle2PageConfig = {
   },
   routes: [
     {
-      path: '/venapp/investmentplan',
-      component: lazy(() => import('./PricingStyle2Page')),
+      path: '/venapp/interestlog',
+      component: lazy(() => import('./returnInvest')),
     },
   ],
 };
 
-export default PricingStyle2PageConfig;
+export default ReturnInvestLogConfig;

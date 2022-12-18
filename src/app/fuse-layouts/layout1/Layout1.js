@@ -12,6 +12,7 @@ import LeftSideLayout1 from './components/LeftSideLayout1';
 import NavbarWrapperLayout1 from './components/NavbarWrapperLayout1';
 import RightSideLayout1 from './components/RightSideLayout1';
 import ToolbarLayout1 from './components/ToolbarLayout1';
+import ResetPasswordDialog from '../shared-components/ResetPasswordDialog';
 
 const Root = styled('div')(({ theme, config }) => ({
   ...(config.mode === 'boxed' && {
@@ -36,6 +37,7 @@ function Layout1(props) {
 
   return (
     <Root id="fuse-layout" config={config} className="w-full flex">
+      {/* <ResetPasswordDialog /> */}
       {config.leftSidePanel.display && <LeftSideLayout1 />}
 
       <div className="flex flex-auto min-w-0">

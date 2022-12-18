@@ -10,6 +10,11 @@ import MailAppConfig from './mail/MailAppConfig';
 import NotesAppConfig from './notes/NotesAppConfig';
 import ScrumboardAppConfig from './scrumboard/ScrumboardAppConfig';
 import TodoAppConfig from './todo/TodoAppConfig';
+import ReturnInvestLogConfig from './returnInvestLog/returnInvestLogConfig';
+import DepositHistoryLogConfig from './depositHistory/depositHistoryLogConfig';
+import WithdrawHistoryLogConfig from './withdrawHistory/withdrawHistoryLogConfig';
+import TransactionHistoryLogConfig from './transactionHistory/transactionHistoryLogConfig';
+import ReferralStaticConfig from './referralStatic/referralStaticConfig';
 
 const appsConfigs = [
   AnalyticsDashboardAppConfig,
@@ -24,6 +29,13 @@ const appsConfigs = [
   ScrumboardAppConfig,
   AcademyAppConfig,
   NotesAppConfig,
+
+
+  ReturnInvestLogConfig,
+  DepositHistoryLogConfig,
+  WithdrawHistoryLogConfig,
+  TransactionHistoryLogConfig,
+  ReferralStaticConfig,
 ];
 
 export default appsConfigs;

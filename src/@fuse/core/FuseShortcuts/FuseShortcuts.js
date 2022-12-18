@@ -19,6 +19,7 @@ import { updateUserShortcuts } from 'app/auth/store/userSlice';
 import { Menus } from 'app/auth/store/constants';
 import i18next from 'i18next';
 import Popover from '@mui/material/Popover';
+import { changeShowResetPass } from 'app/auth/store/sharedData';
 
 function FuseShortcuts(props) {
   const dispatch = useDispatch();
@@ -122,6 +123,11 @@ function FuseShortcuts(props) {
     setEarn(null);
   };
 
+  function onMenuClick(e) {
+    settingClose();
+    if (e.id && e.id == Menus.CHANGEPASS) dispatch(changeShowResetPass(true));
+  }
+
   return (
     <div
       className={clsx(
@@ -149,6 +155,7 @@ function FuseShortcuts(props) {
                     component={motion.div}
                     variants={item}
                     size="large"
+                    onClick={() => onMenuClick(_item)}
                   >
                     {_item.icon ? (
                       <Icon>{_item.icon}</Icon>
@@ -201,7 +208,7 @@ function FuseShortcuts(props) {
           <>
             {shortcutItems.filter(rr => rr.id == Menus.RETINTLOG).length > 0 && (
               <MenuItem
-                onClick={settingClose}
+                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
                 component={Link}
                 to="/apps/redc/user"
                 role="button"
@@ -214,7 +221,7 @@ function FuseShortcuts(props) {
             )}
             {shortcutItems.filter(rr => rr.id == Menus.TRANSHISTORY).length > 0 && (
               <MenuItem
-                onClick={settingClose}
+                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
                 component={Link}
                 to="/apps/redc/user"
                 role="button"
@@ -272,7 +279,7 @@ function FuseShortcuts(props) {
           <>
             {shortcutItems.filter(rr => rr.id == Menus.DEPOSITNOW).length > 0 && (
               <MenuItem
-                onClick={settingClose}
+                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
                 component={Link}
                 to="/apps/redc/user"
                 role="button"
@@ -285,7 +292,7 @@ function FuseShortcuts(props) {
             )}
             {shortcutItems.filter(rr => rr.id == Menus.WITHDRAWNOE).length > 0 && (
               <MenuItem
-                onClick={settingClose}
+                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
                 component={Link}
                 to="/apps/redc/user"
                 role="button"
@@ -298,7 +305,7 @@ function FuseShortcuts(props) {
             )}
             {shortcutItems.filter(rr => rr.id == Menus.DEPHISTORY).length > 0 && (
               <MenuItem
-                onClick={settingClose}
+                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
                 component={Link}
                 to="/apps/redc/user"
                 role="button"
@@ -311,7 +318,7 @@ function FuseShortcuts(props) {
             )}
             {shortcutItems.filter(rr => rr.id == Menus.WITHHISTORY).length > 0 && (
               <MenuItem
-                onClick={settingClose}
+                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
                 component={Link}
                 to="/apps/redc/user"
                 role="button"
@@ -341,7 +348,7 @@ function FuseShortcuts(props) {
             <Icon sx={{ color: amber[600] }}>star</Icon>
           </IconButton>
         </Tooltip> */}
-        <div class="logo" style={{ marginLeft: "25%" }}>
+        <div className="logo" style={{ marginLeft: "25%" }}>
           <img width="128" src="assets/images/logos/fuse.svg" alt="logo" />
         </div>
       </motion.div>

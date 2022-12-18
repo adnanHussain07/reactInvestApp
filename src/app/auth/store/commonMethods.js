@@ -87,10 +87,6 @@ export function toFindDuplicates(arry) {
   return result;
 }
 
-export function onlyUnique(value, index, self) {
-  return self.indexOf(value) === index;
-}
-
 export const displayPopup = (msg, type, duration) => (dispatch) => {
   dispatch(showMessage({
     message: msg,

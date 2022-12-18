@@ -3,8 +3,23 @@ import { lazy } from 'react';
 const PricingStyle3PageConfig = {
   settings: {
     layout: {
-      config: {},
-    },
+      config: {
+        navbar: {
+          display: true,
+        },
+        toolbar: {
+          display: true,
+        },
+        footer: {
+          display: false,
+        },
+        leftSidePanel: {
+          display: false,
+        },
+        rightSidePanel: {
+          display: true,
+        },
+      },    },
   },
   routes: [
     {
