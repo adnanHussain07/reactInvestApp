@@ -9,6 +9,7 @@ import { showMessage } from 'app/store/fuse/messageSlice';
 import auth0Service from 'app/services/auth0Service';
 import firebaseService from 'app/services/firebaseService';
 import jwtService from 'app/services/jwtService';
+import { setLoggedIn } from './sharedData';
 
 export const setUserDataAuth0 = (tokenData) => async (dispatch) => {
   const user = {
@@ -117,7 +118,8 @@ export const updateUserShortcuts = (shortcuts) => async (dispatch, getState) => 
 
 export const logoutUser = () => async (dispatch, getState) => {
   const { user } = getState().auth;
-
+  localStorage.removeItem('cred');
+  dispatch(setLoggedIn(false));
   if (!user.role || user.role.length === 0) {
     // is guest
     return null;

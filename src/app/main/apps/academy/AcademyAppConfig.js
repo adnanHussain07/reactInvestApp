@@ -3,7 +3,25 @@ import { Redirect } from 'react-router-dom';
 
 const AcademyAppConfig = {
   settings: {
-    layout: {},
+    layout: {
+      config: {
+        navbar: {
+          display: false,
+        },
+        toolbar: {
+          display: true,
+        },
+        footer: {
+          display: true,
+        },
+        leftSidePanel: {
+          display: false,
+        },
+        rightSidePanel: {
+          display: false,
+        },
+      },
+    },
   },
   routes: [
     {
@@ -11,13 +29,13 @@ const AcademyAppConfig = {
       component: lazy(() => import('./course/Course')),
     },
     {
-      path: '/apps/academy/courses',
+      path: '/venapp/home',
       component: lazy(() => import('./courses/Courses')),
     },
-    {
-      path: '/apps/academy',
-      component: () => <Redirect to="/apps/academy/courses" />,
-    },
+    // {
+    //   path: '/apps/academy',
+    //   component: () => <Redirect to="/apps/academy/courses" />,
+    // },
   ],
 };
 

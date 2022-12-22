@@ -19,6 +19,8 @@ import i18next from 'i18next';
 import { handleResponse } from '../../auth/store/commonMethods';
 import { changeShowResetPass } from '../../../app/auth/store/sharedData';
 import { showMessage } from 'app/store/fuse/messageSlice';
+import { ReqColorCodes } from 'app/auth/store/constants';
+
 // import { userResetPass } from 'app/auth/store/loginSlice';
 // import ds from 'app/services/DataService';
 
@@ -207,13 +209,17 @@ function ResetPasswordDialog(props) {
 
                     <Button
                       variant="contained"
-                      color="primary"
+                      // color="primary"
+                      style={{
+                        color: ReqColorCodes.btnText,
+                        backgroundImage: _.isEmpty(dirtyFields) || !isValid ? '' : ReqColorCodes.btn,
+                      }}
                       className="w-224 mx-auto mt-16"
                       aria-label="Reset"
                       disabled={_.isEmpty(dirtyFields) || !isValid}
                       type="submit"
                     >
-                      Reset my password
+                      {i18next.t(`navigation:RESETPASSMY`)}
                     </Button>
                   </>
                 )}

@@ -6,16 +6,22 @@ import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectNavigation } from 'app/store/fuse/navigationSlice';
 import { navbarCloseMobile } from '../../store/fuse/navbarSlice';
-import { changeShowResetPass } from 'app/auth/store/sharedData';
+import { changeShowResetPass, setShowDeposit, setShowTwoFA, setShowWithdraw } from 'app/auth/store/sharedData';
 
 function Navigation(props) {
   const navigation = useSelector(selectNavigation);
+  const loggedin = useSelector(({ auth }) => auth.sharedData.loggedin);
   const theme = useTheme();
   const mdDown = useMediaQuery(theme.breakpoints.down('lg'));
   const dispatch = useDispatch();
 
   function handleItemClick(item) {
-    if (item && item.id == Menus.CHANGEPASS) dispatch(changeShowResetPass(true));
+    if (loggedin) {
+      if (item && item.id == Menus.CHANGEPASS) dispatch(changeShowResetPass(true))
+      else if (e.id && e.id == Menus.TWOFASEC) dispatch(setShowTwoFA(true))
+      else if (e.id && e.id == Menus.DEPOSITNOW) dispatch(setShowDeposit(true))
+      else if (e.id && e.id == Menus.WITHDRAWNOE) dispatch(setShowWithdraw(true));
+    }
     if (mdDown) {
       dispatch(navbarCloseMobile());
     }

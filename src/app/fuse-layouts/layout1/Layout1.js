@@ -4,8 +4,8 @@ import FuseMessage from '@fuse/core/FuseMessage';
 import FuseSuspense from '@fuse/core/FuseSuspense';
 import AppContext from 'app/AppContext';
 import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
-import { memo, useContext } from 'react';
-import { useSelector } from 'react-redux';
+import React, { memo, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import FooterLayout1 from './components/FooterLayout1';
 import LeftSideLayout1 from './components/LeftSideLayout1';
@@ -13,6 +13,11 @@ import NavbarWrapperLayout1 from './components/NavbarWrapperLayout1';
 import RightSideLayout1 from './components/RightSideLayout1';
 import ToolbarLayout1 from './components/ToolbarLayout1';
 import ResetPasswordDialog from '../shared-components/ResetPasswordDialog';
+import TwoFAAuth from '../shared-components/TwoFAAuth';
+import DepositNowDialog from '../shared-components/DepositNowDialog';
+import WithdrawNowDialog from '../shared-components/WithdrawNowDialog';
+import history from '@history';
+import { setLoggedIn } from 'app/auth/store/sharedData';
 
 const Root = styled('div')(({ theme, config }) => ({
   ...(config.mode === 'boxed' && {
@@ -31,13 +36,33 @@ const Root = styled('div')(({ theme, config }) => ({
 }));
 
 function Layout1(props) {
+  const dispatch = useDispatch();
   const config = useSelector(({ fuse }) => fuse.settings.current.layout.config);
+  const loggedin = useSelector(({ auth }) => auth.sharedData.loggedin);
   const appContext = useContext(AppContext);
   const { routes } = appContext;
 
+  React.useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      if (localStorage.getItem('cred') && localStorage.getItem('cred') == '1') {
+        dispatch(setLoggedIn(true));
+        if (!window.location.pathname.toLowerCase().includes('login')
+          && !window.location.pathname.toLowerCase().includes('register')
+        ) {
+          history.push('/venapp/home');
+        }
+      }
+    }
+    return () => mounted = false;
+  }, []);
+
   return (
     <Root id="fuse-layout" config={config} className="w-full flex">
-      {/* <ResetPasswordDialog /> */}
+      <ResetPasswordDialog />
+      <TwoFAAuth />
+      <DepositNowDialog />
+      <WithdrawNowDialog />
       {config.leftSidePanel.display && <LeftSideLayout1 />}
 
       <div className="flex flex-auto min-w-0">

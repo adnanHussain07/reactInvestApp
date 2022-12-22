@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import i18next from 'i18next';
 import { withRouter } from 'react-router-dom';
 import FuseLoading from '@fuse/core/FuseLoading';
-import DriverTableHead from './referralStaticTableHead';
+import DriverTableHead from './supportTicketTableHead';
 // import { setRequestLoader } from 'app/auth/store/loadersSlice';
 // import { setDriverPagination, setReqRadio } from 'app/auth/store/commonData';
 import Button from '@mui/material/Button';
@@ -27,7 +27,7 @@ import { Icon, IconButton } from '@mui/material';
 const msg = "ITEMDELMSG";
 const headmsg = "ITEMDELHEAD";
 
-function referralStaticTable(props) {
+function SupportTicketTable(props) {
   const dispatch = useDispatch();
   // const loader = useSelector(({ auth }) => auth.loaders.driversLoader);
   const loader = false;
@@ -228,4 +228,4 @@ function referralStaticTable(props) {
   );
 }
 
-export default withRouter(referralStaticTable);
+export default withRouter(SupportTicketTable);

@@ -15,12 +15,14 @@ import Typography from '@mui/material/Typography';
 import withReducer from 'app/store/withReducer';
 import { motion } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import reducer from '../store';
 import { getCategories, selectCategories } from '../store/categoriesSlice';
 import { getCourses, selectCourses } from '../store/coursesSlice';
+import i18next from 'i18next';
+import history from '@history';
+import { Hidden } from '@mui/material';
 
 const Root = styled('div')(({ theme }) => ({
   '& .header': {
@@ -94,65 +96,52 @@ function Courses(props) {
 
   return (
     <Root className="flex flex-col flex-auto flex-shrink-0 w-full">
-      <div className="header relative overflow-hidden flex flex-shrink-0 items-center justify-center h-200 sm:h-288">
+      <div
+        style={{ backgroundImage: 'url(assets/images/background.jpg)' }}
+        className="header relative overflow-hidden flex flex-shrink-0 items-center justify-center h-200 sm:h-288">
         <div className="flex flex-col max-w-2xl mx-auto w-full p-24 sm:p-32">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0 } }}>
-            <Typography color="inherit" className="text-24 sm:text-44 font-bold tracking-tight">
-              Welcome to Academy
+            <Typography color="inherit" className="text-24 sm:text-44 font-bold tracking-tight text-center">
+              {i18next.t(`navigation:WELVENAX`)}
             </Typography>
           </motion.div>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.3 } }}>
-            <Typography
-              color="inherit"
-              className="text-12 sm:text-14 mt-8 sm:mt-16 opacity-75 leading-tight sm:leading-loose"
-            >
-              Our courses will step you through the process of building a small application, or
-              adding a new feature to an existing application. Our courses will step you through the
-              process of building a small application, or adding a new feature to an existing
-              application.
+          <Hidden lgDown>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.3 } }}>
+              <Typography
+                color="inherit"
+                className="text-12 sm:text-14 mt-8 sm:mt-16 opacity-75 leading-tight sm:leading-loose text-center"
+              >
+                {i18next.t(`navigation:VENAXWORLD`)}
+              </Typography>
+            </motion.div>
+          </Hidden>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.4 } }}>
+            <Typography color="inherit" className="text-18 sm:text-20 mt-8 sm:mt-16 opacity-75 leading-tight sm:leading-loose text-center">
+              {i18next.t(`navigation:WELSUBHEAD`)}
             </Typography>
           </motion.div>
         </div>
 
-        <Icon className="header-icon">school</Icon>
+        {/* <Icon className="header-icon">attach_money</Icon> */}
       </div>
-      <div className="flex flex-col flex-1 max-w-2xl w-full mx-auto px-8 sm:px-16 py-24">
-        <div className="flex flex-col flex-shrink-0 sm:flex-row items-center justify-between py-24">
-          <TextField
-            label="Search for a course"
-            placeholder="Enter a keyword..."
-            className="flex w-full sm:w-320 mb-16 sm:mb-0 mx-16"
-            value={searchText}
-            inputProps={{
-              'aria-label': 'Search',
-            }}
-            onChange={handleSearchText}
-            variant="outlined"
-            InputLabelProps={{
-              shrink: true,
-            }}
+      {/* 2xl */}
+      <div className="flex flex-col flex-1 max-w-full w-full mx-auto px-8 sm:px-16 py-24">
+        <div className="flex flex-col sm:flex-row items-center justify-between py-24">
+          <div className='mx-6'>
+            <Typography color="inherit" className="text-18 font-bold sm:text-20 mt-8 sm:mt-16 opacity-75 leading-tight sm:leading-loose text-center">
+              {i18next.t(`navigation:WELPICHEAD1`)}
+            </Typography>
+            <Typography color="inherit" className="text-12 sm:text-16 mt-8 sm:mt-16 opacity-75 leading-tight sm:leading-loose text-center">
+              {i18next.t(`navigation:WELPICHEAD2`)}
+            </Typography>
+          </div>
+
+          <img
+            className='w-full'
+            src='assets/images/header.png'
           />
-          <FormControl className="flex w-full sm:w-320 mx-16" variant="outlined">
-            <InputLabel id="category-select-label">Category</InputLabel>
-            <Select
-              labelId="category-select-label"
-              id="category-select"
-              label="Category"
-              value={selectedCategory}
-              onChange={handleSelectedCategory}
-            >
-              <MenuItem value="all">
-                <em> All </em>
-              </MenuItem>
-              {categories.map((category) => (
-                <MenuItem value={category.value} key={category.id}>
-                  {category.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
         </div>
-        {useMemo(() => {
+        {/* {useMemo(() => {
           const container = {
             show: {
               transition: {
@@ -251,7 +240,7 @@ function Courses(props) {
               </div>
             ))
           );
-        }, [filteredData, categories, theme.palette])}
+        }, [filteredData, categories, theme.palette])} */}
       </div>
     </Root>
   );

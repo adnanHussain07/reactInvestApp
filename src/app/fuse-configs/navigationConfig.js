@@ -68,7 +68,7 @@ const navigationConfig = [
         translate: 'DEPOSITNOW',
         type: 'item',
         icon: 'keyboard_tab',
-        url: '/venapp/depositnow',
+        url: '#',
         isChildren: true,
       },
       {
@@ -77,7 +77,7 @@ const navigationConfig = [
         translate: 'WITHDRAWNOE',
         type: 'item',
         icon: 'keyboard_return',
-        url: '/venapp/withdrawnow',
+        url: '#',
         isChildren: true,
       },
       {
@@ -122,7 +122,6 @@ const navigationConfig = [
     translate: 'CHANGEPASS',
     type: 'item',
     icon: 'lock',
-    url: '/venapp/changepass',
   },
   {
     id: Menus.SUPPTICKET,
@@ -138,7 +137,7 @@ const navigationConfig = [
     translate: 'TWOFASEC',
     type: 'item',
     icon: 'security',
-    url: '/venapp/twofasecure',
+    // url: '/venapp/twofasecure',
   },
 
 

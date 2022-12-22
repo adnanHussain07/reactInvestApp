@@ -10,6 +10,9 @@ import { selectNavigation } from 'app/store/fuse/navigationSlice';
 import { navbarCloseMobile } from 'app/store/fuse/navbarSlice';
 import { selectContrastMainTheme } from 'app/store/fuse/settingsSlice';
 import { useLocation } from 'react-router-dom';
+import { Menus } from 'app/auth/store/constants';
+import { changeShowResetPass, setShowDeposit, setShowTwoFA, setShowWithdraw } from 'app/auth/store/sharedData';
+import history from '@history';
 
 const Root = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -57,6 +60,7 @@ function isUrlInChildren(parent, url) {
 
 function NavbarStyle3Content(props) {
   const navigation = useSelector(selectNavigation);
+  const loggedin = useSelector(({ auth }) => auth.sharedData.loggedin);
   const [selectedNavigation, setSelectedNavigation] = useState([]);
 
   const [panelOpen, setPanelOpen] = useState(false);
@@ -77,6 +81,12 @@ function NavbarStyle3Content(props) {
   function handleParentItemClick(selected) {
     /** if there is no child item do not set/open panel
      */
+    if (loggedin) {
+      if (selected && selected.id == Menus.CHANGEPASS) dispatch(changeShowResetPass(true))
+      else if (selected.id && selected.id == Menus.TWOFASEC) dispatch(setShowTwoFA(true))
+      else if (selected.id && selected.id == Menus.DEPOSITNOW) dispatch(setShowDeposit(true))
+      else if (selected.id && selected.id == Menus.WITHDRAWNOE) dispatch(setShowWithdraw(true));
+    }
     if (!selected.children) {
       setSelectedNavigation([]);
       setPanelOpen(false);
@@ -98,6 +108,12 @@ function NavbarStyle3Content(props) {
   }
 
   function handleChildItemClick(selected) {
+    if (loggedin) {
+      if (selected && selected.id == Menus.CHANGEPASS) dispatch(changeShowResetPass(true))
+      else if (selected.id && selected.id == Menus.TWOFASEC) dispatch(setShowTwoFA(true))
+      else if (selected.id && selected.id == Menus.DEPOSITNOW) dispatch(setShowDeposit(true))
+      else if (selected.id && selected.id == Menus.WITHDRAWNOE) dispatch(setShowWithdraw(true));
+    }
     setPanelOpen(false);
     if (mdDown) {
       dispatch(navbarCloseMobile());
@@ -109,7 +125,13 @@ function NavbarStyle3Content(props) {
       <Root className={clsx('flex flex-auto flex h-full', props.className)}>
         <ThemeProvider theme={contrastTheme}>
           <div id="fuse-navbar-side-panel" className="flex flex-shrink-0 flex-col items-center">
-            <img className="w-full my-24" src="assets/images/logos/menu.svg" alt="logo" />
+            <img
+              style={{ cursor: 'pointer' }}
+              onClick={() => history.push('/venapp/home')}
+              className="w-full my-24"
+              src="assets/images/logos/menu.svg"
+              alt="logo"
+            />
             {/* <img className="w-44 my-32" src="assets/images/logos/fuse.svg" alt="logo" /> */}
 
             <FuseScrollbars

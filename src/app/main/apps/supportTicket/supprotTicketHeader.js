@@ -22,6 +22,8 @@ import Tooltip from '@mui/material/Tooltip';
 import FuseScrollbars from '@fuse/core/FuseScrollbars';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { ReqColorCodes } from 'app/auth/store/constants';
+import history from '@history';
 // import { changeItemStatus, changeStoreNbr } from 'app/auth/store/sharedData';
 // import { checkPermission } from 'app/auth/store/loginSlice';
 // import { Permissions } from 'app/auth/store/constants';
@@ -31,7 +33,7 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-function TransactionHistoryHeader(props) {
+function SupportTicketHeader(props) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const mainTheme = useSelector(selectMainTheme);
@@ -354,7 +356,7 @@ function TransactionHistoryHeader(props) {
             animate={{ scale: 1, transition: { delay: 0.2 } }}
             className="text-54 md:text-72"
           >
-            museum
+            support_agent
           </Icon>
           <div className="flex flex-col items-center sm:items-start mb-16 sm:mb-0">
             <Typography
@@ -364,207 +366,210 @@ function TransactionHistoryHeader(props) {
               delay={300}
               className="text-16 md:text-24 mx-12 font-semibold"
             >
-              {i18next.t(`navigation:TRANSHISTORY`)}
+              {i18next.t(`navigation:SUPPTICKET`)}
             </Typography>
           </div>
         </div>
       </motion.div>
 
       {/* <div className="flex flex-1 items-center justify-center px-12">
-          <div className='mx-8'>
-            <motion.div initial={{ x: -20 }} animate={{ x: 0, transition: { delay: 0.3 } }}>
-              <Box className="mx-4 mt-8">
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    {i18next.t(`navigation:SELECTSTATUS`)}
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={itemStatus}
-                    label={i18next.t(`navigation:SELECTSTATUS`)}
-                    // onChange={(e) => dispatch(changeItemStatus(e.target.value))}
-                    size="small"
-                  >
-                    <MenuItem autoFocus={false} value="0">{i18next.t(`navigation:ALLSTATUS`)}</MenuItem>
-                    <MenuItem autoFocus={false} value="rented">{i18next.t(`navigation:RENTED`)}</MenuItem>
-                    <MenuItem autoFocus={false} value="available">{i18next.t(`navigation:NONRENTED`)}</MenuItem>
-                    <MenuItem autoFocus={false} value="maintenance">{i18next.t(`navigation:MAINTE`)}</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </motion.div>
-          </div>
-          <div className='mx-8'>
-            <motion.div initial={{ x: -20 }} animate={{ x: 0, transition: { delay: 0.3 } }}>
-              <Box className="mx-4 mt-8">
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    {i18next.t(`navigation:SELECTSTORE`)}
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={storeNbr}
-                    label={i18next.t(`navigation:SELECTSTORE`)}
-                    // onChange={(e) => dispatch(changeStoreNbr(e.target.value))}
-                    size="small"
-                  >
-                    <MenuItem autoFocus={false} value="0">{i18next.t(`navigation:ALLSTORE`)}</MenuItem>
-                    <MenuItem autoFocus={false} value="1">{i18next.t(`navigation:STORE1`)}</MenuItem>
-                    <MenuItem autoFocus={false} value="2">{i18next.t(`navigation:STORE2`)}</MenuItem>
-                    <MenuItem autoFocus={false} value="3">{i18next.t(`navigation:STORE3`)}</MenuItem>
-                    <MenuItem autoFocus={false} value="4">{i18next.t(`navigation:STORE4`)}</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </motion.div>
-          </div>
-          <ThemeProvider theme={mainTheme}>
-            <Tooltip
-              title={i18next.t(`navigation:PRESSENTER`)}
-              placement={'top'}
-            >
-              <Paper
-                component={motion.div}
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
-                className="flex items-center w-full max-w-224 px-8 py-4 rounded-16 shadow mx-8"
-              >
-                <Icon color="action">search</Icon>
-                <Input
-                  placeholder="Search Item Name"
-                  className="flex flex-1 mx-8"
-                  disableUnderline
-                  fullWidth
-                  // onChange={(e) => setSearchName(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key == 'Enter') {
-                      // callGo();
-                    }
-                  }}
-                  value={getSearchName}
-                  inputProps={{
-                    'aria-label': 'Search',
-                  }}
-                  size='small'
-                />
-              </Paper>
-            </Tooltip>
-          </ThemeProvider>
-          <ThemeProvider theme={mainTheme}>
-            <Tooltip
-              title={i18next.t(`navigation:PRESSENTER`)}
-              placement={'top'}
-            >
-              <Paper
-                component={motion.div}
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
-                className="flex items-center w-full max-w-224 px-8 py-4 rounded-16 shadow  mx-8"
-              >
-                <Icon color="action">search</Icon>
-                <Input
-                  placeholder="Search Item ID"
-                  className="flex flex-1 mx-8"
-                  disableUnderline
-                  fullWidth
-                  // onChange={(e) => setSearchID(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key == 'Enter') {
-                      // callGo();
-                    }
-                  }}
-                  value={getSearchID}
-                  inputProps={{
-                    'aria-label': 'Search',
-                  }}
-                  size='small'
-                />
-              </Paper>
-            </Tooltip>
-          </ThemeProvider>
-          <ThemeProvider theme={mainTheme}>
-            <Tooltip
-              title={i18next.t(`navigation:PRESSENTER`)}
-              placement={'top'}
-            >
-              <Paper
-                component={motion.div}
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
-                className="flex items-center w-full max-w-224 px-8 py-4 rounded-16 shadow  mx-8"
-              >
-                <Icon color="action">search</Icon>
-                <Input
-                  placeholder="Search Rentee"
-                  className="flex flex-1 mx-8"
-                  disableUnderline
-                  fullWidth
-                  // onChange={(e) => setSearchRentee(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key == 'Enter') {
-                      // callGo();
-                    }
-                  }}
-                  value={getSearchRentee}
-                  inputProps={{
-                    'aria-label': 'Search',
-                  }}
-                  size='small'
-                />
-              </Paper>
-            </Tooltip>
-          </ThemeProvider>
-          <ThemeProvider theme={mainTheme}>
-            <Tooltip
-              title={i18next.t(`navigation:SERNO`)}
-              placement={'top'}
-            >
-              <Paper
-                component={motion.div}
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
-                className="flex items-center w-full max-w-224 px-8 py-4 rounded-16 shadow  mx-8"
-              >
-                <Icon color="action">search</Icon>
-                <Input
-                  placeholder="Search Serial No"
-                  className="flex flex-1 mx-8"
-                  disableUnderline
-                  fullWidth
-                  // onChange={(e) => setSerialNo(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key == 'Enter') {
-                      // callGo();
-                    }
-                  }}
-                  value={getSerialNo}
-                  inputProps={{
-                    'aria-label': 'Search',
-                  }}
-                  size='small'
-                />
-              </Paper>
-            </Tooltip>
-          </ThemeProvider>
+        <div className='mx-8'>
+          <motion.div initial={{ x: -20 }} animate={{ x: 0, transition: { delay: 0.3 } }}>
+            <Box className="mx-4 mt-8">
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  {i18next.t(`navigation:SELECTSTATUS`)}
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  // value={itemStatus}
+                  label={i18next.t(`navigation:SELECTSTATUS`)}
+                  // onChange={(e) => dispatch(changeItemStatus(e.target.value))}
+                  size="small"
+                >
+                  <MenuItem autoFocus={false} value="0">{i18next.t(`navigation:ALLSTATUS`)}</MenuItem>
+                  <MenuItem autoFocus={false} value="rented">{i18next.t(`navigation:RENTED`)}</MenuItem>
+                  <MenuItem autoFocus={false} value="available">{i18next.t(`navigation:NONRENTED`)}</MenuItem>
+                  <MenuItem autoFocus={false} value="maintenance">{i18next.t(`navigation:MAINTE`)}</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </motion.div>
         </div>
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
-        >
-          <Button
-            className="whitespace-nowrap"
-            variant="contained"
-            color="secondary"
-            size='medium'
-            // onClick={callGo}
+        <div className='mx-8'>
+          <motion.div initial={{ x: -20 }} animate={{ x: 0, transition: { delay: 0.3 } }}>
+            <Box className="mx-4 mt-8">
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  {i18next.t(`navigation:SELECTSTORE`)}
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  // value={storeNbr}
+                  label={i18next.t(`navigation:SELECTSTORE`)}
+                  // onChange={(e) => dispatch(changeStoreNbr(e.target.value))}
+                  size="small"
+                >
+                  <MenuItem autoFocus={false} value="0">{i18next.t(`navigation:ALLSTORE`)}</MenuItem>
+                  <MenuItem autoFocus={false} value="1">{i18next.t(`navigation:STORE1`)}</MenuItem>
+                  <MenuItem autoFocus={false} value="2">{i18next.t(`navigation:STORE2`)}</MenuItem>
+                  <MenuItem autoFocus={false} value="3">{i18next.t(`navigation:STORE3`)}</MenuItem>
+                  <MenuItem autoFocus={false} value="4">{i18next.t(`navigation:STORE4`)}</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </motion.div>
+        </div>
+        <ThemeProvider theme={mainTheme}>
+          <Tooltip
+            title={i18next.t(`navigation:PRESSENTER`)}
+            placement={'top'}
           >
-            {i18next.t(`navigation:GO`)}
-          </Button>
-        </motion.div> */}
+            <Paper
+              component={motion.div}
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
+              className="flex items-center w-full max-w-224 px-8 py-4 rounded-16 shadow mx-8"
+            >
+              <Icon color="action">search</Icon>
+              <Input
+                placeholder="Search Item Name"
+                className="flex flex-1 mx-8"
+                disableUnderline
+                fullWidth
+                // onChange={(e) => setSearchName(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key == 'Enter') {
+                    // callGo();
+                  }
+                }}
+                value={getSearchName}
+                inputProps={{
+                  'aria-label': 'Search',
+                }}
+                size='small'
+              />
+            </Paper>
+          </Tooltip>
+        </ThemeProvider>
+        <ThemeProvider theme={mainTheme}>
+          <Tooltip
+            title={i18next.t(`navigation:PRESSENTER`)}
+            placement={'top'}
+          >
+            <Paper
+              component={motion.div}
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
+              className="flex items-center w-full max-w-224 px-8 py-4 rounded-16 shadow  mx-8"
+            >
+              <Icon color="action">search</Icon>
+              <Input
+                placeholder="Search Item ID"
+                className="flex flex-1 mx-8"
+                disableUnderline
+                fullWidth
+                // onChange={(e) => setSearchID(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key == 'Enter') {
+                    // callGo();
+                  }
+                }}
+                value={getSearchID}
+                inputProps={{
+                  'aria-label': 'Search',
+                }}
+                size='small'
+              />
+            </Paper>
+          </Tooltip>
+        </ThemeProvider>
+        <ThemeProvider theme={mainTheme}>
+          <Tooltip
+            title={i18next.t(`navigation:PRESSENTER`)}
+            placement={'top'}
+          >
+            <Paper
+              component={motion.div}
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
+              className="flex items-center w-full max-w-224 px-8 py-4 rounded-16 shadow  mx-8"
+            >
+              <Icon color="action">search</Icon>
+              <Input
+                placeholder="Search Rentee"
+                className="flex flex-1 mx-8"
+                disableUnderline
+                fullWidth
+                // onChange={(e) => setSearchRentee(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key == 'Enter') {
+                    // callGo();
+                  }
+                }}
+                value={getSearchRentee}
+                inputProps={{
+                  'aria-label': 'Search',
+                }}
+                size='small'
+              />
+            </Paper>
+          </Tooltip>
+        </ThemeProvider>
+        <ThemeProvider theme={mainTheme}>
+          <Tooltip
+            title={i18next.t(`navigation:SERNO`)}
+            placement={'top'}
+          >
+            <Paper
+              component={motion.div}
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
+              className="flex items-center w-full max-w-224 px-8 py-4 rounded-16 shadow  mx-8"
+            >
+              <Icon color="action">search</Icon>
+              <Input
+                placeholder="Search Serial No"
+                className="flex flex-1 mx-8"
+                disableUnderline
+                fullWidth
+                // onChange={(e) => setSerialNo(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key == 'Enter') {
+                    // callGo();
+                  }
+                }}
+                value={getSerialNo}
+                inputProps={{
+                  'aria-label': 'Search',
+                }}
+                size='small'
+              />
+            </Paper>
+          </Tooltip>
+        </ThemeProvider>
+      </div> */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
+      >
+        <Button
+          className="whitespace-nowrap"
+          variant="contained"
+          size='medium'
+          style={{
+            color: ReqColorCodes.btnText,
+            backgroundImage: ReqColorCodes.btn,
+          }}
+          onClick={() => history.push('/venapp/newsuppticket')}
+        >
+          {i18next.t(`navigation:OPENTICKET`)}
+        </Button>
+      </motion.div>
     </div>
   );
 }
 
-export default TransactionHistoryHeader;
+export default SupportTicketHeader;

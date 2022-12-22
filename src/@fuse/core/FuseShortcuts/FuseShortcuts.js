@@ -19,12 +19,14 @@ import { updateUserShortcuts } from 'app/auth/store/userSlice';
 import { Menus } from 'app/auth/store/constants';
 import i18next from 'i18next';
 import Popover from '@mui/material/Popover';
-import { changeShowResetPass } from 'app/auth/store/sharedData';
+import { changeShowResetPass, setShowDeposit, setShowTwoFA, setShowWithdraw } from 'app/auth/store/sharedData';
+import history from '@history';
 
 function FuseShortcuts(props) {
   const dispatch = useDispatch();
   const shortcuts = useSelector(({ auth }) => auth.user.data.shortcuts) || [];
   const navigation = useSelector(selectFlatNavigation);
+  const loggedin = useSelector(({ auth }) => auth.sharedData.loggedin);
 
   const searchInputRef = useRef(null);
   const [addMenu, setAddMenu] = useState(null);
@@ -125,7 +127,12 @@ function FuseShortcuts(props) {
 
   function onMenuClick(e) {
     settingClose();
-    if (e.id && e.id == Menus.CHANGEPASS) dispatch(changeShowResetPass(true));
+    if (loggedin) {
+      if (e.id && e.id == Menus.CHANGEPASS) dispatch(changeShowResetPass(true))
+      else if (e.id && e.id == Menus.TWOFASEC) dispatch(setShowTwoFA(true))
+      else if (e.id && e.id == Menus.DEPOSITNOW) dispatch(setShowDeposit(true))
+      else if (e.id && e.id == Menus.WITHDRAWNOE) dispatch(setShowWithdraw(true));
+    }
   }
 
   return (
@@ -142,215 +149,224 @@ function FuseShortcuts(props) {
         animate="show"
         className={clsx('flex flex-1', props.variant === 'vertical' && 'flex-col')}
       >
-        {shortcutItems.filter(a => !a.isChildren).map(
-          (_item) =>
-            _item && (
-              <Link to={_item.url} key={_item.id} role="button">
+        {!loggedin && (
+          <div className="logo" style={{ marginLeft: 8 }}>
+            <img
+              style={{ cursor: 'pointer' }}
+              onClick={() => history.push('/venapp/home')}
+              width="128"
+              src="assets/images/logos/fuse.svg"
+              alt="logo"
+            />
+          </div>
+        )}
+        {loggedin && (
+          <>
+            {shortcutItems.filter(a => !a.isChildren).map(
+              (_item) =>
+                _item && (
+                  <Link to={_item.id == Menus.CHANGEPASS
+                    || _item.id == Menus.TWOFASEC
+                    || _item.id == Menus.DEPOSITNOW
+                    || _item.id == Menus.WITHDRAWNOE
+                    ? '#' : _item.url} key={_item.id} role="button">
+                    <Tooltip
+                      title={_item.title}
+                      placement={props.variant === 'horizontal' ? 'bottom' : 'left'}
+                    >
+                      <IconButton
+                        className="w-40 h-40 p-0"
+                        component={motion.div}
+                        variants={item}
+                        size="large"
+                        onClick={() => onMenuClick(_item)}
+                      >
+                        {_item.icon ? (
+                          <Icon>{_item.icon}</Icon>
+                        ) : (
+                          <span className="text-20 font-semibold uppercase">{_item.title[0]}</span>
+                        )}
+                      </IconButton>
+                    </Tooltip>
+                  </Link>
+                )
+            )}
+
+            {/* dropdown icons logs */}
+            {shortcutItems && shortcutItems.length > 0 &&
+              shortcutItems.filter(b => b.id == Menus.TRANSHISTORY || b.id == Menus.RETINTLOG).length > 0 && (
                 <Tooltip
-                  title={_item.title}
+                  title={i18next.t(`navigation:LOGS`)}
                   placement={props.variant === 'horizontal' ? 'bottom' : 'left'}
                 >
                   <IconButton
-                    className="w-40 h-40 p-0"
                     component={motion.div}
                     variants={item}
+                    className="w-40 h-40 p-0"
+                    // style={{ background: settingBgColor }}
+                    aria-haspopup="true"
+                    onClick={(e) => settingClick(e, Menus.EARN)}
                     size="large"
-                    onClick={() => onMenuClick(_item)}
                   >
-                    {_item.icon ? (
-                      <Icon>{_item.icon}</Icon>
-                    ) : (
-                      <span className="text-20 font-semibold uppercase">{_item.title[0]}</span>
-                    )}
+                    <Icon>history_edu</Icon>
                   </IconButton>
                 </Tooltip>
-              </Link>
-            )
+              )}
+
+            <Popover
+              open={Boolean(settings)}
+              anchorEl={settings}
+              onClose={settingClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+              classes={{
+                paper: 'py-8',
+              }}
+            >
+              <>
+                {shortcutItems.filter(rr => rr.id == Menus.RETINTLOG).length > 0 && (
+                  <MenuItem
+                    onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
+                    component={Link}
+                    to={shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0].url}
+                    role="button"
+                  >
+                    <ListItemIcon className="min-w-40">
+                      <Icon>{shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0].icon}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0].title} />
+                  </MenuItem>
+                )}
+                {shortcutItems.filter(rr => rr.id == Menus.TRANSHISTORY).length > 0 && (
+                  <MenuItem
+                    onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.TRANSHISTORY)[0])}
+                    component={Link}
+                    to={shortcutItems.filter(rr => rr.id == Menus.TRANSHISTORY)[0].url}
+                    role="button"
+                  >
+                    <ListItemIcon className="min-w-40">
+                      <Icon>{shortcutItems.filter(rr => rr.id == Menus.TRANSHISTORY)[0].icon}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.TRANSHISTORY)[0].title} />
+                  </MenuItem>
+                )}
+              </>
+            </Popover>
+
+            {/* dropdown icons earn */}
+            {shortcutItems && shortcutItems.length > 0 &&
+              shortcutItems.filter(b => b.id == Menus.DEPOSITNOW
+                || b.id == Menus.WITHDRAWNOE
+                || b.id == Menus.DEPHISTORY
+                || b.id == Menus.WITHHISTORY
+              ).length > 0 && (
+                <Tooltip
+                  title={i18next.t(`navigation:EARN`)}
+                  placement={props.variant === 'horizontal' ? 'bottom' : 'left'}
+                >
+                  <IconButton
+                    component={motion.div}
+                    variants={item}
+                    className="w-40 h-40 p-0"
+                    // style={{ background: settingBgColor }}
+                    aria-haspopup="true"
+                    onClick={(e) => earnClick(e, Menus.EARN)}
+                    size="large"
+                  >
+                    <Icon>monetization_on</Icon>
+                  </IconButton>
+                </Tooltip>
+              )}
+
+            <Popover
+              open={Boolean(earn)}
+              anchorEl={earn}
+              onClose={earnClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+              classes={{
+                paper: 'py-8',
+              }}
+            >
+              <>
+                {shortcutItems.filter(rr => rr.id == Menus.DEPOSITNOW).length > 0 && (
+                  <MenuItem
+                    onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.DEPOSITNOW)[0])}
+                    component={Link}
+                    to={shortcutItems.filter(rr => rr.id == Menus.DEPOSITNOW)[0].url}
+                    role="button"
+                  >
+                    <ListItemIcon className="min-w-40">
+                      <Icon>{shortcutItems.filter(rr => rr.id == Menus.DEPOSITNOW)[0].icon}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.DEPOSITNOW)[0].title} />
+                  </MenuItem>
+                )}
+                {shortcutItems.filter(rr => rr.id == Menus.WITHDRAWNOE).length > 0 && (
+                  <MenuItem
+                    onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.WITHDRAWNOE)[0])}
+                    component={Link}
+                    to={shortcutItems.filter(rr => rr.id == Menus.WITHDRAWNOE)[0].url}
+                    role="button"
+                  >
+                    <ListItemIcon className="min-w-40">
+                      <Icon>{shortcutItems.filter(rr => rr.id == Menus.WITHDRAWNOE)[0].icon}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.WITHDRAWNOE)[0].title} />
+                  </MenuItem>
+                )}
+                {shortcutItems.filter(rr => rr.id == Menus.DEPHISTORY).length > 0 && (
+                  <MenuItem
+                    onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.DEPHISTORY)[0])}
+                    component={Link}
+                    to={shortcutItems.filter(rr => rr.id == Menus.DEPHISTORY)[0].url}
+                    role="button"
+                  >
+                    <ListItemIcon className="min-w-40">
+                      <Icon>{shortcutItems.filter(rr => rr.id == Menus.DEPHISTORY)[0].icon}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.DEPHISTORY)[0].title} />
+                  </MenuItem>
+                )}
+                {shortcutItems.filter(rr => rr.id == Menus.WITHHISTORY).length > 0 && (
+                  <MenuItem
+                    onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.WITHHISTORY)[0])}
+                    component={Link}
+                    to={shortcutItems.filter(rr => rr.id == Menus.WITHHISTORY)[0].url}
+                    role="button"
+                  >
+                    <ListItemIcon className="min-w-40">
+                      <Icon>{shortcutItems.filter(rr => rr.id == Menus.WITHHISTORY)[0].icon}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.WITHHISTORY)[0].title} />
+                  </MenuItem>
+                )}
+              </>
+            </Popover>
+
+            <div className="logo" style={{ marginLeft: "25%" }}>
+              <img
+                style={{ cursor: 'pointer' }}
+                onClick={() => history.push('/venapp/home')}
+                width="128"
+                src="assets/images/logos/fuse.svg"
+                alt="logo"
+              />
+            </div>
+          </>
         )}
-
-        {/* dropdown icons logs */}
-        {shortcutItems && shortcutItems.length > 0 &&
-          shortcutItems.filter(b => b.id == Menus.TRANSHISTORY || b.id == Menus.RETINTLOG).length > 0 && (
-            <Tooltip
-              title={i18next.t(`navigation:LOGS`)}
-              placement={props.variant === 'horizontal' ? 'bottom' : 'left'}
-            >
-              <IconButton
-                component={motion.div}
-                variants={item}
-                className="w-40 h-40 p-0"
-                // style={{ background: settingBgColor }}
-                aria-haspopup="true"
-                onClick={(e) => settingClick(e, Menus.EARN)}
-                size="large"
-              >
-                <Icon>history_edu</Icon>
-              </IconButton>
-            </Tooltip>
-          )}
-
-        <Popover
-          open={Boolean(settings)}
-          anchorEl={settings}
-          onClose={settingClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-          classes={{
-            paper: 'py-8',
-          }}
-        >
-          <>
-            {shortcutItems.filter(rr => rr.id == Menus.RETINTLOG).length > 0 && (
-              <MenuItem
-                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
-                component={Link}
-                to="/apps/redc/user"
-                role="button"
-              >
-                <ListItemIcon className="min-w-40">
-                  <Icon>{shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0].icon}</Icon>
-                </ListItemIcon>
-                <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0].title} />
-              </MenuItem>
-            )}
-            {shortcutItems.filter(rr => rr.id == Menus.TRANSHISTORY).length > 0 && (
-              <MenuItem
-                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
-                component={Link}
-                to="/apps/redc/user"
-                role="button"
-              >
-                <ListItemIcon className="min-w-40">
-                  <Icon>{shortcutItems.filter(rr => rr.id == Menus.TRANSHISTORY)[0].icon}</Icon>
-                </ListItemIcon>
-                <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.TRANSHISTORY)[0].title} />
-              </MenuItem>
-            )}
-          </>
-        </Popover>
-
-        {/* dropdown icons earn */}
-        {shortcutItems && shortcutItems.length > 0 &&
-          shortcutItems.filter(b => b.id == Menus.DEPOSITNOW
-            || b.id == Menus.WITHDRAWNOE
-            || b.id == Menus.DEPHISTORY
-            || b.id == Menus.WITHHISTORY
-          ).length > 0 && (
-            <Tooltip
-              title={i18next.t(`navigation:EARN`)}
-              placement={props.variant === 'horizontal' ? 'bottom' : 'left'}
-            >
-              <IconButton
-                component={motion.div}
-                variants={item}
-                className="w-40 h-40 p-0"
-                // style={{ background: settingBgColor }}
-                aria-haspopup="true"
-                onClick={(e) => earnClick(e, Menus.EARN)}
-                size="large"
-              >
-                <Icon>monetization_on</Icon>
-              </IconButton>
-            </Tooltip>
-          )}
-
-        <Popover
-          open={Boolean(earn)}
-          anchorEl={earn}
-          onClose={earnClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-          classes={{
-            paper: 'py-8',
-          }}
-        >
-          <>
-            {shortcutItems.filter(rr => rr.id == Menus.DEPOSITNOW).length > 0 && (
-              <MenuItem
-                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
-                component={Link}
-                to="/apps/redc/user"
-                role="button"
-              >
-                <ListItemIcon className="min-w-40">
-                  <Icon>{shortcutItems.filter(rr => rr.id == Menus.DEPOSITNOW)[0].icon}</Icon>
-                </ListItemIcon>
-                <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.DEPOSITNOW)[0].title} />
-              </MenuItem>
-            )}
-            {shortcutItems.filter(rr => rr.id == Menus.WITHDRAWNOE).length > 0 && (
-              <MenuItem
-                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
-                component={Link}
-                to="/apps/redc/user"
-                role="button"
-              >
-                <ListItemIcon className="min-w-40">
-                  <Icon>{shortcutItems.filter(rr => rr.id == Menus.WITHDRAWNOE)[0].icon}</Icon>
-                </ListItemIcon>
-                <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.WITHDRAWNOE)[0].title} />
-              </MenuItem>
-            )}
-            {shortcutItems.filter(rr => rr.id == Menus.DEPHISTORY).length > 0 && (
-              <MenuItem
-                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
-                component={Link}
-                to="/apps/redc/user"
-                role="button"
-              >
-                <ListItemIcon className="min-w-40">
-                  <Icon>{shortcutItems.filter(rr => rr.id == Menus.DEPHISTORY)[0].icon}</Icon>
-                </ListItemIcon>
-                <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.DEPHISTORY)[0].title} />
-              </MenuItem>
-            )}
-            {shortcutItems.filter(rr => rr.id == Menus.WITHHISTORY).length > 0 && (
-              <MenuItem
-                onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.RETINTLOG)[0])}
-                component={Link}
-                to="/apps/redc/user"
-                role="button"
-              >
-                <ListItemIcon className="min-w-40">
-                  <Icon>{shortcutItems.filter(rr => rr.id == Menus.WITHHISTORY)[0].icon}</Icon>
-                </ListItemIcon>
-                <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.WITHHISTORY)[0].title} />
-              </MenuItem>
-            )}
-          </>
-        </Popover>
-
-        {/* <Tooltip
-          title="Click to add/remove shortcut"
-          placement={props.variant === 'horizontal' ? 'bottom' : 'left'}
-        >
-          <IconButton
-            component={motion.div}
-            variants={item}
-            className="w-40 h-40 p-0"
-            aria-owns={addMenu ? 'add-menu' : null}
-            aria-haspopup="true"
-            onClick={addMenuClick}
-            size="large"
-          >
-            <Icon sx={{ color: amber[600] }}>star</Icon>
-          </IconButton>
-        </Tooltip> */}
-        <div className="logo" style={{ marginLeft: "25%" }}>
-          <img width="128" src="assets/images/logos/fuse.svg" alt="logo" />
-        </div>
       </motion.div>
       {/* <Menu
         id="add-menu"

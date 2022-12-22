@@ -84,7 +84,7 @@ function PricingStyle2Page() {
                         {i18next.t(`navigation:ULTRAPERCENT`)}%
                       </Typography>
                     </div>
-                    <Typography color="textSecondary" className="font-medium text-16">
+                    <Typography color="textSecondary" className="font-medium text-12">
                       {i18next.t(`navigation:RETURNULTRA`)}
                     </Typography>
                   </div>
@@ -150,7 +150,7 @@ function PricingStyle2Page() {
                         {i18next.t(`navigation:PLATINUMPERCENT`)}%
                       </Typography>
                     </div>
-                    <Typography color="textSecondary" className="font-medium text-16">
+                    <Typography color="textSecondary" className="font-medium text-12">
                       {i18next.t(`navigation:RETURNPLATINUM`)}
                     </Typography>
                   </div>
@@ -216,7 +216,7 @@ function PricingStyle2Page() {
                         {i18next.t(`navigation:STANDARDPERCENT`)}%
                       </Typography>
                     </div>
-                    <Typography color="textSecondary" className="font-medium text-16">
+                    <Typography color="textSecondary" className="font-medium text-12">
                       {i18next.t(`navigation:RETURNSTANDARD`)}
                     </Typography>
                   </div>
@@ -282,7 +282,7 @@ function PricingStyle2Page() {
                         {i18next.t(`navigation:BEGINNERPERCENT`)}%
                       </Typography>
                     </div>
-                    <Typography color="textSecondary" className="font-medium text-16">
+                    <Typography color="textSecondary" className="font-medium text-12">
                       {i18next.t(`navigation:RETURNBEGINNER`)}
                     </Typography>
                   </div>

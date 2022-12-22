@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logoutUser } from 'app/auth/store/userSlice';
 import ResetPasswordDialog from './ResetPasswordDialog';
+import { setLoggedIn } from 'app/auth/store/sharedData';
 
 function UserMenu(props) {
   const dispatch = useDispatch();
@@ -28,7 +29,6 @@ function UserMenu(props) {
 
   return (
     <>
-    <ResetPasswordDialog />
       <Button
         className="min-h-40 min-w-40 px-0 md:px-16 py-0 md:py-6"
         onClick={userMenuClick}
@@ -104,6 +104,8 @@ function UserMenu(props) {
             </MenuItem> */}
             <MenuItem
               onClick={() => {
+                localStorage.removeItem('cred');
+                dispatch(setLoggedIn(false));
                 dispatch(logoutUser());
                 userMenuClose();
               }}

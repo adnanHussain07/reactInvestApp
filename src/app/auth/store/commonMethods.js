@@ -1,3 +1,4 @@
+import { showMessage } from 'app/store/fuse/messageSlice';
 import i18next from 'i18next';
 import { Menus, RoleMenus } from './constants';
 import { logoutUser } from './userSlice';
@@ -12,7 +13,7 @@ export function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
-export const handleResponse = (err, isSuccess, directValue) => async (dispatch) => {
+export const handleResponse = (err, isSuccess, directValue, sepMsg) => async (dispatch) => {
   let value = '';
   let type = '';
   let time = 2000;
@@ -46,6 +47,9 @@ export const handleResponse = (err, isSuccess, directValue) => async (dispatch) 
   }
   else {
     if (directValue) {
+      if (sepMsg) {
+        value = i18next.t(`navigation:${sepMsg}`);
+      }
       type = 'info';
       time = 4000;
     }

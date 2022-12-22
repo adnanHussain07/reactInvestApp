@@ -13,6 +13,9 @@ const initialState = {
   addUserLoader: false,
   logsLoader: false,
   usersListLoader: false,
+  twoFALoader: false,
+  depositLoader: false, //true
+  withdrawLoader: false, //true
 };
 
 const invitesSlice = createSlice({
@@ -56,6 +59,15 @@ const invitesSlice = createSlice({
     setUsersListLoader: (state, action) => {
       state.usersListLoader = action.payload;
     },
+    setTwoFALoader: (state, action) => {
+      state.twoFALoader = action.payload;
+    },
+    setDepositLoader: (state, action) => {
+      state.depositLoader = action.payload;
+    },
+    setWithdrawLoader: (state, action) => {
+      state.withdrawLoader = action.payload;
+    },
     setLoadersInitial: (state, action) => initialState,
   },
   extraReducers: {},
@@ -68,13 +80,16 @@ export const {
   setAccessLoader,
   setAuthLoader,
   setUsersLoader,
-  setLoadersInitial,
   setNotifyLoader,
   setSendNotifyLoader,
   setRegisterLoader,
   setAddUserLoader,
   setLogsLoader,
   setUsersListLoader,
+  setDepositLoader,
+  setTwoFALoader,
+  setWithdrawLoader,
+  setLoadersInitial,
 } = invitesSlice.actions;
 
 export default invitesSlice.reducer;

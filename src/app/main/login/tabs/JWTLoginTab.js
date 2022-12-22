@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { submitLogin } from 'app/auth/store/loginSlice';
 import * as yup from 'yup';
 import _ from '@lodash';
+import { setLoggedIn } from 'app/auth/store/sharedData';
 
 /**
  * Form Validation Schema
@@ -56,6 +57,8 @@ function JWTLoginTab(props) {
   }, [login.errors, setError]);
 
   function onSubmit(model) {
+    localStorage.setItem('cred', '1');
+    dispatch(setLoggedIn(true));
     dispatch(submitLogin(model));
   }
 

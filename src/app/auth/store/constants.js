@@ -134,6 +134,8 @@ export const ReqColorCodes = {
   btnText: 'black',
 }
 
+export const DEFAULTUSERPIC = 'assets/images/avataruser.png';
+
 export const DateTimeFormat = 'DD/MM/YYYY hh:mm a';
 export const DateFormat = 'DD/MM/YYYY';
 export const GoogleMapUri = 'https://www.google.com/maps/search/?api=1&query=';

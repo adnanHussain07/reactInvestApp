@@ -15,6 +15,11 @@ import DepositHistoryLogConfig from './depositHistory/depositHistoryLogConfig';
 import WithdrawHistoryLogConfig from './withdrawHistory/withdrawHistoryLogConfig';
 import TransactionHistoryLogConfig from './transactionHistory/transactionHistoryLogConfig';
 import ReferralStaticConfig from './referralStatic/referralStaticConfig';
+import SupportTicketConfig from './supportTicket/supportTicketConfig';
+import NewSupportTicketConfig from './newSupportTicket/newSupportTicketConfig';
+import ProfileConfig from './profile/profileConfig';
+import TwoFASecurityConfig from './twoFASecurity/twoFASecurityConfig';
+import DepositNowConfig from './depositNow/depositNowConfig';
 
 const appsConfigs = [
   AnalyticsDashboardAppConfig,
@@ -36,6 +41,11 @@ const appsConfigs = [
   WithdrawHistoryLogConfig,
   TransactionHistoryLogConfig,
   ReferralStaticConfig,
+  SupportTicketConfig,
+  NewSupportTicketConfig,
+  ProfileConfig,
+  TwoFASecurityConfig,
+  DepositNowConfig,
 ];
 
 export default appsConfigs;

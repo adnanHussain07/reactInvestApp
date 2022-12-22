@@ -8,6 +8,7 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectFooterTheme } from 'app/store/fuse/settingsSlice';
 import clsx from 'clsx';
+import { Typography } from '@mui/material';
 
 function FooterLayout1(props) {
   const footerTheme = useSelector(selectFooterTheme);
@@ -20,15 +21,18 @@ function FooterLayout1(props) {
         color="default"
         style={{ backgroundColor: footerTheme.palette.background.paper }}
       >
-        <Toolbar className="min-h-48 md:min-h-64 px-8 sm:px-12 py-0 flex items-center overflow-x-auto">
-          <div className="flex flex-grow flex-shrink-0">
+        <Toolbar className="min-h-48 md:min-h-64 px-8 sm:px-12 py-0 flex justify-center items-center overflow-x-auto">
+          <Typography color="inherit" className="opacity-75 leading-tight text-center">
+            Venax © 2023
+          </Typography>
+          {/* <div className="flex flex-grow flex-shrink-0">
             <PurchaseButton className="mx-4" />
             <DocumentationButton className="mx-4" />
           </div>
 
           <div className="flex flex-grow flex-shrink-0 px-12 justify-end">
             <PoweredByLinks />
-          </div>
+          </div> */}
         </Toolbar>
       </AppBar>
     </ThemeProvider>
