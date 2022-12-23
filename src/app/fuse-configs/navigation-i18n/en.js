@@ -26,12 +26,12 @@ const locale = {
   REFERRALSTATS: 'Referral Statistic',
   PROFILE: 'Profile',
   CHANGEPASS: 'Change Password',
-  SUPPTICKET: 'Support Ticket',
+  SUPPTICKET: 'Videos',
   TWOFASEC: '2FA Security',
   LOGOUT: 'Logout',
 
   DEPOSITWALLET: 'DEPOSIT WALLET',
-  INTERESTWALLET: 'INTEREST WALLET',
+  INTERESTWALLET: 'ACTIVE TRADE WALLET',
   TOTALTRADES: 'Total Trades',
   TOTALPAY: 'Total Payouts',
   TOTALDEPO: 'Total Deposit',
@@ -136,7 +136,7 @@ const locale = {
   NAME: "Name",
   EMAILADDRESS: "Email Address",
   MESSAGE: "Message",
-  MYSUPPTICKET: "My Support Ticket",
+  MYSUPPTICKET: "Videos to assist you",
   RESETPASSMY: "Reset my password",
   SELIMAGE: "Select Image",
 
@@ -209,6 +209,23 @@ const locale = {
 
   WELPICHEAD1: 'Together with advisers, we help Millions of customers like you to look after their money invested and achieve their financial goals',
   WELPICHEAD2: 'Our goal is to provide our investors with a reliable source of high income, while minimizing any possible risks and offering a high-quality service, allowing us to automate and simplify the relations between the investors and the company.',
+
+  HASH: "#",
+  COIN: "Coins",
+  PRICE: "Price",
+  TWNTYFR: "24h",
+  VOL: "Volume(24h)",
+  MARKETCAP: "Market Cap",
+
+  MARKETCAPWIDG: "CRYPTOCURRENCY MARKET WIDGET",
+  MARKETCAP1: "Cryptocurrency Market Data Display",
+  MARKETCAP2: "This widget displays crypto assets and then sorts them by their market capitalization.",
+
+  TEAMCHAT: "Venax Support",
+  SENDMSG: "Send message to get support for any kind of assist",
+  STARTCONVO: 'Start a conversation by typing your message below.',
+  SETT: 'Setting',
+
 };
 
 export default locale;

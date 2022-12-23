@@ -117,13 +117,6 @@ const navigationConfig = [
     url: '/venapp/profile',
   },
   {
-    id: Menus.CHANGEPASS,
-    title: 'Change Password',
-    translate: 'CHANGEPASS',
-    type: 'item',
-    icon: 'lock',
-  },
-  {
     id: Menus.SUPPTICKET,
     title: 'Support Ticket',
     translate: 'SUPPTICKET',
@@ -132,14 +125,31 @@ const navigationConfig = [
     url: '/venapp/suppticket',
   },
   {
-    id: Menus.TWOFASEC,
-    title: '2FA Security',
-    translate: 'TWOFASEC',
-    type: 'item',
-    icon: 'security',
-    // url: '/venapp/twofasecure',
+    id: Menus.SETTING,
+    title: 'Setting',
+    translate: 'SETT',
+    type: 'group',
+    icon: 'settings',
+    children: [
+      {
+        id: Menus.CHANGEPASS,
+        title: 'Change Password',
+        translate: 'CHANGEPASS',
+        type: 'item',
+        url: '#',
+        icon: 'lock',
+      },
+      {
+        id: Menus.TWOFASEC,
+        title: '2FA Security',
+        translate: 'TWOFASEC',
+        type: 'item',
+        url: '#',
+        icon: 'security',
+        // url: '/venapp/twofasecure',
+      },
+    ],
   },
-
 
   // {
   //   id: 'applications',

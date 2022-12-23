@@ -23,6 +23,8 @@ import { getCourses, selectCourses } from '../store/coursesSlice';
 import i18next from 'i18next';
 import history from '@history';
 import { Hidden } from '@mui/material';
+import CryptoData from 'app/fuse-layouts/shared-components/cryptoData/CryptoData';
+import PricingStyle2Page from 'app/main/pages/pricing/style-2/PricingStyle2Page';
 
 const Root = styled('div')(({ theme }) => ({
   '& .header': {
@@ -141,106 +143,24 @@ function Courses(props) {
             src='assets/images/header.png'
           />
         </div>
-        {/* {useMemo(() => {
-          const container = {
-            show: {
-              transition: {
-                staggerChildren: 0.1,
-              },
-            },
-          };
 
-          const item = {
-            hidden: {
-              opacity: 0,
-              y: 20,
-            },
-            show: {
-              opacity: 1,
-              y: 0,
-            },
-          };
+        <div className="flex sm:flex-row items-center justify-center py-24">
+          <div className='mx-6'>
+            <Typography color="inherit" className="text-24 font-bold sm:text-32 mt-8 sm:mt-16 opacity-75 leading-tight sm:leading-loose text-center">
+              {i18next.t(`navigation:MARKETCAPWIDG`)}
+            </Typography>
+            <Typography color="inherit" className="text-18 font-semibold sm:text-24 mt-8 sm:mt-16 opacity-75 leading-tight sm:leading-loose text-center">
+              {i18next.t(`navigation:MARKETCAP1`)}
+            </Typography>
+            <Typography color="inherit" className="text-12 sm:text-18 mt-8 sm:mt-16 opacity-75 leading-tight sm:leading-loose text-center">
+              {i18next.t(`navigation:MARKETCAP2`)}
+            </Typography>
+          </div>
+        </div>
 
-          return (
-            filteredData &&
-            (filteredData.length > 0 ? (
-              <motion.div
-                className="flex flex-wrap py-24"
-                variants={container}
-                initial="hidden"
-                animate="show"
-              >
-                {filteredData.map((course) => {
-                  const category = categories.find((_cat) => _cat.value === course.category);
-                  return (
-                    <motion.div
-                      variants={item}
-                      className="w-full pb-24 sm:w-1/2 lg:w-1/3 sm:p-16"
-                      key={course.id}
-                    >
-                      <Card className="flex flex-col h-256 shadow">
-                        <div
-                          className="flex flex-shrink-0 items-center justify-between px-24 h-64"
-                          style={{
-                            background: category.color,
-                            color: theme.palette.getContrastText(category.color),
-                          }}
-                        >
-                          <Typography className="font-medium truncate" color="inherit">
-                            {category.label}
-                          </Typography>
-                          <div className="flex items-center justify-center opacity-75">
-                            <Icon className="text-20 mx-8" color="inherit">
-                              access_time
-                            </Icon>
-                            <div className="text-14 font-medium whitespace-nowrap">
-                              {course.length}
-                              min
-                            </div>
-                          </div>
-                        </div>
-                        <CardContent className="flex flex-col flex-auto items-center justify-center">
-                          <Typography className="text-center text-16 font-medium">
-                            {course.title}
-                          </Typography>
-                          <Typography
-                            className="text-center text-13 mt-8 font-normal"
-                            color="textSecondary"
-                          >
-                            {course.updated}
-                          </Typography>
-                        </CardContent>
-                        <CardActions className="justify-center pb-24">
-                          <Button
-                            to={`/apps/academy/courses/${course.id}/${course.slug}`}
-                            component={Link}
-                            className="justify-start px-32"
-                            color="primary"
-                            variant="outlined"
-                          >
-                            {buttonStatus(course)}
-                          </Button>
-                        </CardActions>
-                        <LinearProgress
-                          className="w-full"
-                          variant="determinate"
-                          value={(course.activeStep * 100) / course.totalSteps}
-                          color="secondary"
-                        />
-                      </Card>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            ) : (
-              <div className="flex flex-1 items-center justify-center">
-                <Typography color="textSecondary" className="text-24 my-24">
-                  No courses found!
-                </Typography>
-              </div>
-            ))
-          );
-        }, [filteredData, categories, theme.palette])} */}
+        <CryptoData />
+
+        <PricingStyle2Page />
       </div>
     </Root>
   );

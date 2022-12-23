@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import InputBase from '@mui/material/InputBase';
 import { sendMessage } from './store/chatSlice';
 import { selectContacts } from './store/contactsSlice';
+import i18next from 'i18next';
 
 const StyledMessageRow = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -140,6 +141,7 @@ function Chat(props) {
 
   const chatScroll = useRef(null);
   const [messageText, setMessageText] = useState('');
+  const [getMsgList, setMsgList] = useState([]);
 
   useEffect(() => {
     scrollToBottom();
@@ -154,19 +156,23 @@ function Chat(props) {
   };
 
   const onMessageSubmit = (ev) => {
+    debugger
     ev.preventDefault();
     if (messageText === '') {
       return;
     }
-    dispatch(
-      sendMessage({
-        messageText,
-        chatId: chat.id,
-        contactId: selectedContactId,
-      })
-    ).then(() => {
-      setMessageText('');
-    });
+    setMsgList(getMsgList.concat(messageText));
+    setMessageText('');
+    // dispatch(
+    //   sendMessage({
+    //     messageText,
+    //     chatId: chat.id,
+    //     // chatId: "9e6edacc",
+    //     contactId: selectedContactId,
+    //   })
+    // ).then(() => {
+    //   setMessageText('');
+    // });
   };
 
   return (
@@ -205,12 +211,41 @@ function Chat(props) {
                   chat
                 </Icon>
                 <Typography className="px-16 pb-24 mt-24 text-center" color="textSecondary">
-                  Select a contact to start a conversation.
+                  {i18next.t(`navigation:SENDMSG`)}
                 </Typography>
               </div>
             )}
 
-            {chat?.dialog.length > 0 && (
+            {getMsgList && getMsgList.length > 0 && (
+              <div className="flex flex-col pt-16 ltr:pl-40 rtl:pr-40 pb-40">
+                {getMsgList.map((item, i) => {
+                  return (
+                    <StyledMessageRow
+                      key={i}
+                      className={clsx(
+                        { me: true },
+                        // { me: item.who === user.id },
+                        // { contact: item.who !== user.id },
+                        // { 'first-of-group': isFirstMessageOfGroup(item, i) },
+                        // { 'last-of-group': isLastMessageOfGroup(item, i) }
+                      )}
+                    >
+                      {/* {shouldShowContactAvatar(item, i) && (
+                        <Avatar className="avatar" src={contact.avatar} />
+                      )} */}
+                      <div className="bubble shadow">
+                        <div className="message">{item}</div>
+                        {/* <Typography className="time" color="textSecondary">
+                          {formatDistanceToNow(new Date(item.time), { addSuffix: true })}
+                        </Typography> */}
+                      </div>
+                    </StyledMessageRow>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* {chat?.dialog.length > 0 && (
               <div className="flex flex-col pt-16 ltr:pl-40 rtl:pr-40 pb-40">
                 {chat.dialog.map((item, i) => {
                   const contact =
@@ -240,9 +275,9 @@ function Chat(props) {
                   );
                 })}
               </div>
-            )}
+            )} */}
 
-            {chat?.dialog.length === 0 && (
+            {/* {chat?.dialog.length === 0 && (
               <div className="flex flex-col flex-1">
                 <div className="flex flex-col flex-1 items-center justify-center">
                   <Icon className="text-128" color="disabled">
@@ -250,15 +285,37 @@ function Chat(props) {
                   </Icon>
                 </div>
                 <Typography className="px-16 pb-24 text-center" color="textSecondary">
-                  Start a conversation by typing your message below.
+                  {i18next.t(`navigation:STARTCONVO`)}
                 </Typography>
               </div>
-            )}
+            )} */}
           </FuseScrollbars>
         );
-      }, [chat, contacts, selectedContactId, user])}
+      }, [chat, contacts, selectedContactId, user, getMsgList])}
 
-      {chat && (
+      <form onSubmit={onMessageSubmit} className="pb-16 px-8 absolute bottom-0 left-0 right-0">
+        <Paper className="rounded-24 flex items-center relative shadow">
+          <InputBase
+            autoFocus={false}
+            id="message-input"
+            className="flex flex-1 flex-grow flex-shrink-0 mx-16 ltr:mr-48 rtl:ml-48 my-8"
+            placeholder="Type your message"
+            onChange={onInputChange}
+            value={messageText}
+          />
+          <IconButton
+            className="absolute ltr:right-0 rtl:left-0 top-0"
+            type="submit"
+            size="large"
+          >
+            <Icon className="text-24" color="action">
+              send
+            </Icon>
+          </IconButton>
+        </Paper>
+      </form>
+
+      {/* {chat && (
         <form onSubmit={onMessageSubmit} className="pb-16 px-8 absolute bottom-0 left-0 right-0">
           <Paper className="rounded-24 flex items-center relative shadow">
             <InputBase
@@ -280,7 +337,7 @@ function Chat(props) {
             </IconButton>
           </Paper>
         </form>
-      )}
+      )} */}
     </Paper>
   );
 }

@@ -22,6 +22,7 @@ function ContactList(props) {
   const contactListScroll = useRef(null);
 
   const handleContactClick = (contactId) => {
+    debugger
     dispatch(openChatPanel());
     dispatch(getChat({ contactId }));
     scrollToTop();

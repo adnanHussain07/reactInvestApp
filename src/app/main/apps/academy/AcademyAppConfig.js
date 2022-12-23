@@ -13,6 +13,7 @@ const AcademyAppConfig = {
         },
         footer: {
           display: true,
+          style: 'static',
         },
         leftSidePanel: {
           display: false,

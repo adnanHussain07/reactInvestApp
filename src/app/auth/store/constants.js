@@ -32,7 +32,7 @@ export const Menus = {
   CHANGEPASS: 'changepass',
   SUPPTICKET: 'suppticket',
   TWOFASEC: 'twofa',
-
+  SETTING: 'Settings',
 };
 
 export const RoleMenus = [
@@ -54,6 +54,7 @@ export const RoleMenus = [
       Menus.CHANGEPASS,
       Menus.REFERRALSTATS,
       Menus.TWOFASEC,
+      Menus.SETTING,
     ],
     permissions: [
       Permissions.ADDITEM,
@@ -85,6 +86,7 @@ export const RoleMenus = [
       Menus.CHANGEPASS,
       Menus.REFERRALSTATS,
       Menus.TWOFASEC,
+      Menus.SETTING,
     ],
     permissions: [
       Permissions.ADDITEM,

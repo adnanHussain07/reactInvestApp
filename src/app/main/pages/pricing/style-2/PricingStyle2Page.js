@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import i18next from 'i18next';
 import { ReqColorCodes } from 'app/auth/store/constants';
+import { useSelector } from 'react-redux';
+import History from '@history';
 
 const Root = styled('div')(({ theme }) => ({
   '& .PricingStyle2Page-header': {
@@ -20,6 +22,7 @@ const Root = styled('div')(({ theme }) => ({
 }));
 
 function PricingStyle2Page() {
+  const loggedin = useSelector(({ auth }) => auth.sharedData.loggedin);
   const container = {
     show: {
       transition: {
@@ -32,6 +35,15 @@ function PricingStyle2Page() {
     hidden: { opacity: 0, y: 100 },
     show: { opacity: 1, y: 0 },
   };
+
+  function onInvestClick() {
+    if (!loggedin) {
+      History.push('/login');
+    }
+    else {
+
+    }
+  }
 
   return (
     <Root className="w-full">
@@ -125,6 +137,7 @@ function PricingStyle2Page() {
                     variant="contained"
                     // color='secondary' 
                     className="w-128"
+                    onClick={() => onInvestClick()}
                   >
                     {i18next.t(`navigation:INVESTNOW`)}
                   </Button>
@@ -191,6 +204,7 @@ function PricingStyle2Page() {
                     variant="contained"
                     // color='secondary' 
                     className="w-128"
+                    onClick={() => onInvestClick()}
                   >
                     {i18next.t(`navigation:INVESTNOW`)}
                   </Button>
@@ -257,6 +271,7 @@ function PricingStyle2Page() {
                     variant="contained"
                     // color='secondary' 
                     className="w-128"
+                    onClick={() => onInvestClick()}
                   >
                     {i18next.t(`navigation:INVESTNOW`)}
                   </Button>
@@ -323,6 +338,7 @@ function PricingStyle2Page() {
                     variant="contained"
                     // color='secondary' 
                     className="w-128"
+                    onClick={() => onInvestClick()}
                   >
                     {i18next.t(`navigation:INVESTNOW`)}
                   </Button>

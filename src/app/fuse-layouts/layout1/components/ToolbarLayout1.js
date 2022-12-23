@@ -72,11 +72,13 @@ function ToolbarLayout1(props) {
 
                 <FullScreenToggle />
 
+                <ChatPanelToggleButton />
+
                 {/* <FuseSearch /> */}
 
                 {/* <Hidden lgUp>
-  <ChatPanelToggleButton />
-</Hidden> */}
+                  <ChatPanelToggleButton />
+                </Hidden> */}
 
                 {/* <QuickPanelToggleButton /> */}
 

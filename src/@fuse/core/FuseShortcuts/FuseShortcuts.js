@@ -33,6 +33,7 @@ function FuseShortcuts(props) {
   const [searchText, setSearchText] = useState('');
   const [settings, setSettings] = useState(null);
   const [earn, setEarn] = useState(null);
+  const [onSet, setOnSet] = useState(null);
   const [searchResults, setSearchResults] = useState(null);
   // const shortcutItems = shortcuts
   //   ? shortcuts.map((id) => navigation.find((item) => item.id === id))
@@ -123,6 +124,14 @@ function FuseShortcuts(props) {
 
   const earnClose = () => {
     setEarn(null);
+  };
+
+  const onSetClose = () => {
+    setOnSet(null);
+  };
+
+  const onSettingClick = (event, id) => {
+    setOnSet(event.currentTarget);
   };
 
   function onMenuClick(e) {
@@ -351,6 +360,75 @@ function FuseShortcuts(props) {
                       <Icon>{shortcutItems.filter(rr => rr.id == Menus.WITHHISTORY)[0].icon}</Icon>
                     </ListItemIcon>
                     <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.WITHHISTORY)[0].title} />
+                  </MenuItem>
+                )}
+              </>
+            </Popover>
+
+            {/* dropdown icons setting */}
+            {shortcutItems && shortcutItems.length > 0 &&
+              shortcutItems.filter(b => b.id == Menus.CHANGEPASS
+                || b.id == Menus.TWOFASEC
+              ).length > 0 && (
+                <Tooltip
+                  title={i18next.t(`navigation:SETT`)}
+                  placement={props.variant === 'horizontal' ? 'bottom' : 'left'}
+                >
+                  <IconButton
+                    component={motion.div}
+                    variants={item}
+                    className="w-40 h-40 p-0"
+                    // style={{ background: settingBgColor }}
+                    aria-haspopup="true"
+                    onClick={(e) => onSettingClick(e, Menus.SETTING)}
+                    size="large"
+                  >
+                    <Icon>settings</Icon>
+                  </IconButton>
+                </Tooltip>
+              )}
+
+            <Popover
+              open={Boolean(onSet)}
+              anchorEl={onSet}
+              onClose={onSetClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+              classes={{
+                paper: 'py-8',
+              }}
+            >
+              <>
+                {shortcutItems.filter(rr => rr.id == Menus.CHANGEPASS).length > 0 && (
+                  <MenuItem
+                    onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.CHANGEPASS)[0])}
+                    // component={Link}
+                    to={shortcutItems.filter(rr => rr.id == Menus.CHANGEPASS)[0].url}
+                    role="button"
+                  >
+                    <ListItemIcon className="min-w-40">
+                      <Icon>{shortcutItems.filter(rr => rr.id == Menus.CHANGEPASS)[0].icon}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.CHANGEPASS)[0].title} />
+                  </MenuItem>
+                )}
+                {shortcutItems.filter(rr => rr.id == Menus.TWOFASEC).length > 0 && (
+                  <MenuItem
+                    onClick={() => onMenuClick(shortcutItems.filter(rr => rr.id == Menus.TWOFASEC)[0])}
+                    // component={Link}
+                    to={shortcutItems.filter(rr => rr.id == Menus.TWOFASEC)[0].url}
+                    role="button"
+                  >
+                    <ListItemIcon className="min-w-40">
+                      <Icon>{shortcutItems.filter(rr => rr.id == Menus.TWOFASEC)[0].icon}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={shortcutItems.filter(rr => rr.id == Menus.TWOFASEC)[0].title} />
                   </MenuItem>
                 )}
               </>

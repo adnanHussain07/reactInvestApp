@@ -8,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import withReducer from 'app/store/withReducer';
 import keycode from 'keycode';
-import { memo, useCallback, useEffect, useRef } from 'react';
+import React, { memo, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSwipeable } from 'react-swipeable';
 import Chat from './Chat';
@@ -17,6 +17,8 @@ import reducer from './store';
 import { getContacts, selectContacts } from './store/contactsSlice';
 import { openChatPanel, closeChatPanel } from './store/stateSlice';
 import { getUserData } from './store/userSlice';
+import i18next from 'i18next';
+import { getChat } from './store/chatSlice';
 
 const Root = styled('div')(({ theme, opened }) => ({
   position: 'sticky',
@@ -167,7 +169,8 @@ function ChatPanel(props) {
       <div className="panel flex flex-col max-w-full" ref={ref}>
         <AppBar position="static" className="shadow-md">
           <Toolbar className="px-4">
-            {(!state || !selectedContactId) && (
+            {/* !state || !selectedContactId */}
+            {(state) && (
               <div className="flex flex-1 items-center px-4">
                 <IconButton
                   className=""
@@ -177,21 +180,24 @@ function ChatPanel(props) {
                 >
                   <Icon className="text-32">chat</Icon>
                 </IconButton>
-                {!selectedContactId && (
+                <Typography className="mx-8 text-16" color="inherit">
+                  {i18next.t(`navigation:TEAMCHAT`)}
+                </Typography>
+                {/* {!selectedContactId && (
                   <Typography className="mx-8 text-16" color="inherit">
-                    Team Chat
+                    {i18next.t(`navigation:TEAMCHAT`)}
                   </Typography>
-                )}
+                )} */}
               </div>
             )}
-            {state && selectedContact && (
+            {/* {state && selectedContact && (
               <div className="flex flex-1 items-center px-12">
                 <Avatar src={selectedContact.avatar} />
                 <Typography className="mx-16 text-16" color="inherit">
                   {selectedContact.name}
                 </Typography>
               </div>
-            )}
+            )} */}
             <div className="flex px-4">
               <IconButton onClick={(ev) => dispatch(closeChatPanel())} color="inherit" size="large">
                 <Icon>close</Icon>
@@ -200,7 +206,7 @@ function ChatPanel(props) {
           </Toolbar>
         </AppBar>
         <Paper className="flex flex-1 flex-row min-h-px shadow-0">
-          <ContactList className="flex flex-shrink-0" />
+          {/* <ContactList className="flex flex-shrink-0" /> */}
           <Chat className="flex flex-1 z-10" />
         </Paper>
       </div>

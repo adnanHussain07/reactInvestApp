@@ -18,6 +18,8 @@ import DepositNowDialog from '../shared-components/DepositNowDialog';
 import WithdrawNowDialog from '../shared-components/WithdrawNowDialog';
 import history from '@history';
 import { setLoggedIn } from 'app/auth/store/sharedData';
+import { getChat } from '../shared-components/chatPanel/store/chatSlice';
+import { setSelectedContactId } from '../shared-components/chatPanel/store/contactsSlice';
 
 const Root = styled('div')(({ theme, config }) => ({
   ...(config.mode === 'boxed' && {
@@ -45,12 +47,16 @@ function Layout1(props) {
   React.useEffect(() => {
     let mounted = true;
     if (mounted) {
-      if (localStorage.getItem('cred') && localStorage.getItem('cred') == '1') {
-        dispatch(setLoggedIn(true));
+      if (!localStorage.getItem('cred') && localStorage.getItem('cred') != '1') {
         if (!window.location.pathname.toLowerCase().includes('login')
           && !window.location.pathname.toLowerCase().includes('register')
         ) {
           history.push('/venapp/home');
+        }
+      }
+      else {
+        if (localStorage.getItem('cred') && localStorage.getItem('cred') == '1') {
+          dispatch(setLoggedIn(true));
         }
       }
     }

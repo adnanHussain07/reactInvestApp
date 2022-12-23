@@ -60,38 +60,38 @@ function NotificationPanel(props) {
       dispatch(addNotification(NotificationModel(obj)));
     }
 
-    setTimeout(
-      () =>
-        createNotification({
-          message: 'Great Job! this is awesome.',
-          options: { variant: 'success' },
-        }),
-      4000
-    );
+    // setTimeout(
+    //   () =>
+    //     createNotification({
+    //       message: 'Great Job! this is awesome.',
+    //       options: { variant: 'success' },
+    //     }),
+    //   4000
+    // );
 
-    setTimeout(
-      () =>
-        createNotification({ message: 'Hey there is a problem!', options: { variant: 'error' } }),
-      6000
-    );
+    // setTimeout(
+    //   () =>
+    //     createNotification({ message: 'Hey there is a problem!', options: { variant: 'error' } }),
+    //   6000
+    // );
 
-    setTimeout(
-      () =>
-        createNotification({
-          message: 'There might be a problem here!',
-          options: { variant: 'warning' },
-        }),
-      8000
-    );
+    // setTimeout(
+    //   () =>
+    //     createNotification({
+    //       message: 'There might be a problem here!',
+    //       options: { variant: 'warning' },
+    //     }),
+    //   8000
+    // );
 
-    setTimeout(
-      () =>
-        createNotification({
-          message: 'This is some general information.',
-          options: { variant: 'info' },
-        }),
-      10000
-    );
+    // setTimeout(
+    //   () =>
+    //     createNotification({
+    //       message: 'This is some general information.',
+    //       options: { variant: 'info' },
+    //     }),
+    //   10000
+    // );
   }, [dispatch]);
 
   useEffect(() => {
