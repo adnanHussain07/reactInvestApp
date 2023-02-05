@@ -22,20 +22,9 @@ import TwoFASecurityConfig from './twoFASecurity/twoFASecurityConfig';
 import DepositNowConfig from './depositNow/depositNowConfig';
 
 const appsConfigs = [
+
   AnalyticsDashboardAppConfig,
-  ProjectDashboardAppConfig,
-  MailAppConfig,
-  TodoAppConfig,
-  FileManagerAppConfig,
-  ContactsAppConfig,
-  CalendarAppConfig,
-  ChatAppConfig,
-  ECommerceAppConfig,
-  ScrumboardAppConfig,
   AcademyAppConfig,
-  NotesAppConfig,
-
-
   ReturnInvestLogConfig,
   DepositHistoryLogConfig,
   WithdrawHistoryLogConfig,
@@ -46,6 +35,17 @@ const appsConfigs = [
   ProfileConfig,
   TwoFASecurityConfig,
   DepositNowConfig,
+
+  // ProjectDashboardAppConfig,
+  // MailAppConfig,
+  // TodoAppConfig,
+  // FileManagerAppConfig,
+  // ContactsAppConfig,
+  // CalendarAppConfig,
+  // ChatAppConfig,
+  // ECommerceAppConfig,
+  // ScrumboardAppConfig,
+  // NotesAppConfig,
 ];
 
 export default appsConfigs;

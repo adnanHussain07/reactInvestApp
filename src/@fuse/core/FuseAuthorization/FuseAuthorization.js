@@ -51,9 +51,11 @@ class FuseAuthorization extends Component {
         User is guest
         Redirect to Login Page
         */
-    if (!userRole || userRole.length === 0) {
+    const data = localStorage.getItem('ghuid') ? JSON.parse(localStorage.getItem('ghuid')) : false;
+    const role = userRole && userRole.length > 0 ? userRole : data && data.role && data.role.length > 0 ? data.role : false;
+    if (!role || role.length === 0) {
       history.push({
-        pathname: '/login',
+        pathname: '/venapp/home',
         state: { redirectUrl: pathname },
       });
     } else {

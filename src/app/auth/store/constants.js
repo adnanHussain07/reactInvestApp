@@ -4,6 +4,12 @@ export const Roles = {
   user: 'user',
 };
 
+export const InvestRoles = {
+  superadmin: 1,
+  admin: 2,
+  user: 3,
+};
+
 export const Permissions = {
   EXPORT: "EXPORT",
   ADDUSER: "ADDUSER",
@@ -38,7 +44,7 @@ export const Menus = {
 export const RoleMenus = [
   // default created super admin
   {
-    id: Roles.superadmin,
+    id: InvestRoles.superadmin,
     access: [
       Menus.DASHBOARDS,
       Menus.RETINTLOG,
@@ -70,7 +76,7 @@ export const RoleMenus = [
   },
   // register admin
   {
-    id: Roles.admin,
+    id: InvestRoles.admin,
     access: [
       Menus.DASHBOARDS,
       Menus.RETINTLOG,
@@ -102,7 +108,7 @@ export const RoleMenus = [
   },
   // register user
   {
-    id: Roles.user,
+    id: InvestRoles.user,
     access: [
       Menus.ITEMS,
       Menus.USERS,
@@ -140,5 +146,6 @@ export const DEFAULTUSERPIC = 'assets/images/avataruser.png';
 
 export const DateTimeFormat = 'DD/MM/YYYY hh:mm a';
 export const DateFormat = 'DD/MM/YYYY';
+export const DateTimeFormatNew = 'lll';
 export const GoogleMapUri = 'https://www.google.com/maps/search/?api=1&query=';
 

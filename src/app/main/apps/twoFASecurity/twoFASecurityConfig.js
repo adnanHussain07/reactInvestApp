@@ -1,3 +1,4 @@
+import { authRoles } from 'app/auth';
 import { lazy } from 'react';
 
 const TwoFASecurityConfig = {
@@ -22,6 +23,7 @@ const TwoFASecurityConfig = {
       },
     },
   },
+  auth: authRoles.investUser,
   routes: [
     {
       path: '/venapp/twofasecure',

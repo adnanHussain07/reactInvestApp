@@ -1,3 +1,4 @@
+import { authRoles } from 'app/auth';
 import { lazy } from 'react';
 
 const Error404PageConfig = {
@@ -17,11 +18,12 @@ const Error404PageConfig = {
           display: false,
         },
         rightSidePanel: {
-          display: true,
+          display: false,
         },
       },
     },
   },
+  auth: authRoles.investUser,
   routes: [
     {
       path: '/pages/errors/error-404',

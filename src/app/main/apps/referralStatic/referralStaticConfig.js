@@ -1,3 +1,4 @@
+import { authRoles } from 'app/auth';
 import { lazy } from 'react';
 
 const ReferralStaticConfig = {
@@ -22,6 +23,7 @@ const ReferralStaticConfig = {
       },
     },
   },
+  auth: authRoles.investUser,
   routes: [
     {
       path: '/venapp/referralstats',

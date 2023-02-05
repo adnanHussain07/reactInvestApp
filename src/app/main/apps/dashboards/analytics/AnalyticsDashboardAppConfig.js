@@ -1,3 +1,4 @@
+import { authRoles } from 'app/auth';
 import { lazy } from 'react';
 
 const AnalyticsDashboardAppConfig = {
@@ -22,6 +23,7 @@ const AnalyticsDashboardAppConfig = {
       },
     },
   },
+	auth: authRoles.investUser,
   routes: [
     {
       path: '/venapp/dashboard',

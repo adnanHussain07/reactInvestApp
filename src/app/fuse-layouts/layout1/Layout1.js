@@ -18,8 +18,10 @@ import DepositNowDialog from '../shared-components/DepositNowDialog';
 import WithdrawNowDialog from '../shared-components/WithdrawNowDialog';
 import history from '@history';
 import { setLoggedIn } from 'app/auth/store/sharedData';
+import { setUser, logoutUser } from 'app/auth/store/userSlice';
 import { getChat } from '../shared-components/chatPanel/store/chatSlice';
 import { setSelectedContactId } from '../shared-components/chatPanel/store/contactsSlice';
+import { checkGimminie } from 'app/auth/store/loginSlice';
 
 const Root = styled('div')(({ theme, config }) => ({
   ...(config.mode === 'boxed' && {
@@ -47,17 +49,17 @@ function Layout1(props) {
   React.useEffect(() => {
     let mounted = true;
     if (mounted) {
-      if (!localStorage.getItem('cred') && localStorage.getItem('cred') != '1') {
-        if (!window.location.pathname.toLowerCase().includes('login')
-          && !window.location.pathname.toLowerCase().includes('register')
-        ) {
-          history.push('/venapp/home');
-        }
+      
+      const data = localStorage.getItem('ghuid') ? JSON.parse(localStorage.getItem('ghuid')) : false;
+      if (localStorage.getItem('cred') && localStorage.getItem('cred') == '1') {
+        dispatch(setLoggedIn(true));
       }
-      else {
-        if (localStorage.getItem('cred') && localStorage.getItem('cred') == '1') {
-          dispatch(setLoggedIn(true));
-        }
+      if (data) {
+        dispatch(checkGimminie(data.roleid ? data.roleid : 0));
+        dispatch(setUser(data));
+      } else {
+        // dispatch(setLoggedIn(false));
+        // dispatch(logoutUser());
       }
     }
     return () => mounted = false;

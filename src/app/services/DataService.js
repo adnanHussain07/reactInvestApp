@@ -1,8 +1,6 @@
 import { env } from '../../env'
 const { REACT_APP_API_ENDPOINT } = env;
 
-import { weekData } from 'app/auth/store/nflServices';
-
 // *** baseURL & version control ****
 const serverUri = '';//REACT_APP_API_ENDPOINT;
 const BASE_URL = REACT_APP_API_ENDPOINT;
@@ -24,39 +22,17 @@ const openHeader = {
 
 
 // *** URIs ***
-const GATEWAY_CREATEUSER = '/user/create';
-const GATEWAY_GETREGUSER = '/auth/showregisterusers';
-const GATEWAY_CREATEITEM = '/item/create';
-const GATEWAY_GETITEM = '/static';
-const GATEWAY_LOGS = '/logs';
-const GATEWAY_GETTING = '/getting';
-const GATEWAY_RENTING = '/renting';
-const GATEWAY_MAINTAINACE = '/maintenance';
-const GATEWAY_DASHBAORD = '/dashboard';
-const GATEWAY_SPREADSHEET = '/spreadsheet';
 
 ///////////////////////////////////////////////////
-const GATEWAY_GETUYSERS = '/users';
-const GATEWAY_GETULEAGUES = '/league';
-const GATEWAY_GETMYLEAGUE = '/myleague';
-const GATEWAY_GETPLAYERS = '/players';
-const GATEWAY_GETLEAGUEPLAYERS = '/league/players';
 const GATEWAY_LOGIN = '/auth/login';
 const GATEWAY_REGISTER = '/auth/register';
 const GATEWAY_LOGOUT = '/auth/logout';
-const GATEWAY_UPDATE_USER = '/updateuser';
-const GATEWAY_SPEC_USER = '/specuser';
-const GATEWAY_SPEC_CREATE_LEAGUE = '/league/create';
-const GATEWAY_SPEC_JOIN_LEAGUE = '/league/join';
-const GATEWAY_DELETE = '/deletezomb';
-const GATEWAY_ALL_TEAMS = '/league/teams';
-const GATEWAY_TEAM_PICK = '/userpick/choosepick';
-const GATEWAY_TEAM_GET_PICK = '/userpick/getuserpick';
-const GATEWAY_GET_DASHBOARD = '/userpick/dashboard';
-const GATEWAY_GET_STATSCHECK = '/userpick/statscheck';
-const GATEWAY_POST_STATSSERVICE = '/userpick/servicestats';
-const GATEWAY_GET_JOIN_LEAGUE = '/league/joinedleagues';
-const GATEWAY_POST_PICK_STATS = '/userpick/updatepickstats';
+const GATEWAY_UPDATE_PASS = '/listing/updatePassword';
+const GATEWAY_WITHDRAW = '/listing/withdraw';
+const GATEWAY_DEPOSIT = '/listing/deposit';
+const GATEWAY_REFERRAL = '/listing/referral';
+const GATEWAY_TRANSACTION = '/listing/transaction';
+const GATEWAY_RETURNINTEREST = '/listing/returninterest';
 
 // eslint-disable-next-line camelcase
 const axios_1 = require('axios');
@@ -133,177 +109,6 @@ function _deleteCustom(url, data) {
 
 //////////////////////////////
 
-function addUserService(body) {
-  return new Promise((resolve, reject) => {
-    _postCustom(GATEWAY_CREATEUSER, body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function addItemService(body) {
-  return new Promise((resolve, reject) => {
-    _postCustom(GATEWAY_CREATEITEM, body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function getAllProductsService(body) {
-  return new Promise((resolve, reject) => {
-    const queryString = body ? body : "";
-    _getCustom(GATEWAY_GETITEM + queryString)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function getAllLogsService(body) {
-  return new Promise((resolve, reject) => {
-    const queryString = body ? body : "";
-    _getCustom(GATEWAY_LOGS + queryString)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function getAllUsersService(body, isReg) {
-  return new Promise((resolve, reject) => {
-    const queryString = body ? body : "";
-    _getCustom(isReg ? `${GATEWAY_GETREGUSER + queryString}` : `${GATEWAY_CREATEUSER + queryString}`)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function deleteItemService(body) {
-  return new Promise((resolve, reject) => {
-    _deleteCustom(GATEWAY_CREATEITEM + "/" + body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function deleteUserService(body) {
-  return new Promise((resolve, reject) => {
-    _deleteCustom(GATEWAY_CREATEUSER + "/" + body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function deleteRegisterService(body) {
-  return new Promise((resolve, reject) => {
-    _deleteCustom(GATEWAY_GETREGUSER + "/" + body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function changeStatusMaintainService(body) {
-  return new Promise((resolve, reject) => {
-    _postCustom(GATEWAY_GETTING, body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function changeStatusService(body, type) {
-  return new Promise((resolve, reject) => {
-    _postCustom(type == 'rent' ? GATEWAY_RENTING :
-      type == 'avail' ? GATEWAY_GETTING :
-        type == 'maint' ? GATEWAY_MAINTAINACE : '', body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function dashboardService() {
-  return new Promise((resolve, reject) => {
-    _getCustom(GATEWAY_DASHBAORD)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function spreadSheetService(body) {
-  return new Promise((resolve, reject) => {
-    const SerialNo = body.SerialNo ? `&SerialNo=${body.SerialNo}` : "";
-    const status = body.status ? `&status=${body.status}` : "";
-    const present_storenumber = body.present_storenumber ? `&present_storenumber=${body.present_storenumber}` : "";
-    const rentee = body.rentee ? `&rentee=${body.rentee}` : "";
-    const name = body.name ? `&name=${body.name}` : "";
-    const itemid = body.itemid ? `&itemid=${body.itemid}` : "";
-    const rentee_id = body.rentee_id ? `&rentee_id=${body.rentee_id}` : "";
-    const type = `?type=${body.type ? body.type : "items"}${SerialNo + status + present_storenumber + rentee + name + itemid + rentee_id}`;
-    _getCustom(GATEWAY_SPREADSHEET + type, false, true)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-// function nflServiceScoreboard() {
-//   return new Promise((resolve, reject) => {
-//     axios_1.get('https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=football&league=nfl')
-//       .then((res) => {
-//         resolve(res.data);
-//       })
-//       .catch((error) => {
-//         reject(error);
-//       });
-//   });
-// }
-
-////////////////////////////////////////////////////
-
 function loginService(body) {
 
   return new Promise((resolve, reject) => {
@@ -342,95 +147,6 @@ function logoutService() {
   });
 }
 
-function nflWeekService(week) {
-  return new Promise((resolve, reject) => {
-    axios_1.get(weekData.replace('{0}', week))
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function nflDynamicService(url) {
-  return new Promise((resolve, reject) => {
-    axios_1.get(url)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function getUsersDBService(body) {
-  return new Promise((resolve, reject) => {
-    const queryString = body ? body : "";
-    _getCustom(GATEWAY_GETUYSERS + queryString)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function getLeaguesDBService(body) {
-  return new Promise((resolve, reject) => {
-    const queryString = body ? body : "";
-    _getCustom(GATEWAY_GETULEAGUES + queryString)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function getMyLeaguesDBService(body) {
-  return new Promise((resolve, reject) => {
-    const queryString = body ? body : "";
-    _getCustom(GATEWAY_GETMYLEAGUE + queryString)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function getPlayersDBService(body) {
-  return new Promise((resolve, reject) => {
-    const queryString = body ? body : "";
-    _getCustom(GATEWAY_GETPLAYERS + queryString)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function getleaguePlayersDBService(body) {
-  return new Promise((resolve, reject) => {
-    const queryString = body ? body : "";
-    _getCustom(GATEWAY_GETLEAGUEPLAYERS + "/" + queryString)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
 function updatePassService(body) {
   return new Promise((resolve, reject) => {
     _patchCustom(GATEWAY_UPDATE_PASS, body)
@@ -443,10 +159,10 @@ function updatePassService(body) {
   });
 }
 
-function getSpecUserService(body) {
+function withdrawListService(body) {
   return new Promise((resolve, reject) => {
     const queryString = body ? body : "";
-    _getCustom(GATEWAY_SPEC_USER + "/" + queryString)
+    _getCustom(GATEWAY_WITHDRAW + queryString)
       .then((res) => {
         resolve(res.data);
       })
@@ -456,89 +172,10 @@ function getSpecUserService(body) {
   });
 }
 
-function updateUserService(body) {
-  return new Promise((resolve, reject) => {
-    _postCustom(GATEWAY_UPDATE_USER, body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function createLeagueService(body) {
-  return new Promise((resolve, reject) => {
-    _postCustom(GATEWAY_SPEC_CREATE_LEAGUE, body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function joinLeagueService(body) {
-  return new Promise((resolve, reject) => {
-    _postCustom(GATEWAY_SPEC_JOIN_LEAGUE, body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function deleteService(body) {
-  return new Promise((resolve, reject) => {
-    _postCustom(GATEWAY_DELETE, body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function getAllTeamsDBService(body) {
-  return new Promise((resolve, reject) => {
-    axios_1.default.create({
-      baseURL: BASE_URL,
-      headers: {
-        // Authorization: `Bearer ${localStorage.getItem('userguid')}`,
-        "Access-Control-Allow-Origin": BASE_URL,
-        "Access-Control-Allow-Credentials": true,
-      },
-    }).get(GATEWAY_ALL_TEAMS, body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function choosePickService(body) {
-  return new Promise((resolve, reject) => {
-    _postCustom(GATEWAY_TEAM_PICK, body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function getPickService(body) {
+function depositListService(body) {
   return new Promise((resolve, reject) => {
     const queryString = body ? body : "";
-    _getCustom(GATEWAY_TEAM_GET_PICK + queryString)
+    _getCustom(GATEWAY_DEPOSIT + queryString)
       .then((res) => {
         resolve(res.data);
       })
@@ -548,10 +185,10 @@ function getPickService(body) {
   });
 }
 
-function getDashboardScoreboard(body) {
+function referralListService(body) {
   return new Promise((resolve, reject) => {
     const queryString = body ? body : "";
-    _getCustom(GATEWAY_GET_DASHBOARD + queryString)
+    _getCustom(GATEWAY_REFERRAL + queryString)
       .then((res) => {
         resolve(res.data);
       })
@@ -561,35 +198,10 @@ function getDashboardScoreboard(body) {
   });
 }
 
-function getStatsService(body) {
-  return new Promise((resolve, reject) => {
-    const queryString = `?season=${body.year}&type=${body.type}&week=${body.weekno}`;
-    _getCustom(GATEWAY_GET_STATSCHECK + queryString)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function postStatsService(body) {
-  return new Promise((resolve, reject) => {
-    _postCustom(GATEWAY_POST_STATSSERVICE, body)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-
-function getJoinLeaguesDBService(body) {
+function transactionListService(body) {
   return new Promise((resolve, reject) => {
     const queryString = body ? body : "";
-    _getCustom(GATEWAY_GET_JOIN_LEAGUE + queryString)
+    _getCustom(GATEWAY_TRANSACTION + queryString)
       .then((res) => {
         resolve(res.data);
       })
@@ -599,10 +211,10 @@ function getJoinLeaguesDBService(body) {
   });
 }
 
-function postPickStats(body) {
+function returnInterestListService(body) {
   return new Promise((resolve, reject) => {
     const queryString = body ? body : "";
-    _postCustom(GATEWAY_POST_PICK_STATS)
+    _getCustom(GATEWAY_RETURNINTEREST + queryString)
       .then((res) => {
         resolve(res.data);
       })
@@ -613,43 +225,15 @@ function postPickStats(body) {
 }
 
 const dataServiceMethods = {
-  getAllProductsService,
-  addUserService,
-  addItemService,
-  getAllLogsService,
-  getAllUsersService,
-  deleteItemService,
-  deleteUserService,
-  deleteRegisterService,
-  changeStatusService,
-  dashboardService,
-  spreadSheetService,
-
-  // nflServiceScoreboard,
-  nflDynamicService,
-  nflWeekService,
-  getUsersDBService,
-  getLeaguesDBService,
-  getMyLeaguesDBService,
-  getPlayersDBService,
-  getleaguePlayersDBService,
   updatePassService,
   loginService,
   registerService,
   logoutService,
-  getSpecUserService,
-  updateUserService,
-  createLeagueService,
-  joinLeagueService,
-  deleteService,
-  getAllTeamsDBService,
-  choosePickService,
-  getPickService,
-  getDashboardScoreboard,
-  getStatsService,
-  postStatsService,
-  getJoinLeaguesDBService,
-  postPickStats,
+  withdrawListService,
+  depositListService,
+  referralListService,
+  transactionListService,
+  returnInterestListService,
 };
 
 export default dataServiceMethods;

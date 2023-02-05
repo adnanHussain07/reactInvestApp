@@ -115,7 +115,7 @@ function Login() {
                 {i18next.t(`navigation:REG`)}
               </Link>
             </div>
-            <Link className="font-normal mt-8" to="/">
+            <Link className="font-normal mt-8" to="/venapp/home">
               {i18next.t(`navigation:BACKTODASH`)}
             </Link>
           </div>

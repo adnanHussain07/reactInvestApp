@@ -1,3 +1,4 @@
+import { authRoles } from 'app/auth';
 import { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
 
@@ -24,6 +25,7 @@ const AcademyAppConfig = {
       },
     },
   },
+	// auth: authRoles.onlyGuest,
   routes: [
     {
       path: '/apps/academy/courses/:courseId/:courseHandle?',

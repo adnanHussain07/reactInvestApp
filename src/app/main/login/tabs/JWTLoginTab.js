@@ -5,6 +5,7 @@ import Icon from '@mui/material/Icon';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
+import { CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +13,7 @@ import { submitLogin } from 'app/auth/store/loginSlice';
 import * as yup from 'yup';
 import _ from '@lodash';
 import { setLoggedIn } from 'app/auth/store/sharedData';
+import { setLoginLoader } from 'app/auth/store/loadersSlice';
 
 /**
  * Form Validation Schema
@@ -32,6 +34,7 @@ const defaultValues = {
 function JWTLoginTab(props) {
   const dispatch = useDispatch();
   const login = useSelector(({ auth }) => auth.login);
+  const loader = useSelector(({ auth }) => auth.loaders.loginLoader);
   const { control, setValue, formState, handleSubmit, reset, trigger, setError } = useForm({
     mode: 'onChange',
     defaultValues,
@@ -42,10 +45,10 @@ function JWTLoginTab(props) {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  useEffect(() => {
-    setValue('email', 'admin@fusetheme.com', { shouldDirty: true, shouldValidate: true });
-    setValue('password', 'admin', { shouldDirty: true, shouldValidate: true });
-  }, [reset, setValue, trigger]);
+  // useEffect(() => {
+  //   setValue('email', 'admin@fusetheme.com', { shouldDirty: true, shouldValidate: true });
+  //   setValue('password', 'admin', { shouldDirty: true, shouldValidate: true });
+  // }, [reset, setValue, trigger]);
 
   useEffect(() => {
     login.errors.forEach((error) => {
@@ -57,8 +60,7 @@ function JWTLoginTab(props) {
   }, [login.errors, setError]);
 
   function onSubmit(model) {
-    localStorage.setItem('cred', '1');
-    dispatch(setLoggedIn(true));
+    dispatch(setLoginLoader(true));
     dispatch(submitLogin(model));
   }
 
@@ -129,11 +131,11 @@ function JWTLoginTab(props) {
           disabled={_.isEmpty(dirtyFields) || !isValid}
           value="legacy"
         >
-          Login
+          {loader ? <CircularProgress /> : "Login"}
         </Button>
       </form>
 
-      <table className="w-full mt-32 text-center">
+      {/* <table className="w-full mt-32 text-center">
         <thead className="mb-4">
           <tr>
             <th>
@@ -167,7 +169,7 @@ function JWTLoginTab(props) {
               <Typography className="text-11">admin</Typography>
             </td>
           </tr>
-          {/* <tr>
+          <tr>
             <td>
               <Typography className="font-medium text-11" color="textSecondary">
                 Staff
@@ -179,9 +181,9 @@ function JWTLoginTab(props) {
             <td>
               <Typography className="text-11">staff</Typography>
             </td>
-          </tr> */}
+          </tr>
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }

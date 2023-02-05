@@ -9,9 +9,10 @@ import { showMessage } from 'app/store/fuse/messageSlice';
 import auth0Service from 'app/services/auth0Service';
 import firebaseService from 'app/services/firebaseService';
 import jwtService from 'app/services/jwtService';
-import { setLoggedIn } from './sharedData';
+import { logoutServiceProvider } from './commonServices';
 
 export const setUserDataAuth0 = (tokenData) => async (dispatch) => {
+
   const user = {
     role: ['admin'],
     from: 'auth0',
@@ -34,6 +35,7 @@ export const setUserDataAuth0 = (tokenData) => async (dispatch) => {
 };
 
 export const setUserDataFirebase = (user, authUser) => async (dispatch) => {
+
   if (
     user &&
     user.data &&
@@ -51,6 +53,7 @@ export const setUserDataFirebase = (user, authUser) => async (dispatch) => {
 };
 
 export const createUserSettingsFirebase = (authUser) => async (dispatch, getState) => {
+  
   const guestUser = getState().auth.user;
   const fuseDefaultSettings = getState().fuse.settings.defaults;
   const { currentUser } = firebase.auth();
@@ -76,10 +79,11 @@ export const createUserSettingsFirebase = (authUser) => async (dispatch, getStat
 };
 
 export const setUserData = (user) => async (dispatch, getState) => {
+
   /*
         You can redirect the logged-in user to a specific route depending on his role
          */
-
+  
   history.location.state = {
     redirectUrl: user.redirectUrl, // for example 'apps/academy'
   };
@@ -87,12 +91,13 @@ export const setUserData = (user) => async (dispatch, getState) => {
   /*
     Set User Settings
      */
-  dispatch(setDefaultSettings(user.data.settings));
+  // dispatch(setDefaultSettings(user.data.settings));
 
   dispatch(setUser(user));
 };
 
 export const updateUserSettings = (settings) => async (dispatch, getState) => {
+
   const oldUser = getState().auth.user;
   const user = _.merge({}, oldUser, { data: { settings } });
 
@@ -102,6 +107,7 @@ export const updateUserSettings = (settings) => async (dispatch, getState) => {
 };
 
 export const updateUserShortcuts = (shortcuts) => async (dispatch, getState) => {
+
   const { user } = getState().auth;
   const newUser = {
     ...user,
@@ -117,38 +123,15 @@ export const updateUserShortcuts = (shortcuts) => async (dispatch, getState) => 
 };
 
 export const logoutUser = () => async (dispatch, getState) => {
-  const { user } = getState().auth;
-  localStorage.removeItem('cred');
-  dispatch(setLoggedIn(false));
-  if (!user.role || user.role.length === 0) {
-    // is guest
-    return null;
-  }
 
-  history.push({
-    pathname: '/',
-  });
-
-  switch (user.from) {
-    case 'firebase': {
-      firebaseService.signOut();
-      break;
-    }
-    case 'auth0': {
-      auth0Service.logout();
-      break;
-    }
-    default: {
-      jwtService.logout();
-    }
-  }
-
-  dispatch(setInitialSettings());
-
+  localStorage.clear();
+  jwtService.logout();
+  dispatch(logoutServiceProvider());
   return dispatch(userLoggedOut());
 };
 
 export const updateUserData = (user) => async (dispatch, getState) => {
+
   if (!user.role || user.role.length === 0) {
     // is guest
     return;
@@ -194,9 +177,9 @@ export const updateUserData = (user) => async (dispatch, getState) => {
 };
 
 const initialState = {
-  role: [], // guest
+  role: localStorage.getItem('ghuid') ? JSON.parse(localStorage.getItem('ghuid')).role : [], // guest
   data: {
-    displayName: 'John Doe',
+    displayName: 'Nathan Teuscher',
     photoURL: 'assets/images/avatars/Velazquez.jpg',
     email: 'johndoe@withinpixels.com',
     shortcuts: ['calendar', 'mail', 'contacts', 'todo'],

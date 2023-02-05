@@ -50,7 +50,7 @@ function FirebaseLoginTab(props) {
   }, [login.errors, setError]);
 
   function onSubmit(model) {
-    dispatch(submitLoginWithFireBase(model));
+    // dispatch(submitLoginWithFireBase(model));
   }
 
   return (

@@ -1,3 +1,4 @@
+import { authRoles } from 'app/auth';
 import { lazy } from 'react';
 
 const DepositNowConfig = {
@@ -22,6 +23,7 @@ const DepositNowConfig = {
       },
     },
   },
+  auth: authRoles.investUser,
   routes: [
     {
       path: '/venapp/depositnow:amount',

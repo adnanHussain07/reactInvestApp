@@ -156,7 +156,7 @@ function Chat(props) {
   };
 
   const onMessageSubmit = (ev) => {
-    debugger
+    
     ev.preventDefault();
     if (messageText === '') {
       return;

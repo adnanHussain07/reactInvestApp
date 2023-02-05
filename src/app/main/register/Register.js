@@ -48,7 +48,7 @@ function Register() {
           className="Register-leftSection flex flex-col w-full max-w-sm items-center justify-center shadow-0"
           square
         >
-          <CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
+          <CardContent className="flex flex-col items-center justify-center w-full py-32 max-w-320">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { delay: 0.2 } }}
@@ -115,7 +115,7 @@ function Register() {
                 {i18next.t(`navigation:LOGIN`)}
               </Link>
             </div>
-            <Link className="font-normal mt-8" to="/">
+            <Link className="font-normal mt-8" to="/venapp/home">
               {i18next.t(`navigation:BACKTODASH`)}
             </Link>
           </div>

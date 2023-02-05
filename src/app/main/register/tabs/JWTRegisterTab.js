@@ -14,20 +14,23 @@ import _ from '@lodash';
  * Form Validation Schema
  */
 const schema = yup.object().shape({
-  displayName: yup.string().required('You must enter display name'),
+  firstName: yup.string().required('You must enter first name'),
   email: yup.string().email('You must enter a valid email').required('You must enter a email'),
   password: yup
     .string()
     .required('Please enter your password.')
-    .min(8, 'Password is too short - should be 8 chars minimum.'),
+    .min(6, 'Password is too short - should be 6 chars minimum.'),
   passwordConfirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
 });
 
 const defaultValues = {
-  displayName: '',
+  firstName: '',
+  lastName: '',
   email: '',
   password: '',
   passwordConfirm: '',
+  btcWallet: '',
+  usdtWallet: '',
 };
 
 function JWTRegisterTab(props) {
@@ -58,32 +61,6 @@ function JWTRegisterTab(props) {
   return (
     <div className="w-full">
       <form className="flex flex-col justify-center w-full" onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name="displayName"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              className="mb-16"
-              type="text"
-              label="Display name"
-              error={!!errors.displayName}
-              helperText={errors?.displayName?.message}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Icon className="text-20" color="action">
-                      person
-                    </Icon>
-                  </InputAdornment>
-                ),
-              }}
-              variant="outlined"
-              required
-            />
-          )}
-        />
-
         <Controller
           name="email"
           control={control}
@@ -158,6 +135,107 @@ function JWTRegisterTab(props) {
               }}
               variant="outlined"
               required
+            />
+          )}
+        />
+
+        <Controller
+          name="firstName"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              className="mb-16"
+              type="text"
+              label="First name"
+              error={!!errors.firstName}
+              helperText={errors?.firstName?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Icon className="text-20" color="action">
+                      person
+                    </Icon>
+                  </InputAdornment>
+                ),
+              }}
+              variant="outlined"
+              required
+            />
+          )}
+        />
+
+        <Controller
+          name="lastName"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              className="mb-16"
+              type="text"
+              label="Last name"
+              // error={!!errors.firstName}
+              // helperText={errors?.firstName?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Icon className="text-20" color="action">
+                      person
+                    </Icon>
+                  </InputAdornment>
+                ),
+              }}
+              variant="outlined"
+            />
+          )}
+        />
+
+        <Controller
+          name="btcWallet"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              className="mb-16"
+              type="text"
+              label="BTC Wallet Address"
+              // error={!!errors.firstName}
+              // helperText={errors?.firstName?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Icon className="text-20" color="action">
+                    account_balance_wallet
+                    </Icon>
+                  </InputAdornment>
+                ),
+              }}
+              variant="outlined"
+            />
+          )}
+        />
+
+        <Controller
+          name="usdtWallet"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              className="mb-16"
+              type="text"
+              label="USDT Wallet Address"
+              // error={!!errors.firstName}
+              // helperText={errors?.firstName?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Icon className="text-20" color="action">
+                    account_balance_wallet
+                    </Icon>
+                  </InputAdornment>
+                ),
+              }}
+              variant="outlined"
             />
           )}
         />

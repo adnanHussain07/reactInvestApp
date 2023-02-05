@@ -2,25 +2,71 @@ import { createSlice } from '@reduxjs/toolkit';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import firebaseService from 'app/services/firebaseService';
 import jwtService from 'app/services/jwtService';
+import history from '@history';
 import { createUserSettingsFirebase, setUserData } from './userSlice';
+import ds from '../../services/DataService';
+import { displayPopup, handleResponse, isString, sessionExpired } from './commonMethods';
+import { setLoginLoader } from './loadersSlice';
 
 export const submitRegister =
-  ({ displayName, password, email }) =>
-  async (dispatch) => {
-    return jwtService
-      .createUser({
-        displayName,
-        password,
-        email,
-      })
-      .then((user) => {
-        dispatch(setUserData(user));
-        return dispatch(registerSuccess());
-      })
-      .catch((errors) => {
-        return dispatch(registerError(errors));
-      });
-  };
+  ({ firstName, lastName, password, email, btcWallet, usdtWallet }) =>
+    async (dispatch) => {
+      return ds
+        .registerService({
+          firstName,
+          lastName,
+          email,
+          password,
+          btcWallet,
+          usdtWallet,
+        })
+        .then((user) => {
+          dispatch(setLoginLoader(false));
+          if (user && user.msg) {
+            dispatch(displayPopup(user.msg, 'success', 3000));
+            history.push({
+              pathname: '/login',
+              // pathname: '/apps/jic/items',
+            });
+          }
+          else {
+            if (res && res.error) {
+              dispatch(displayPopup(res.error, "warning", 3000));
+            }
+            else {
+              dispatch(handleResponse('TRYLATER', false));
+            }
+          }
+          // dispatch(setUserData(user));
+          return dispatch(registerSuccess());
+        })
+        .catch((e) => {
+          dispatch(setLoginLoader(false));
+          const msg = e && e.response && e.response.data
+            && isString(e.response.data) ? e.response.data :
+            e && e.response && e.response.data && e.response.data.data && isString(e.response.data.data) ? e.response.data.data
+              : "Something Went Wrong";
+          dispatch(displayPopup(msg ? msg : "Something Went Wrong", 'error', 2000));
+        });
+    };
+
+// export const submitRegister =
+//   ({ displayName, password, email }) =>
+//   async (dispatch) => {
+//     return jwtService
+//       .createUser({
+//         displayName,
+//         password,
+//         email,
+//       })
+//       .then((user) => {
+//         dispatch(setUserData(user));
+//         return dispatch(registerSuccess());
+//       })
+//       .catch((errors) => {
+//         return dispatch(registerError(errors));
+//       });
+//   };
 
 export const registerWithFirebase = (model) => async (dispatch) => {
   if (!firebaseService.auth) {

@@ -13,15 +13,15 @@ import FuseLoading from '@fuse/core/FuseLoading';
 
 const routeConfigs = [
   ...appsConfigs,
-  ...pagesConfigs,
-  ...authRoleExamplesConfigs,
-  UserInterfaceConfig,
-  DocumentationConfig,
-  LogoutConfig,
   LoginConfig,
   RegisterConfig,
-  LogoutConfig,
-  CallbackConfig,
+  ...pagesConfigs,
+  // ...authRoleExamplesConfigs,
+  // UserInterfaceConfig,
+  // DocumentationConfig,
+  // LogoutConfig,
+  // LogoutConfig,
+  // CallbackConfig,
 ];
 
 const routes = [

@@ -225,6 +225,7 @@ const locale = {
   SENDMSG: "Send message to get support for any kind of assist",
   STARTCONVO: 'Start a conversation by typing your message below.',
   SETT: 'Setting',
+  FOUROFOUR: "Sorry but we could not find the page you are looking for",
 
 };
 

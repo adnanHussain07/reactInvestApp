@@ -1,3 +1,4 @@
+import { authRoles } from 'app/auth';
 import { lazy } from 'react';
 
 const ReturnInvestLogConfig = {
@@ -22,6 +23,7 @@ const ReturnInvestLogConfig = {
       },
     },
   },
+	auth: authRoles.investUser,
   routes: [
     {
       path: '/venapp/interestlog',

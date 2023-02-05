@@ -3,8 +3,8 @@ import Input from '@mui/material/Input';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import i18next from 'i18next';
+import { Link } from 'react-router-dom';
 
 function Error404Page() {
   return (
@@ -24,7 +24,7 @@ function Error404Page() {
           animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
         >
           <Typography variant="h5" color="textSecondary" className="mb-16 font-normal">
-            {i18next.t(`navigation:SORRYFOURZEROFOUR`)}
+            {i18next.t(`navigation:FOUROFOUR`)}
           </Typography>
         </motion.div>
 
@@ -39,11 +39,11 @@ function Error404Page() {
               'aria-label': 'Search',
             }}
           />
-        </Paper> */}
+        </Paper>
 
-        <Link className="font-normal" to="/venapp/dashboard">
-          {i18next.t(`navigation:BACKTODASH`)}
-        </Link>
+        <Link className="font-normal" to="/apps/dashboards/project">
+          Go back to dashboard
+        </Link> */}
       </div>
     </div>
   );

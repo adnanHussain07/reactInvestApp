@@ -1,3 +1,4 @@
+import { authRoles } from 'app/auth';
 import { lazy } from 'react';
 
 const NewSupportTicketConfig = {
@@ -22,6 +23,7 @@ const NewSupportTicketConfig = {
       },
     },
   },
+  auth: authRoles.investUser,
   routes: [
     {
       path: '/venapp/newsuppticket',

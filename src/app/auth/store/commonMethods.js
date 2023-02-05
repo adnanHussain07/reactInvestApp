@@ -189,3 +189,22 @@ export const checkPermission = (perm) => (dispatch, getState) => {
   }
   return res;
 }
+
+export const sessionExpired = () => (dispatch, getState) => {
+  dispatch(displayPopup('Session has expired, kindly login again', 'info', 3000));
+  setTimeout(() => {
+    dispatch(logoutUser());
+  }, 3000);
+}
+
+export function isString(value) {
+  return typeof value === 'string' || value instanceof String;
+}
+
+export function randomString() {
+  const length = 16;
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let result = '';
+  for (let i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+  return result;
+}

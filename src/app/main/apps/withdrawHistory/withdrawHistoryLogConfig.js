@@ -1,3 +1,4 @@
+import { authRoles } from 'app/auth';
 import { lazy } from 'react';
 
 const WithdrawHistoryLogConfig = {
@@ -22,6 +23,7 @@ const WithdrawHistoryLogConfig = {
       },
     },
   },
+  auth: authRoles.investUser,
   routes: [
     {
       path: '/venapp/withdrawhistory',

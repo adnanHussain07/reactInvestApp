@@ -1,3 +1,4 @@
+import { authRoles } from 'app/auth';
 import { lazy } from 'react';
 
 const PricingStyle2PageConfig = {
@@ -22,6 +23,7 @@ const PricingStyle2PageConfig = {
       },
     },
   },
+  auth: authRoles.investUser,
   routes: [
     {
       path: '/venapp/investmentplan',
