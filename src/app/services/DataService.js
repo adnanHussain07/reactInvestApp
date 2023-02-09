@@ -33,6 +33,16 @@ const GATEWAY_DEPOSIT = '/listing/deposit';
 const GATEWAY_REFERRAL = '/listing/referral';
 const GATEWAY_TRANSACTION = '/listing/transaction';
 const GATEWAY_RETURNINTEREST = '/listing/returninterest';
+const GATEWAY_TO_APPROVE = '/listing/toapprove';
+const GATEWAY_WITH_APPROVE = '/listing/withapprove';
+const GATEWAY_DASHBOARD = '/listing/dashboard';
+
+const GATEWAY_POST_DEPOSIT = '/common/deposit';
+const GATEWAY_POST_WITHDRAW = '/common/withdraw';
+const GATEWAY_POST_APPROVE_DEPOSIT = '/common/appdeposit';
+const GATEWAY_POST_APPROVE_WITHDRAW = '/common/appwithdraw';
+const GATEWAY_POST_JOIN_PLAN = '/common/joinplan';
+
 
 // eslint-disable-next-line camelcase
 const axios_1 = require('axios');
@@ -224,6 +234,105 @@ function returnInterestListService(body) {
   });
 }
 
+function postDepositService(body) {
+  return new Promise((resolve, reject) => {
+    _postCustom(GATEWAY_POST_DEPOSIT, body)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function postWithdrawService(body) {
+  return new Promise((resolve, reject) => {
+    _postCustom(GATEWAY_POST_WITHDRAW, body)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function postApproveDeposit(body) {
+  return new Promise((resolve, reject) => {
+    _postCustom(GATEWAY_POST_APPROVE_DEPOSIT, body)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function postApproveWithdrawc(body) {
+  return new Promise((resolve, reject) => {
+    _postCustom(GATEWAY_POST_APPROVE_WITHDRAW, body)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function postJoinPlanService(body) {
+  return new Promise((resolve, reject) => {
+    _postCustom(GATEWAY_POST_JOIN_PLAN, body)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function depositApproveListService(body) {
+  return new Promise((resolve, reject) => {
+    const queryString = body ? body : "";
+    _getCustom(GATEWAY_TO_APPROVE + queryString)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function withApproveListService(body) {
+  return new Promise((resolve, reject) => {
+    const queryString = body ? body : "";
+    _getCustom(GATEWAY_WITH_APPROVE + queryString)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function dashboardService(body) {
+  return new Promise((resolve, reject) => {
+    const queryString = body ? body : "";
+    _getCustom(GATEWAY_DASHBOARD + queryString)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
 const dataServiceMethods = {
   updatePassService,
   loginService,
@@ -234,6 +343,14 @@ const dataServiceMethods = {
   referralListService,
   transactionListService,
   returnInterestListService,
+  postDepositService,
+  postWithdrawService,
+  postApproveDeposit,
+  postApproveWithdrawc,
+  postJoinPlanService,
+  depositApproveListService,
+  withApproveListService,
+  dashboardService,
 };
 
 export default dataServiceMethods;

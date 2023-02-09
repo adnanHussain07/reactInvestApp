@@ -1,15 +1,15 @@
 const locale = {
-  APPLICATIONS: 'Applications',
-  CALENDAR: 'Calendar',
-  ECOMMERCE: 'E-Commerce',
-  ACADEMY: 'Academy',
-  MAIL: 'Mail',
-  TODO: 'To-Do',
-  FILE_MANAGER: 'File Manager',
-  CONTACTS: 'Contacts',
-  CHAT: 'Chat',
-  SCRUMBOARD: 'Scrumboard',
-  NOTES: 'Notes',
+  // APPLICATIONS: 'Applications',
+  // CALENDAR: 'Calendar',
+  // ECOMMERCE: 'E-Commerce',
+  // ACADEMY: 'Academy',
+  // MAIL: 'Mail',
+  // TODO: 'To-Do',
+  // FILE_MANAGER: 'File Manager',
+  // CONTACTS: 'Contacts',
+  // CHAT: 'Chat',
+  // SCRUMBOARD: 'Scrumboard',
+  // NOTES: 'Notes',
 
   //////////////////////
 
@@ -227,6 +227,10 @@ const locale = {
   SETT: 'Setting',
   FOUROFOUR: "Sorry but we could not find the page you are looking for",
 
+  // new
+  DEPAPPROVE: "Deposit Approve",
+  WITHAPPROVE: "Withdraw Approve",
+  APPROVE: "APPROVE",
 };
 
 export default locale;

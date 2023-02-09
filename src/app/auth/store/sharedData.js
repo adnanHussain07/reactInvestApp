@@ -12,6 +12,20 @@ const initialState = {
   showDepositNow: false,
   showWithdrawNow: false,
   loggedin: false,
+  depositApprovePagination: {
+    pageNo: 1,
+    pageSize: 10,
+  },
+  withdrawApprovePagination: {
+    pageNo: 1,
+    pageSize: 10,
+  },
+  depositApproveTotalCount: 0,
+  withdrawApproveTotalCount: 0,
+  depositApproveData: [],
+  withdrawApproveData: [],
+
+  dashboardData: [],
 };
 
 const sharedData = createSlice({
@@ -48,6 +62,31 @@ const sharedData = createSlice({
     setLoggedIn: (state, action) => {
       state.loggedin = action.payload;
     },
+
+    setDepositApprovePagination: (state, action) => {
+      state.depositApprovePagination = action.payload;
+    },
+    setDepositApproveTotalCount: (state, action) => {
+      state.depositApproveTotalCount = action.payload;
+    },
+    setDepositApproveData: (state, action) => {
+      state.depositApproveData = action.payload;
+    },
+
+    setWithdrawApprovePagination: (state, action) => {
+      state.withdrawApprovePagination = action.payload;
+    },
+    setWithdrawApproveTotalCount: (state, action) => {
+      state.withdrawApproveTotalCount = action.payload;
+    },
+    setWithdrawApproveData: (state, action) => {
+      state.withdrawApproveData = action.payload;
+    },
+
+    setDashboardData: (state, action) => {
+      state.dashboardData = action.payload;
+    },
+
     setSharedInitial: (state, action) => initialState,
   },
   extraReducers: {},
@@ -65,6 +104,15 @@ export const {
   setShowWithdraw,
   setLoggedIn,
 
+  setDepositApprovePagination,
+  setDepositApproveTotalCount,
+  setDepositApproveData,
+
+  setWithdrawApprovePagination,
+  setWithdrawApproveTotalCount,
+  setWithdrawApproveData,
+
+  setDashboardData,
 
   setSharedInitial,
 } = sharedData.actions;

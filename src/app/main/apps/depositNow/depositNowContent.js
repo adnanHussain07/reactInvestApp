@@ -14,6 +14,8 @@ import { handleResponse } from '../../../auth/store/commonMethods';
 import { ReqColorCodes } from 'app/auth/store/constants';
 import { setTwoFAEnable } from 'app/auth/store/sharedData';
 import { useHistory } from 'react-router-dom';
+import { postDeposit } from 'app/auth/store/commonServices';
+import { Gateways } from 'app/auth/store/constants';
 // import { env } from '../../env'
 // const { REACT_APP_BTC_WALLET } = env;
 
@@ -23,8 +25,9 @@ function DepositNowContent(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const language = useSelector(({ i18n }) => i18n.language ? i18n.language : "");
-  const loader = useSelector(({ auth }) => auth.loaders.sendNotifyLoader);
+  const loaders = useSelector(({ auth }) => auth.loaders.depositLoader);
   const isEnable = useSelector(({ auth }) => auth.sharedData.isTwoFAEnable);
+  const user = useSelector(({ auth }) => auth.user);
 
   // const [loader, setLoader] = React.useState(false);
   const [getEnglish, setEnglish] = React.useState('');
@@ -77,7 +80,17 @@ function DepositNowContent(props) {
     dispatch(setTwoFAEnable(false));
   }
 
-  return loader ? <FuseLoading /> : (
+  function onPayClick() {
+    const body = {
+      id: user.userid,
+      details: getTransDetail,
+      gateway: Gateways.btc,
+      amount: amount,
+    }
+    dispatch(postDeposit(body));
+  }
+  
+  return loaders ? <FuseLoading /> : (
     <div className="w-full flex">
       <FuseScrollbars className="flex-grow overflow-x-auto">
         {amount && (
@@ -175,8 +188,8 @@ function DepositNowContent(props) {
               variant='contained'
               size='large'
               onClick={() => {
-                if (getTransDetail) {
-                  history.push('/venapp/deposithistory');
+                if (getTransDetail && amount) {
+                  onPayClick();
                 }
                 else {
                   dispatch(handleResponse(false, false, true, 'TRANSDETPROVIDE'));
@@ -185,6 +198,7 @@ function DepositNowContent(props) {
             >
               {i18next.t(`navigation:PAYNOW`)}
             </Button>
+
           </div>
         )}
       </FuseScrollbars>

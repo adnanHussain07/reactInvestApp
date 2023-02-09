@@ -39,8 +39,7 @@ function UserMenu(props) {
             {user.data.displayName}
           </Typography>
           <Typography className="text-11 font-medium capitalize" color="textSecondary">
-            {user.role.toString()}
-            {(!user.role || (Array.isArray(user.role) && user.role.length === 0)) && 'Guest'}
+            {user.roleName ? user.roleName : "Guest"}
           </Typography>
         </div>
 
@@ -50,11 +49,11 @@ function UserMenu(props) {
             <Icon className='text-32'>account_circle</Icon>
           </Avatar>
         ) : (
-          <Avatar className="md:mx-4" alt="user photo">
-            <Icon className='text-32'>account_circle</Icon>
-          </Avatar>
-          // <Avatar className="md:mx-4">{user.data.displayName[0]}</Avatar>
-        )}
+            <Avatar className="md:mx-4" alt="user photo">
+              <Icon className='text-32'>account_circle</Icon>
+            </Avatar>
+            // <Avatar className="md:mx-4">{user.data.displayName[0]}</Avatar>
+          )}
       </Button>
 
       <Popover
@@ -89,34 +88,34 @@ function UserMenu(props) {
             </MenuItem>
           </>
         ) : (
-          <>
-            <MenuItem component={Link} to="/venapp/profile" onClick={userMenuClose} role="button">
-              <ListItemIcon className="min-w-40">
-                <Icon>account_circle</Icon>
-              </ListItemIcon>
-              <ListItemText primary="My Profile" />
-            </MenuItem>
-            {/* <MenuItem component={Link} to="/apps/mail" onClick={userMenuClose} role="button">
+            <>
+              <MenuItem component={Link} to="/venapp/profile" onClick={userMenuClose} role="button">
+                <ListItemIcon className="min-w-40">
+                  <Icon>account_circle</Icon>
+                </ListItemIcon>
+                <ListItemText primary="My Profile" />
+              </MenuItem>
+              {/* <MenuItem component={Link} to="/apps/mail" onClick={userMenuClose} role="button">
               <ListItemIcon className="min-w-40">
                 <Icon>mail</Icon>
               </ListItemIcon>
               <ListItemText primary="Inbox" />
             </MenuItem> */}
-            <MenuItem
-              onClick={() => {
-                localStorage.removeItem('cred');
-                dispatch(setLoggedIn(false));
-                dispatch(logoutUser());
-                userMenuClose();
-              }}
-            >
-              <ListItemIcon className="min-w-40">
-                <Icon>exit_to_app</Icon>
-              </ListItemIcon>
-              <ListItemText primary="Logout" />
-            </MenuItem>
-          </>
-        )}
+              <MenuItem
+                onClick={() => {
+                  localStorage.removeItem('cred');
+                  dispatch(setLoggedIn(false));
+                  dispatch(logoutUser());
+                  userMenuClose();
+                }}
+              >
+                <ListItemIcon className="min-w-40">
+                  <Icon>exit_to_app</Icon>
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </MenuItem>
+            </>
+          )}
       </Popover>
     </>
   );

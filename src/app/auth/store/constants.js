@@ -10,6 +10,11 @@ export const InvestRoles = {
   user: 3,
 };
 
+export const Gateways = {
+  btc: 1,
+  usdt: 2,
+};
+
 export const Permissions = {
   EXPORT: "EXPORT",
   ADDUSER: "ADDUSER",
@@ -39,6 +44,8 @@ export const Menus = {
   SUPPTICKET: 'suppticket',
   TWOFASEC: 'twofa',
   SETTING: 'Settings',
+  DEPOSITAPPROVE: 'DepositApprove',
+  WITHDRAWAPPROVE: 'WithdrawApprove',
 };
 
 export const RoleMenus = [

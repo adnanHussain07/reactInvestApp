@@ -20,6 +20,8 @@ import NewSupportTicketConfig from './newSupportTicket/newSupportTicketConfig';
 import ProfileConfig from './profile/profileConfig';
 import TwoFASecurityConfig from './twoFASecurity/twoFASecurityConfig';
 import DepositNowConfig from './depositNow/depositNowConfig';
+import DepositApproveConfig from './depositApprove/depositApproveConfig';
+import WithdrawApproveConfig from './withdrawApprove/withdrawApproveConfig';
 
 const appsConfigs = [
 
@@ -35,6 +37,8 @@ const appsConfigs = [
   ProfileConfig,
   TwoFASecurityConfig,
   DepositNowConfig,
+  DepositApproveConfig,
+  WithdrawApproveConfig,
 
   // ProjectDashboardAppConfig,
   // MailAppConfig,

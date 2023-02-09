@@ -20,6 +20,7 @@ export const submitLogin =
           dispatch(setLoginLoader(false));
           if (res && res.user && res.user.userId && res.user.role) {
             localStorage.setItem('cred', '1');
+            localStorage.removeItem('loggedout');
             dispatch(setLoggedIn(true));
             dispatch(handleResponse('SUCCESSLOGIN', true));
             jwtService.setSession('ASD_8762hGSADGY9GAHSDG'); // res.user.userId

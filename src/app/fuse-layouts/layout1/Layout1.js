@@ -22,6 +22,7 @@ import { setUser, logoutUser } from 'app/auth/store/userSlice';
 import { getChat } from '../shared-components/chatPanel/store/chatSlice';
 import { setSelectedContactId } from '../shared-components/chatPanel/store/contactsSlice';
 import { checkGimminie } from 'app/auth/store/loginSlice';
+import { getDashboard } from 'app/auth/store/commonServices';
 
 const Root = styled('div')(({ theme, config }) => ({
   ...(config.mode === 'boxed' && {
@@ -43,13 +44,16 @@ function Layout1(props) {
   const dispatch = useDispatch();
   const config = useSelector(({ fuse }) => fuse.settings.current.layout.config);
   const loggedin = useSelector(({ auth }) => auth.sharedData.loggedin);
+  // const user = useSelector(({ auth }) => auth.user);
   const appContext = useContext(AppContext);
   const { routes } = appContext;
 
   React.useEffect(() => {
     let mounted = true;
     if (mounted) {
-      
+      if (!localStorage.getItem('loggedout')) {
+        dispatch(getDashboard(""));
+      }
       const data = localStorage.getItem('ghuid') ? JSON.parse(localStorage.getItem('ghuid')) : false;
       if (localStorage.getItem('cred') && localStorage.getItem('cred') == '1') {
         dispatch(setLoggedIn(true));
