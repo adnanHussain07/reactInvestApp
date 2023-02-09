@@ -6,6 +6,9 @@ import {
   setApproveDepositLoader,
   setApproveWithdrawLoader,
   setDashboardLoader,
+  setJoinPlanLoader,
+  setROILoader,
+  setTransactionLoader,
 } from 'app/auth/store/loadersSlice';
 import {
   setSharedInitial,
@@ -15,6 +18,12 @@ import {
   setWithdrawApproveData,
   setDashboardData,
   setDepositApprovePagination,
+  setROIPagination,
+  setROITotalCount,
+  setROIData,
+  setTransactionPagination,
+  setTransactionTotalCount,
+  setTransactionData,
 } from 'app/auth/store/sharedData';
 import history from '@history';
 import fs from 'fs';
@@ -162,7 +171,6 @@ export const getApproveWithdrawList = (body) => async (dispatch) => {
 };
 
 export const getDashboard = (body) => async (dispatch) => {
-  
   dispatch(setDashboardLoader(true));
   return ds
     .dashboardService(body)
@@ -224,6 +232,122 @@ export const postApproveDeposit = (body, pagination) => async (dispatch) => {
     })
     .catch(e => {
       dispatch(setApproveDepositLoader(false));
+      if (e && e.response && e.response.status == 401) {
+        if (e.response.data == 'Authentication Invalid') dispatch(sessionExpired())
+      }
+      else {
+        const msg = e && e.response && e.response.data
+          && isString(e.response.data) ? e.response.data :
+          e && e.response && e.response.data && e.response.data.data && isString(e.response.data.data) ? e.response.data.data
+            : "Something Went Wrong";
+        dispatch(displayPopup(msg ? msg : "Something Went Wrong", 'error', 2000));
+      };
+    });
+};
+
+export const postJoinPlan = (body, pagination) => async (dispatch) => {
+  dispatch(setJoinPlanLoader(true));
+  return ds
+    .postJoinPlanService(body)
+    .then(res => {
+      dispatch(setJoinPlanLoader(false));
+      if (res.error) {
+        if (res.code === 401) {
+
+        }
+        dispatch(displayPopup(res.error, 'warning', 4000));
+      }
+      else if (res && res.code && res.code == 200) {
+        dispatch(displayPopup(res.msg ? res.msg : "Successfully plan joined", 'success', 4000));
+      }
+      else {
+        dispatch(displayPopup('Try again Later', 'warning', 2000));
+      }
+    })
+    .catch(e => {
+      dispatch(setJoinPlanLoader(false));
+      if (e && e.response && e.response.status == 401) {
+        if (e.response.data == 'Authentication Invalid') dispatch(sessionExpired())
+      }
+      else {
+        const msg = e && e.response && e.response.data
+          && isString(e.response.data) ? e.response.data :
+          e && e.response && e.response.data && e.response.data.data && isString(e.response.data.data) ? e.response.data.data
+            : "Something Went Wrong";
+        dispatch(displayPopup(msg ? msg : "Something Went Wrong", 'error', 2000));
+      };
+    });
+};
+
+export const getROIList = (body) => async (dispatch) => {
+  dispatch(setROILoader(true));
+  return ds
+    .returnInterestListService(body)
+    .then(res => {
+      dispatch(setROILoader(false));
+      if (res.error) {
+        if (res.code === 401) {
+          dispatch(setROITotalCount(0));
+          dispatch(setROIData([]));
+          dispatch(setROILoader(false));
+        }
+        dispatch(displayPopup(res.error, 'warning', 2000));
+      } else {
+        if (res.totalCount) {
+          dispatch(setROITotalCount(res.totalCount));
+        } else dispatch(setROITotalCount(50));
+        if (res && res.data && res.data.length > 0) {
+          dispatch(setROIData(res.data));
+        } else {
+          dispatch(setROIData([]));
+        }
+      }
+    })
+    .catch(e => {
+      dispatch(setROITotalCount(0));
+      dispatch(setROIData([]));
+      dispatch(setROILoader(false));
+      if (e && e.response && e.response.status == 401) {
+        if (e.response.data == 'Authentication Invalid') dispatch(sessionExpired())
+      }
+      else {
+        const msg = e && e.response && e.response.data
+          && isString(e.response.data) ? e.response.data :
+          e && e.response && e.response.data && e.response.data.data && isString(e.response.data.data) ? e.response.data.data
+            : "Something Went Wrong";
+        dispatch(displayPopup(msg ? msg : "Something Went Wrong", 'error', 2000));
+      };
+    });
+};
+
+export const getTransactionList = (body) => async (dispatch) => {
+  dispatch(setTransactionLoader(true));
+  return ds
+    .transactionListService(body)
+    .then(res => {
+      dispatch(setTransactionLoader(false));
+      if (res.error) {
+        if (res.code === 401) {
+          dispatch(setTransactionTotalCount(0));
+          dispatch(setTransactionData([]));
+          dispatch(setTransactionLoader(false));
+        }
+        dispatch(displayPopup(res.error, 'warning', 2000));
+      } else {
+        if (res.totalCount) {
+          dispatch(setTransactionTotalCount(res.totalCount));
+        } else dispatch(setTransactionTotalCount(50));
+        if (res && res.data && res.data.length > 0) {
+          dispatch(setTransactionData(res.data));
+        } else {
+          dispatch(setTransactionData([]));
+        }
+      }
+    })
+    .catch(e => {
+      dispatch(setTransactionTotalCount(0));
+      dispatch(setTransactionData([]));
+      dispatch(setTransactionLoader(false));
       if (e && e.response && e.response.status == 401) {
         if (e.response.data == 'Authentication Invalid') dispatch(sessionExpired())
       }

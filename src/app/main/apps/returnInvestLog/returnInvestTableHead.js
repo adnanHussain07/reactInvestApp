@@ -7,7 +7,7 @@ import i18next from 'i18next';
 const rows = [
   {
     id: 'driver',
-    align: 'left',
+    align: 'center',
     disablePadding: false,
     label: 'PLANNAME',
     sort: false,
@@ -26,16 +26,16 @@ const rows = [
     label: 'PERIOD',
     sort: false,
   },
-  {
-    id: 'emirates',
-    align: 'left',
-    disablePadding: false,
-    label: 'RECEIVED',
-    sort: false,
-  },
+  // {
+  //   id: 'emirates',
+  //   align: 'left',
+  //   disablePadding: false,
+  //   label: 'RECEIVED',
+  //   sort: false,
+  // },
   {
     id: 'cats',
-    align: 'left',
+    align: 'center',
     disablePadding: false,
     label: 'CAPITALTALK',
     sort: false,
@@ -55,12 +55,19 @@ const rows = [
     sort: false,
   },
   {
-    id: 'nbrOfReq',
+    id: 'cats',
     align: 'center',
     disablePadding: false,
-    label: 'NEXTPAY',
+    label: 'DATE',
     sort: false,
   },
+  // {
+  //   id: 'nbrOfReq',
+  //   align: 'center',
+  //   disablePadding: false,
+  //   label: 'NEXTPAY',
+  //   sort: false,
+  // },
 ];
 
 function ReturnInvestTableHead(props) {

@@ -16,9 +16,9 @@ import DriverTableHead from './transactionHistoryTableHead';
 // import { setDriverPagination, setReqRadio } from 'app/auth/store/commonData';
 import Button from '@mui/material/Button';
 import history from '@history';
-// import { DateTimeFormat, DefFilters, Permissions } from 'app/auth/store/constants';
+import { DateTimeFormat } from 'app/auth/store/constants';
 import moment from 'moment';
-// import { changeItemPagination, changeLogItemName } from 'app/auth/store/sharedData';
+import { setTransactionPagination } from 'app/auth/store/sharedData';
 import { Icon, IconButton } from '@mui/material';
 // import AlertDialog from 'app/fuse-layouts/shared-components/AlertDialog';
 // import EditDialog from 'app/fuse-layouts/shared-components/EditDialog';
@@ -29,11 +29,10 @@ const headmsg = "ITEMDELHEAD";
 
 function TransactionHistoryTable(props) {
   const dispatch = useDispatch();
-  // const loader = useSelector(({ auth }) => auth.loaders.driversLoader);
-  const loader = false;
-  const data = []; // useSelector(({ auth }) => auth.common.driversData ? auth.common.driversData : []);
+  const loader = useSelector(({ auth }) => auth.loaders.transactionLoader);
+  const data = useSelector(({ auth }) => auth.sharedData.transactionData ? auth.sharedData.transactionData : []);
   const language = useSelector(({ i18n }) => i18n.language ? i18n.language : "");
-  const totalCount = 100; // useSelector(({ auth }) => auth.common.productsTotalCount ? auth.common.productsTotalCount : 0);
+  const totalCount = useSelector(({ auth }) => auth.sharedData.transactionTotalCount ? auth.sharedData.transactionTotalCount : 0);
 
   const [selected, setSelected] = useState([]);
   const [detData, setDelData] = useState({});
@@ -61,7 +60,7 @@ function TransactionHistoryTable(props) {
       pageNo: value + 1,
       pageSize: rowsPerPage
     }
-    dispatch(changeItemPagination(body));
+    dispatch(setTransactionPagination(body));
     setPage(value);
   }
 
@@ -70,7 +69,7 @@ function TransactionHistoryTable(props) {
       pageNo: page + 1,
       pageSize: event.target.value
     }
-    dispatch(changeItemPagination(body));
+    dispatch(setTransactionPagination(body));
     setRowsPerPage(event.target.value);
   }
 
@@ -125,7 +124,7 @@ function TransactionHistoryTable(props) {
                   // tabIndex={-1}
                   key={key}
                 >
-                  <TableCell className="p-4 md:p-16" component="th" scope="row" style={{ paddingLeft: 22 }}
+                  <TableCell className="p-4 md:p-16" component="th" scope="row" align='center'
                   // onClick={() => {
                   //   onDetailClick(n);
                   // }}
@@ -134,17 +133,17 @@ function TransactionHistoryTable(props) {
                       onClick={() => redirectLog(n)}
                       style={{ cursor: 'pointer', color: 'linear-gradient(to right, #194a4f 0%, #24585d 100%)', textDecoration: 'underline' }}
                     >
-                      {n.name ? n.name : ""}
+                      {n.transactionid ? n.transactionid : ""}
                     </strong>
                   </TableCell>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align='center'>
-                    {n.original_storenumber ? n.original_storenumber : ""}
+                    {n.amount ? n.amount : ""}
                   </TableCell>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align='center'>
-                    {n.present_storenumber ? n.present_storenumber : ""}
+                    {n.remaining ? n.remaining : ""}
                   </TableCell>
-                  <TableCell className="p-4 md:p-16" component="th" scope="row">
-                    {n.status ? n.status : ""}
+                  <TableCell className="p-4 md:p-16" component="th" scope="row" align='center'>
+                    {n.detail ? n.detail : ""}
                     {/* {n.States && n.States.length > 0 && n.States.map((ee, io) => {
                       return (
                         <Chip
@@ -155,50 +154,8 @@ function TransactionHistoryTable(props) {
                       )
                     })} */}
                   </TableCell>
-                  <TableCell className="p-4 md:p-16" component="th" scope="row">
-                    {n.rentee ? n.rentee : ""}
-                    {/* {n.Category && n.Category.length > 0 && n.Category.map((ee, io) => {
-                      return (
-                        <Chip
-                          className='m-4'
-                          key={io}
-                          label={language && language == "ar" ? ee.CategoryNameAr : ee.CategoryNameEn}
-                        />
-                      )
-                    })} */}
-                  </TableCell>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align='center'>
-                    {n.SerialNo ? n.SerialNo : ""}
-                  </TableCell>
-                  <TableCell className="p-4 md:p-16" component="th" scope="row" align='center'>
-                    {n.createdAt ? moment(n.createdAt).format(DateTimeFormat) : "--"}
-                  </TableCell>
-                  <TableCell className="p-4 md:p-16" component="th" scope="row" align='center'>
-                    {n.updatedAt ? moment(n.updatedAt).format(DateTimeFormat) : "--"}
-                    {/* <Button
-                      variant="contained"
-                      color='secondary'
-                      onClick={() => {
-                        onDetailClick(n);
-                      }}
-                    >
-                      {n.TotalRequest ? n.TotalRequest : "0"}
-                    </Button> */}
-                  </TableCell>
-                  <TableCell className="p-4 md:p-16" component="th" scope="row" align='center'>
-                    <IconButton onClick={() => handleEditOpen(n)} color="inherit">
-                      <Icon color="inherit">
-                        edit
-                      </Icon>
-                    </IconButton>
-                    {/* {dispatch(checkPermission(Permissions.DELETEITEM)) && dispatch(checkPermission(Permissions.DELETEITEM)) == "allowed"
-                      && (
-                        <IconButton onClick={() => handleClickOpen(n)} color="inherit">
-                          <Icon color="inherit">
-                            delete
-                          </Icon>
-                        </IconButton>
-                      )} */}
+                    {n.createdon ? moment(n.createdon).format(DateTimeFormat) : "--"}
                   </TableCell>
                 </TableRow>
               );

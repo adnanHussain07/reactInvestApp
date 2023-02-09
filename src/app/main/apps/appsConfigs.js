@@ -22,9 +22,9 @@ import TwoFASecurityConfig from './twoFASecurity/twoFASecurityConfig';
 import DepositNowConfig from './depositNow/depositNowConfig';
 import DepositApproveConfig from './depositApprove/depositApproveConfig';
 import WithdrawApproveConfig from './withdrawApprove/withdrawApproveConfig';
+import PricingStyle2PageConfig from './pricing/PricingStyle2PageConfig';
 
 const appsConfigs = [
-
   AnalyticsDashboardAppConfig,
   AcademyAppConfig,
   ReturnInvestLogConfig,
@@ -39,6 +39,7 @@ const appsConfigs = [
   DepositNowConfig,
   DepositApproveConfig,
   WithdrawApproveConfig,
+  PricingStyle2PageConfig,
 
   // ProjectDashboardAppConfig,
   // MailAppConfig,

@@ -53,7 +53,7 @@ export const setUserDataFirebase = (user, authUser) => async (dispatch) => {
 };
 
 export const createUserSettingsFirebase = (authUser) => async (dispatch, getState) => {
-  
+
   const guestUser = getState().auth.user;
   const fuseDefaultSettings = getState().fuse.settings.defaults;
   const { currentUser } = firebase.auth();
@@ -83,7 +83,7 @@ export const setUserData = (user) => async (dispatch, getState) => {
   /*
         You can redirect the logged-in user to a specific route depending on his role
          */
-  
+
   history.location.state = {
     redirectUrl: user.redirectUrl, // for example 'apps/academy'
   };
@@ -123,7 +123,7 @@ export const updateUserShortcuts = (shortcuts) => async (dispatch, getState) => 
 };
 
 export const logoutUser = () => async (dispatch, getState) => {
-
+  localStorage.setItem('loggedout', '1');
   localStorage.clear();
   jwtService.logout();
   dispatch(logoutServiceProvider());

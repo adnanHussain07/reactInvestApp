@@ -112,7 +112,7 @@ function ResetPasswordDialog(props) {
 
   return (
     <Dialog onClose={handleCloseReset} open={openReset}>
-      <IconButton color="primary" className="fixed" onClick={handleCloseReset}>
+      <IconButton color="default" className="fixed" onClick={handleCloseReset}>
         <Icon>cancel</Icon>
       </IconButton>
       <div className="w-auto p-16">

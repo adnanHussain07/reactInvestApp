@@ -25,7 +25,22 @@ const initialState = {
   depositApproveData: [],
   withdrawApproveData: [],
 
+  roiPagination: {
+    pageNo: 1,
+    pageSize: 10,
+  },
+  roiTotalCount: 0,
+  roiData: [],
+
+  transactionPagination: {
+    pageNo: 1,
+    pageSize: 10,
+  },
+  transactionTotalCount: 0,
+  transactionData: [],
+
   dashboardData: [],
+  showJoinPlan: false,
 };
 
 const sharedData = createSlice({
@@ -83,8 +98,31 @@ const sharedData = createSlice({
       state.withdrawApproveData = action.payload;
     },
 
+    setROIPagination: (state, action) => {
+      state.roiPagination = action.payload;
+    },
+    setROITotalCount: (state, action) => {
+      state.roiTotalCount = action.payload;
+    },
+    setROIData: (state, action) => {
+      state.roiData = action.payload;
+    },
+
+    setTransactionPagination: (state, action) => {
+      state.transactionPagination = action.payload;
+    },
+    setTransactionTotalCount: (state, action) => {
+      state.transactionTotalCount = action.payload;
+    },
+    setTransactionData: (state, action) => {
+      state.transactionData = action.payload;
+    },
+
     setDashboardData: (state, action) => {
       state.dashboardData = action.payload;
+    },
+    setShowJoinPlan: (state, action) => {
+      state.showJoinPlan = action.payload;
     },
 
     setSharedInitial: (state, action) => initialState,
@@ -113,6 +151,15 @@ export const {
   setWithdrawApproveData,
 
   setDashboardData,
+  setShowJoinPlan,
+
+  setROIPagination,
+  setROITotalCount,
+  setROIData,
+
+  setTransactionPagination,
+  setTransactionTotalCount,
+  setTransactionData,
 
   setSharedInitial,
 } = sharedData.actions;

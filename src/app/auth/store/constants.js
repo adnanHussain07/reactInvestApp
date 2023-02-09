@@ -10,11 +10,6 @@ export const InvestRoles = {
   user: 3,
 };
 
-export const Gateways = {
-  btc: 1,
-  usdt: 2,
-};
-
 export const Permissions = {
   EXPORT: "EXPORT",
   ADDUSER: "ADDUSER",
@@ -156,3 +151,52 @@ export const DateFormat = 'DD/MM/YYYY';
 export const DateTimeFormatNew = 'lll';
 export const GoogleMapUri = 'https://www.google.com/maps/search/?api=1&query=';
 
+export const Gateways = {
+  btc: 1,
+  usdt: 2,
+};
+
+export const Wallets = [
+  {
+    name: 'Deposit Wallet',
+    id: 1,
+  },
+  {
+    name: 'Interest Wallet',
+    id: 2,
+  },
+  {
+    name: 'Active Wallet',
+    id: 3,
+  }
+]
+
+export const Plans = {
+  plan1: 1,
+  plan2: 2,
+  plan3: 3,
+  plan4: 4,
+}
+
+export const PlansDetails = [
+  {
+    id: Plans.plan1,
+    name: "Starter Plan",
+    min: 100,
+  },
+  {
+    id: Plans.plan2,
+    name: "Evolution Plan",
+    min: 25000,
+  },
+  {
+    id: Plans.plan3,
+    name: "Standard Plan",
+    min: 50000,
+  },
+  {
+    id: Plans.plan4,
+    name: "Pro Plan",
+    min: 100000,
+  },
+]

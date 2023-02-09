@@ -28,7 +28,7 @@ const rows = [
   },
   {
     id: 'emirates',
-    align: 'left',
+    align: 'center',
     disablePadding: false,
     label: 'DETAILS',
     sort: false,

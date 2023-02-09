@@ -65,7 +65,7 @@ function DepositNowDialog(props) {
       open={openReset}
     // onClose={handleCloseReset}
     >
-      <IconButton color="primary" className="fixed" onClick={handleCloseReset}>
+      <IconButton color="default" className="fixed" onClick={handleCloseReset}>
         <Icon>cancel</Icon>
       </IconButton>
       <DialogTitle className='my-16 text-center'>

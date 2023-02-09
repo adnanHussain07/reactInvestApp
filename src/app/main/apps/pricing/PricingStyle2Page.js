@@ -1,13 +1,18 @@
+import * as React from 'react';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
+import FuseLoading from '@fuse/core/FuseLoading';
 import i18next from 'i18next';
-import { ReqColorCodes } from 'app/auth/store/constants';
-import { useSelector } from 'react-redux';
+import { ReqColorCodes, Plans } from 'app/auth/store/constants';
+import { setShowJoinPlan } from 'app/auth/store/sharedData';
+import { postJoinPlan } from 'app/auth/store/commonServices';
+import { useDispatch, useSelector } from 'react-redux';
 import History from '@history';
+import JoinPlanDialog from 'app/fuse-layouts/shared-components/JoinPlanDialog';
 
 const Root = styled('div')(({ theme }) => ({
   '& .PricingStyle2Page-header': {
@@ -22,7 +27,9 @@ const Root = styled('div')(({ theme }) => ({
 }));
 
 function PricingStyle2Page() {
+  const dispatch = useDispatch();
   const loggedin = useSelector(({ auth }) => auth.sharedData.loggedin);
+  const loaders = useSelector(({ auth }) => auth.loaders.joinPlanLoader);
   const container = {
     show: {
       transition: {
@@ -31,23 +38,30 @@ function PricingStyle2Page() {
     },
   };
 
+  const [planID, setPlanID] = React.useState(0);
+
   const item = {
     hidden: { opacity: 0, y: 100 },
     show: { opacity: 1, y: 0 },
   };
 
-  function onInvestClick() {
-    
+  function onInvestClick(id) {
     if (!loggedin) {
+      setPlanID(0);
       History.push('/login');
     }
     else {
-
+      if (id) {
+        setPlanID(id);
+        dispatch(setShowJoinPlan(true));
+      }
+      else setPlanID(0);
     }
   }
 
-  return (
+  return loaders ? <FuseLoading /> : (
     <Root className="w-full">
+      <JoinPlanDialog planid={planID} />
       <div className="PricingStyle2Page-header flex">
         <div className="p-24 w-full max-w-2xl mx-auto">
           <div className="text-center my-64 mx-24">
@@ -138,7 +152,7 @@ function PricingStyle2Page() {
                     variant="contained"
                     // color='secondary' 
                     className="w-128"
-                    onClick={() => onInvestClick()}
+                    onClick={() => onInvestClick(Plans.plan1)}
                   >
                     {i18next.t(`navigation:INVESTNOW`)}
                   </Button>
@@ -205,7 +219,7 @@ function PricingStyle2Page() {
                     variant="contained"
                     // color='secondary' 
                     className="w-128"
-                    onClick={() => onInvestClick()}
+                    onClick={() => onInvestClick(Plans.plan2)}
                   >
                     {i18next.t(`navigation:INVESTNOW`)}
                   </Button>
@@ -272,7 +286,7 @@ function PricingStyle2Page() {
                     variant="contained"
                     // color='secondary' 
                     className="w-128"
-                    onClick={() => onInvestClick()}
+                    onClick={() => onInvestClick(Plans.plan3)}
                   >
                     {i18next.t(`navigation:INVESTNOW`)}
                   </Button>
@@ -339,7 +353,7 @@ function PricingStyle2Page() {
                     variant="contained"
                     // color='secondary' 
                     className="w-128"
-                    onClick={() => onInvestClick()}
+                    onClick={() => onInvestClick(Plans.plan4)}
                   >
                     {i18next.t(`navigation:INVESTNOW`)}
                   </Button>

@@ -27,7 +27,7 @@ export const handleResponse = (err, isSuccess, directValue, sepMsg) => async (di
       value = 'SESSIONEXPIRED';
       type = 'error';
       time = 5000;
-      
+
       dispatch(logoutUser());
     } else {
       value = 'SOMEWENTWRNG'; // err ? err : '';
@@ -192,8 +192,8 @@ export const checkPermission = (perm) => (dispatch, getState) => {
 }
 
 export const sessionExpired = () => (dispatch, getState) => {
-  
   dispatch(displayPopup('Session has expired, kindly login again', 'info', 3000));
+  localStorage.setItem('loggedout', '1');
   setTimeout(() => {
     dispatch(logoutUser());
   }, 3000);

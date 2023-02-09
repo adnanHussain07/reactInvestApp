@@ -231,6 +231,12 @@ const locale = {
   DEPAPPROVE: "Deposit Approve",
   WITHAPPROVE: "Withdraw Approve",
   APPROVE: "APPROVE",
+  SELWALLET: "Select Wallet",
+  INVAMOUNT: "Invest Amount",
+  INVEPROFITS: "Invest to take profits",
+  INVESTMENTS: "Investments",
+  INVESIN: "Invest in",
+  TOTFLOW: "Total Flow",
 };
 
 export default locale;

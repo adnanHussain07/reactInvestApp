@@ -26,7 +26,7 @@ const PricingStyle2PageConfig = {
   auth: authRoles.investUser,
   routes: [
     {
-      path: '/venapp/asd',
+      path: '/venapp/investmentplan',
       component: lazy(() => import('./PricingStyle2Page')),
     },
   ],

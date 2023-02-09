@@ -86,12 +86,13 @@ function AnalyticsDashboardApp() {
               <Widget22 data={widgets.widget2} />
             </motion.div>
 
-            <motion.div variants={item} className="widget w-full sm:w-1/3 p-16">
+            {/* <motion.div variants={item} className="widget w-full sm:w-1/3 p-16">
               <Widget24 data={widgets.widget4} />
-            </motion.div>
+            </motion.div> */}
           </div>
 
-          <Typography
+          {/* NEW */}
+          {/* <Typography
             component={motion.div}
             variants={item}
             className="px-16 pb-8 text-18 font-medium"
@@ -102,7 +103,8 @@ function AnalyticsDashboardApp() {
 
           <motion.div variants={item} className="widget w-full p-16 pb-48">
             <Widget5 data={widgets.widget5} />
-          </motion.div>
+          </motion.div> */}
+          {/* NEW */}
 
           {/* <Typography
             component={motion.div}
@@ -134,7 +136,8 @@ function AnalyticsDashboardApp() {
             </motion.div>
           </div>
 
-          <div className="mb-32 w-full sm:w-1/2 md:w-full">
+          {/* NEW */}
+          {/* <div className="mb-32 w-full sm:w-1/2 md:w-full">
             <Typography
               component={motion.div}
               variants={item}
@@ -147,7 +150,8 @@ function AnalyticsDashboardApp() {
             <motion.div variants={item} className="widget w-full p-16">
               <Widget8 data={widgets.widget8} />
             </motion.div>
-          </div>
+          </div> */}
+          {/* NEW */}
 
           {/* <div className="mb-32 w-full sm:w-1/2 md:w-full">
             <Typography
