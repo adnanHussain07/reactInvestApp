@@ -7,6 +7,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import LinearProgress from '@mui/material/LinearProgress';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import Dialog from '@mui/material/Dialog';
 import { useHistory } from 'react-router-dom';
 import _ from '@lodash';
@@ -15,7 +20,8 @@ import i18next from 'i18next';
 import { handleResponse } from '../../auth/store/commonMethods';
 import { setShowDeposit, setShowTwoFA, setShowWithdraw, setTwoFAEnable } from '../../auth/store/sharedData';
 import { showMessage } from 'app/store/fuse/messageSlice';
-import { ReqColorCodes } from 'app/auth/store/constants';
+import { ReqColorCodes, Wallets } from 'app/auth/store/constants';
+import { postWithdraw } from 'app/auth/store/commonServices';
 import { Box, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 
 function DepositNowDialog(props) {
@@ -26,6 +32,7 @@ function DepositNowDialog(props) {
 
   const [getAmount, setAmount] = React.useState(0);
   const [isConfirm, setConfirm] = React.useState(false);
+  const [getWallet, setWallet] = React.useState(0);
 
   // async function chnagePassService(body) {
   //   dispatch(setAuthLoader(true));
@@ -60,6 +67,15 @@ function DepositNowDialog(props) {
     dispatch(setShowWithdraw(false));
   };
 
+  function onClickWithdraw() {
+    if (getAmount) {
+      const body = {
+
+      }
+      dispatch(postWithdraw(body));
+    }
+  }
+
   return (
     <Dialog
       open={openReset}
@@ -86,108 +102,91 @@ function DepositNowDialog(props) {
               square
             >
               <CardContent className="flex flex-col items-center justify-center p-4 sm:p-8 md:p-12 md:pt-20 ">
-                {isConfirm ?
-                  <div>
-                    <Typography variant="h6" className="mb-16 font-semibold text-18 sm:text-24 text-center">
-                      {i18next.t(`navigation:WITHDRAMOEN`)}
-                    </Typography>
-                    <Typography variant="subtitle2" className="text-14 sm:text-16 text-center">
-                      {i18next.t(`navigation:AMOUNT`)}:
-                      <span>
-                        <strong>{` ${getAmount}`}</strong> USD
-                      </span>
-                    </Typography>
-                    <Typography variant="subtitle2" className="text-14 sm:text-16 text-center">
-                      {i18next.t(`navigation:CHARGE`)}:
-                      <span>
-                        <strong>{` 0.00`}</strong> USD
-                      </span>
-                    </Typography>
-                    <Typography variant="subtitle2" className="text-14 sm:text-16 text-center">
-                      {i18next.t(`navigation:PAYABLE`)}:
-                      <span>
-                        <strong>{` ${getAmount}`}</strong> USD
-                      </span>
-                    </Typography>
-                    <Typography variant="subtitle2" className="text-14 sm:text-16 text-center">
-                      {i18next.t(`navigation:INDOLLAR`)}:
-                      <span>
-                        <strong>{` ${getAmount}`}</strong> USD
-                      </span>
-                    </Typography>
-                    <Typography className='text-center mt-12'>
-                      <Button
-                        variant='contained'
-                        style={{
-                          color: ReqColorCodes.btnText,
-                          backgroundImage: ReqColorCodes.btn,
-                        }}
-                        onClick={() => {
-                          history.push(`/venapp/depositnow:${getAmount}`);
-                          handleCloseReset();
-                        }}
-                      >
-                        {i18next.t(`navigation:PAYNOW`)}
-                      </Button>
-                    </Typography>
-                  </div> :
-                  <div>
-                    <Typography variant="h6" className="mb-16 font-semibold text-18 sm:text-24 text-center">
-                      {i18next.t(`navigation:WITHDRAMOEN`)}
-                    </Typography>
-                    <Typography variant="subtitle2" className="text-14 sm:text-16 text-center">
-                      {i18next.t(`navigation:WITHLIMIT`)}
-                    </Typography>
-                    <Typography variant="subtitle2" className="mb-12 text-14 sm:text-16 text-center">
-                      {i18next.t(`navigation:WITHCHARGE`)}
-                    </Typography>
-                    <Typography variant="subtitle2" className="mb-12 text-14 sm:text-16 text-center">
-                      {i18next.t(`navigation:PROCESINGTYM`)}
-                    </Typography>
-                    <Typography variant="subtitle2" className="mb-4 text-12 sm:text-14 text-center">
-                      {i18next.t(`navigation:ENTERAMOUNT`)}
-                    </Typography>
-                    <Box
-                      style={{ width: '97%' }}
-                      component="form"
-                      sx={{
-                        '& .MuiTextField-root': { m: 1, width: '100%', },
-                        alignContent: 'center',
-                        // marginTop: 3
+                <div>
+                  <Typography variant="h6" className="mb-16 font-semibold text-18 sm:text-24 text-center">
+                    {i18next.t(`navigation:WITHDRAMOEN`)}
+                  </Typography>
+                  <Typography variant="subtitle2" className="text-14 sm:text-16 text-center">
+                    {i18next.t(`navigation:WITHLIMIT`)}
+                  </Typography>
+                  <Typography variant="subtitle2" className="mb-12 text-14 sm:text-16 text-center">
+                    {i18next.t(`navigation:WITHCHARGE`)}
+                  </Typography>
+                  <Typography variant="subtitle2" className="mb-12 text-14 sm:text-16 text-center">
+                    {i18next.t(`navigation:PROCESINGTYM`)}
+                  </Typography>
+                  {/* <Typography variant="subtitle2" className="mb-4 text-12 sm:text-14 text-center">
+                    {i18next.t(`navigation:ENTERAMOUNT`)}
+                  </Typography> */}
+                  <FormControl className="flex w-full sm:w-full mb-16" variant="outlined">
+                    <InputLabel id="category-select-label">{i18next.t(`navigation:SELWALLET`)}</InputLabel>
+                    <Select
+                      labelId="category-select-label"
+                      id="category-select"
+                      label={i18next.t(`navigation:SELWALLET`)}
+                      value={getWallet}
+                      onChange={(e) => {
+                        setWallet(e.target.value);
                       }}
-                      noValidate
-                      autoComplete="off">
-                      <TextField
-                        type="number"
-                        id="outlined-multiline-static"
-                        label={i18next.t(`navigation:MESSAGE`)}
-                        value={getAmount}
-                        onChange={(e) => setAmount(e.target.value)}
+                    // error={getLeagueHelper ? true : false}
+                    >
+                      <MenuItem value={0}>
+                        <em> Select Wallet </em>
+                      </MenuItem>
+                      {Wallets.map((e, i) => {
+                        if (i == 2) {
+                          return;
+                        }
+                        return (
+                          <MenuItem value={e.id} key={i}>
+                            {e.name}
+                          </MenuItem>
+                        )
+                      })}
+                    </Select>
+                    {/* <FormHelperText style={{ color: 'red' }}>{getLeagueHelper}</FormHelperText> */}
+                  </FormControl>
+                  <Box
+                    style={{ width: '100%' }}
+                    component="form"
+                    sx={{
+                      '& .MuiTextField-root': { width: '100%' },
+                      alignContent: 'center',
+                      // marginTop: 3
+                    }}
+                    noValidate
+                    autoComplete="off">
+                    <TextField
+                      type="number"
+                      id="outlined-multiline-static"
+                      label={i18next.t(`navigation:MESSAGE`)}
+                      value={getAmount}
+                      onChange={(e) => setAmount(e.target.value)}
 
-                      // dir='rtl'
-                      />
-                    </Box>
-                    <Typography className='text-center mt-4'>
-                      <Button
-                        variant='contained'
-                        style={{
-                          color: ReqColorCodes.btnText,
-                          backgroundImage: ReqColorCodes.btn,
-                        }}
-                        onClick={() => {
-                          if (getAmount && getAmount > 0) {
-                            dispatch(handleResponse(false, false, true, 'WITHDONT'));
-                            // setConfirm(true);
-                          } else {
-                            dispatch(handleResponse(false, false, true, 'PROVAMOUNT'));
-                          }
-                        }}
-                      >
-                        {i18next.t(`navigation:CONFIRM`)}
-                      </Button>
-                    </Typography>
-                  </div>
-                }
+                    // dir='rtl'
+                    />
+                  </Box>
+                  <Typography className='text-center mt-8'>
+                    <Button
+                      variant='contained'
+                      style={{
+                        color: getWallet && getAmount ? ReqColorCodes.btnText : '',
+                        backgroundImage: getWallet && getAmount ? ReqColorCodes.btn : '',
+                      }}
+                      disabled={!getWallet || !getAmount}
+                      onClick={() => {
+                        if (getAmount && getAmount >= 10) {
+                          dispatch(handleResponse(false, false, true, 'WITHDONT'));
+                          // setConfirm(true);
+                        } else {
+                          dispatch(handleResponse(false, false, true, 'PROVAMOUNT'));
+                        }
+                      }}
+                    >
+                      {i18next.t(`navigation:CONFIRM`)}
+                    </Button>
+                  </Typography>
+                </div>
               </CardContent>
             </Card>
           </motion.div>

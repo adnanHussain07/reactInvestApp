@@ -39,6 +39,20 @@ const initialState = {
   transactionTotalCount: 0,
   transactionData: [],
 
+  depositPagination: {
+    pageNo: 1,
+    pageSize: 10,
+  },
+  depositTotalCount: 0,
+  depositData: [],
+
+  withdrawPagination: {
+    pageNo: 1,
+    pageSize: 10,
+  },
+  withdrawTotalCount: 0,
+  withdrawData: [],
+
   dashboardData: [],
   showJoinPlan: false,
 };
@@ -118,6 +132,26 @@ const sharedData = createSlice({
       state.transactionData = action.payload;
     },
 
+    setDepositPagination: (state, action) => {
+      state.depositPagination = action.payload;
+    },
+    setDepositTotalCount: (state, action) => {
+      state.depositTotalCount = action.payload;
+    },
+    setDepositData: (state, action) => {
+      state.depositData = action.payload;
+    },
+
+    setWithdrawPagination: (state, action) => {
+      state.withdrawPagination = action.payload;
+    },
+    setWithdrawTotalCount: (state, action) => {
+      state.withdrawTotalCount = action.payload;
+    },
+    setWithdrawData: (state, action) => {
+      state.withdrawData = action.payload;
+    },
+
     setDashboardData: (state, action) => {
       state.dashboardData = action.payload;
     },
@@ -160,6 +194,14 @@ export const {
   setTransactionPagination,
   setTransactionTotalCount,
   setTransactionData,
+
+  setDepositPagination,
+  setDepositTotalCount,
+  setDepositData,
+
+  setWithdrawPagination,
+  setWithdrawTotalCount,
+  setWithdrawData,
 
   setSharedInitial,
 } = sharedData.actions;

@@ -9,6 +9,9 @@ import {
   setJoinPlanLoader,
   setROILoader,
   setTransactionLoader,
+  setDepositHistoryLoader,
+  setWithdrawHistoryLoader,
+  withdrawHistoryLoader,
 } from 'app/auth/store/loadersSlice';
 import {
   setSharedInitial,
@@ -24,6 +27,12 @@ import {
   setTransactionPagination,
   setTransactionTotalCount,
   setTransactionData,
+  setDepositPagination,
+  setDepositTotalCount,
+  setDepositData,
+  setWithdrawPagination,
+  setWithdrawTotalCount,
+  setWithdrawData,
 } from 'app/auth/store/sharedData';
 import history from '@history';
 import fs from 'fs';
@@ -350,6 +359,122 @@ export const getTransactionList = (body) => async (dispatch) => {
       dispatch(setTransactionLoader(false));
       if (e && e.response && e.response.status == 401) {
         if (e.response.data == 'Authentication Invalid') dispatch(sessionExpired())
+      }
+      else {
+        const msg = e && e.response && e.response.data
+          && isString(e.response.data) ? e.response.data :
+          e && e.response && e.response.data && e.response.data.data && isString(e.response.data.data) ? e.response.data.data
+            : "Something Went Wrong";
+        dispatch(displayPopup(msg ? msg : "Something Went Wrong", 'error', 2000));
+      };
+    });
+};
+
+export const getDepositList = (body) => async (dispatch) => {
+  dispatch(setDepositHistoryLoader(true));
+  return ds
+    .transactionListService(body)
+    .then(res => {
+      dispatch(setDepositHistoryLoader(false));
+      if (res.error) {
+        if (res.code === 401) {
+          dispatch(setDepositTotalCount(0));
+          dispatch(setDepositData([]));
+          dispatch(setDepositHistoryLoader(false));
+        }
+        dispatch(displayPopup(res.error, 'warning', 2000));
+      } else {
+        if (res.totalCount) {
+          dispatch(setDepositTotalCount(res.totalCount));
+        } else dispatch(setDepositTotalCount(50));
+        if (res && res.data && res.data.length > 0) {
+          dispatch(setDepositData(res.data));
+        } else {
+          dispatch(setDepositData([]));
+        }
+      }
+    })
+    .catch(e => {
+      dispatch(setDepositTotalCount(0));
+      dispatch(setDepositData([]));
+      dispatch(setDepositHistoryLoader(false));
+      if (e && e.response && e.response.status == 401) {
+        if (e.response.data == 'Authentication Invalid') dispatch(sessionExpired())
+      }
+      else {
+        const msg = e && e.response && e.response.data
+          && isString(e.response.data) ? e.response.data :
+          e && e.response && e.response.data && e.response.data.data && isString(e.response.data.data) ? e.response.data.data
+            : "Something Went Wrong";
+        dispatch(displayPopup(msg ? msg : "Something Went Wrong", 'error', 2000));
+      };
+    });
+};
+
+export const getWithdrawList = (body) => async (dispatch) => {
+  dispatch(setWithdrawHistoryLoader(true));
+  return ds
+    .transactionListService(body)
+    .then(res => {
+      dispatch(setWithdrawHistoryLoader(false));
+      if (res.error) {
+        if (res.code === 401) {
+          dispatch(setWithdrawTotalCount(0));
+          dispatch(setWithdrawData([]));
+          dispatch(setWithdrawHistoryLoader(false));
+        }
+        dispatch(displayPopup(res.error, 'warning', 2000));
+      } else {
+        if (res.totalCount) {
+          dispatch(setWithdrawTotalCount(res.totalCount));
+        } else dispatch(setWithdrawTotalCount(50));
+        if (res && res.data && res.data.length > 0) {
+          dispatch(setWithdrawData(res.data));
+        } else {
+          dispatch(setWithdrawData([]));
+        }
+      }
+    })
+    .catch(e => {
+      dispatch(setWithdrawTotalCount(0));
+      dispatch(setWithdrawData([]));
+      dispatch(setWithdrawHistoryLoader(false));
+      if (e && e.response && e.response.status == 401) {
+        if (e.response.data == 'Authentication Invalid') dispatch(sessionExpired())
+      }
+      else {
+        const msg = e && e.response && e.response.data
+          && isString(e.response.data) ? e.response.data :
+          e && e.response && e.response.data && e.response.data.data && isString(e.response.data.data) ? e.response.data.data
+            : "Something Went Wrong";
+        dispatch(displayPopup(msg ? msg : "Something Went Wrong", 'error', 2000));
+      };
+    });
+};
+
+export const postWithdraw = (body) => async (dispatch) => {
+  dispatch(setWithdrawHistoryLoader(true));
+  return ds
+    .postWithdrawService(body)
+    .then(res => {
+      dispatch(setWithdrawHistoryLoader(false));
+      if (res.error) {
+        if (res.code === 401) {
+
+        }
+        dispatch(displayPopup(res.error, 'warning', 2000));
+      }
+      else if (res && res.code && res.code == 200) {
+        dispatch(displayPopup(res.msg ? res.msg : "Successfully submit Withdraw Application", 'success', 4000));
+      }
+      else {
+        dispatch(displayPopup('Try again Later', 'warning', 2000));
+      }
+    })
+    .catch(e => {
+      dispatch(setWithdrawHistoryLoader(false));
+      if (e && e.response && e.response.status == 401) {
+        if (e.response.data == 'Authentication Invalid') dispatch(sessionExpired());
       }
       else {
         const msg = e && e.response && e.response.data

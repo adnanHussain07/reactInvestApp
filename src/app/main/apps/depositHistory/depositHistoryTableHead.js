@@ -35,18 +35,18 @@ const rows = [
   },
   {
     id: 'cats',
-    align: 'left',
+    align: 'center',
     disablePadding: false,
     label: 'TIME',
     sort: false,
   },
-  {
-    id: 'cassts',
-    align: 'center',
-    disablePadding: false,
-    label: 'MORE',
-    sort: false,
-  },
+  // {
+  //   id: 'cassts',
+  //   align: 'center',
+  //   disablePadding: false,
+  //   label: 'MORE',
+  //   sort: false,
+  // },
 ];
 
 function DepositHistoryTableHead(props) {

@@ -28,14 +28,14 @@ const rows = [
   },
   {
     id: 'emirates',
-    align: 'left',
+    align: 'center',
     disablePadding: false,
     label: 'CHARGE',
     sort: false,
   },
   {
     id: 'cats',
-    align: 'left',
+    align: 'center',
     disablePadding: false,
     label: 'AFTERCHARGE',
     sort: false,
@@ -52,13 +52,6 @@ const rows = [
     align: 'center',
     disablePadding: false,
     label: 'RECEIVEABLE',
-    sort: false,
-  },
-  {
-    id: 'casqwests',
-    align: 'center',
-    disablePadding: false,
-    label: 'STATUS',
     sort: false,
   },
   {

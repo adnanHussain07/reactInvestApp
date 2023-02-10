@@ -24,7 +24,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 // import { changeItemStatus, changeStoreNbr } from 'app/auth/store/sharedData';
 // import { checkPermission } from 'app/auth/store/loginSlice';
-// import { Permissions } from 'app/auth/store/constants';
+import { getWithdrawList } from 'app/auth/store/commonServices';
 
 const item = {
   hidden: { opacity: 0, y: 20 },
@@ -35,7 +35,7 @@ function WithdrawHistoryHeader(props) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const mainTheme = useSelector(selectMainTheme);
-  // const driverPagination = useSelector(({ auth }) => auth.common.driverPagination);
+  const pagination = useSelector(({ auth }) => auth.sharedData.withdrawPagination);
   // const itemPagination = useSelector(({ auth }) => auth.shared.itemPagination);
   // const itemStatus = useSelector(({ auth }) => auth.shared.itemStatus);
   // const storeNbr = useSelector(({ auth }) => auth.shared.storeNbr);
@@ -62,28 +62,28 @@ function WithdrawHistoryHeader(props) {
   //   return () => mounted = false;
   // }, []);
 
-  // React.useEffect(() => {
-  //   let mounted = true;
-  //   if (mounted) {
-  //     if (itemPagination && !isEmptyObject(itemPagination) && driverPagination.pageNo && driverPagination.pageSize) {
-  //       callGo();
-  //     }
-  //   }
+  React.useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      if (pagination && !isEmptyObject(pagination) && pagination.pageNo && pagination.pageSize) {
+        callGo();
+      }
+    }
 
-  //   return () => mounted = false;
-  // }, [itemPagination]);
+    return () => mounted = false;
+  }, [pagination]);
 
-  // function callGo() {
-  //   dispatch(setProductsLoader(true));
-  //   const status = itemStatus && itemStatus != '0' ? `&status=${itemStatus}` : "";
-  //   const store = storeNbr && storeNbr != '0' ? `&present_storenumber=${storeNbr}` : "";
-  //   const rentee = getSearchRentee && getSearchRentee != '' ? `&rentee=${getSearchRentee}` : "";
-  //   const itemid = getSearchID && getSearchID != '' ? `&itemid=${getSearchID}` : "";
-  //   const itemName = getSearchName && getSearchName != '' ? `&name=${getSearchName}` : "";
-  //   const serNo = getSerialNo && getSerialNo != '' ? `&SerialNo=${getSerialNo}` : "";
-  //   const body = `?pageNo=${itemPagination.pageNo}&count=${itemPagination.pageSize}${status + rentee + store + itemid + itemName + serNo}`;
-  //   dispatch(getProducts(body));
-  // }
+  function callGo() {
+    // dispatch(setProductsLoader(true));
+    // const status = itemStatus && itemStatus != '0' ? `&status=${itemStatus}` : "";
+    // const store = storeNbr && storeNbr != '0' ? `&present_storenumber=${storeNbr}` : "";
+    // const rentee = getSearchRentee && getSearchRentee != '' ? `&rentee=${getSearchRentee}` : "";
+    // const itemid = getSearchID && getSearchID != '' ? `&itemid=${getSearchID}` : "";
+    // const itemName = getSearchName && getSearchName != '' ? `&name=${getSearchName}` : "";
+    // const serNo = getSerialNo && getSerialNo != '' ? `&SerialNo=${getSerialNo}` : "";
+    const body = `?pageNo=${pagination.pageNo}&count=${pagination.pageSize}`;
+    dispatch(getWithdrawList(body));
+  }
 
   const handleChangeFrom = (newValue) => {
     setValueFrom(newValue);

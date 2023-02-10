@@ -51,11 +51,12 @@ function Layout1(props) {
   React.useEffect(() => {
     let mounted = true;
     if (mounted) {
-      if (!localStorage.getItem('loggedout')) {
-        dispatch(getDashboard(""));
-      }
+      // if (!localStorage.getItem('loggedout')) {
+      //   dispatch(getDashboard(""));
+      // }
       const data = localStorage.getItem('ghuid') ? JSON.parse(localStorage.getItem('ghuid')) : false;
       if (localStorage.getItem('cred') && localStorage.getItem('cred') == '1') {
+        dispatch(getDashboard(""));
         dispatch(setLoggedIn(true));
       }
       if (data) {

@@ -21,6 +21,8 @@ const initialState = {
   joinPlanLoader: false, //true
   roiLoader: false, //true
   transactionLoader: false,
+  depositHistoryLoader: false,
+  withdrawHistoryLoader: false,
 };
 
 const invitesSlice = createSlice({
@@ -88,6 +90,12 @@ const invitesSlice = createSlice({
     setTransactionLoader: (state, action) => {
       state.transactionLoader = action.payload;
     },
+    setDepositHistoryLoader: (state, action) => {
+      state.depositHistoryLoader = action.payload;
+    },
+    setWithdrawHistoryLoader: (state, action) => {
+      state.withdrawHistoryLoader = action.payload;
+    },
 
     setLoadersInitial: (state, action) => initialState,
   },
@@ -115,6 +123,8 @@ export const {
   setJoinPlanLoader,
   setROILoader,
   setTransactionLoader,
+  setDepositHistoryLoader,
+  setWithdrawHistoryLoader,
 
   setLoadersInitial,
 } = invitesSlice.actions;

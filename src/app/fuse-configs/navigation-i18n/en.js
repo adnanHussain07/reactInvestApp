@@ -105,14 +105,14 @@ const locale = {
   TRANSID: 'Transaction ID',
   GATEWAY: 'Gateway',
   AMOUNT: 'Amount',
-  TIME: 'Time',
+  TIME: 'Date',
   MORE: 'MORE',
 
   CHARGE: 'Charge',
   AFTERCHARGE: 'After Charge',
   RATE: 'Rate',
   RECEIVEABLE: 'Receivable',
-  TIME: 'Time',
+  TIME: 'Date',
 
   REMAINSBALANCE: 'Remaining Balance',
   DETAILS: 'Details',

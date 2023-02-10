@@ -16,7 +16,7 @@ import DriverTableHead from './withdrawApproveTableHead';
 import { setWithdrawApprovePagination } from 'app/auth/store/sharedData';
 import Button from '@mui/material/Button';
 import history from '@history';
-import { DateTimeFormatNew } from 'app/auth/store/constants';
+import { DateTimeFormatNew, Gateways } from 'app/auth/store/constants';
 import moment from 'moment';
 // import { changeItemPagination, changeLogItemName } from 'app/auth/store/sharedData';
 import { Icon, IconButton } from '@mui/material';
